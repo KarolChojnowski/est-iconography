@@ -40,6 +40,13 @@ catalogue/
 ├── assets/js/
 └── index.html
 
+examples/vanilla/
+├── selection.json
+├── src/
+├── build.mjs
+├── test.mjs
+└── dist/                 generated; not committed
+
 tools/
 ├── prepare-catalogue.mjs
 ├── clean-catalogue.mjs
@@ -121,6 +128,19 @@ It provides predictable sizing, baseline and block alignment, icon-and-text comp
 
 Products may implement equivalent rules in their own design system instead. Read the [canonical implementation guide](packages/iconography/docs/implementation.md) or use the copy-ready [catalogue implementation guide](https://karolchojnowski.github.io/est-iconography/implementation/).
 
+## Executable consumer example
+
+`examples/vanilla/` is a real, framework-independent consumer built from a checked-in selection file and the same bundle command used by products.
+
+```bash
+npm run build:example
+npm run test:example
+```
+
+The generated page demonstrates both family sprites, the optional helper stylesheet, product-level colour and layout overrides, decorative and informative SVGs, an accessible icon-only button and a dynamic status message.
+
+Its smoke test resolves every external `<use>` reference to a symbol in the generated sprites and verifies the bundle manifest, individual SVGs, helper CSS and accessibility attributes. See the [example README](examples/vanilla/README.md).
+
 ## Accessible implementation
 
 The product context determines whether an SVG is decorative, informative, part of a control or part of a status message. The artwork and canonical ID do not automatically provide an accessible name.
@@ -168,7 +188,7 @@ It adds:
 
 All 24 assets remain approved stable contracts. No artwork, canonical IDs or metadata meanings change in `0.4.0`. New EST assets should still enter as drafts and be approved only after review at their intended display size.
 
-Unreleased implementation helpers add optional CSS and copy-ready developer guidance without changing the asset contract.
+Unreleased adoption work adds optional implementation CSS, copy-ready developer guidance and an executable vanilla consumer without changing the asset contract.
 
 The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
@@ -211,6 +231,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 - [Construction rules](packages/iconography/docs/construction-rules.md)
 - [Implementation guidance](packages/iconography/docs/implementation.md)
 - [Accessibility guidance](packages/iconography/docs/accessibility.md)
+- [Vanilla consumer example](examples/vanilla/README.md)
 - [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
 - [Legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md)
 - [Catalogue](catalogue/README.md)
