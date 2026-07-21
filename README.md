@@ -96,17 +96,17 @@ Paths in the package manifest are relative to `dist/`. The catalogue adapter cop
 
 ## Current status
 
-Version `0.2.0` is the first approved construction baseline. It contains:
+Version `0.3.0` is the first approved production-migration release. It contains:
 
-- four approved Bootstrap UI-icon imports
-- four approved EST UI icons
+- twenty approved UI icons: thirteen EST-authored assets and seven curated Bootstrap imports
 - four approved EST Icons
+- complete migration, consolidation or replacement decisions for the sixteen-icon legacy Design System collection
 - fill-based construction and actual-size approval rules
-- generated detail pages and visual review controls
+- contribution governance, generated detail pages and visual review controls
 
-New EST assets should enter as drafts and be approved only after review at their intended display size.
+All 24 current assets are approved stable contracts. New EST assets should still enter as drafts and be approved only after review at their intended display size.
 
-Unreleased migration work adds nine draft EST UI icons and three approved Bootstrap replacements for generic legacy symbols. The complete sixteen-asset source inventory and each migrate, consolidate or replace decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
+The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
 ## Contributing
 
@@ -116,7 +116,7 @@ Approved canonical IDs are stable consumer contracts. Use the pull-request templ
 
 ## Releases
 
-The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.2.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
+The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.3.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
 
 - `est-iconography-<version>.zip`
 - `est-ui-icons.svg`
