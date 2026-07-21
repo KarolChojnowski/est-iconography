@@ -41,7 +41,8 @@ catalogue/
 
 tools/
 ├── prepare-catalogue.mjs
-└── clean-catalogue.mjs
+├── clean-catalogue.mjs
+└── release-notes.mjs
 ```
 
 ## Local development
@@ -125,17 +126,21 @@ Paths in the package manifest are relative to `dist/`. The catalogue adapter cop
 
 ## Current status
 
-Version `0.3.0` is the first approved production-migration release. It contains:
+Version `0.4.0` is the adoption-tooling release. It retains the approved `0.3.0` asset contract:
 
 - twenty approved UI icons: thirteen EST-authored assets and seven curated Bootstrap imports
 - four approved EST Icons
 - complete migration, consolidation or replacement decisions for the sixteen-icon legacy Design System collection
 - fill-based construction and actual-size approval rules
-- contribution governance, generated detail pages and visual review controls
 
-All 24 current assets are approved stable contracts. New EST assets should still enter as drafts and be approved only after review at their intended display size.
+It adds:
 
-Unreleased adoption tooling adds project-specific bundles, catalogue selection and accessible implementation guidance without changing the approved asset contract.
+- safe project-specific bundle generation from canonical IDs
+- visual catalogue selection with downloadable selection JSON
+- framework-independent accessibility guidance and copy-ready examples
+- deterministic changelog-derived GitHub release notes
+
+All 24 assets remain approved stable contracts. No artwork, canonical IDs or metadata meanings change in `0.4.0`. New EST assets should still enter as drafts and be approved only after review at their intended display size.
 
 The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
@@ -147,14 +152,14 @@ Approved canonical IDs are stable consumer contracts. Use the pull-request templ
 
 ## Releases
 
-The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.3.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
+The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.4.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
 
 - `est-iconography-<version>.zip`
 - `est-ui-icons.svg`
 - `est-icons.svg`
 - `est-iconography-assets.json`
 
-See [CHANGELOG.md](CHANGELOG.md) for release notes.
+Release notes are extracted from the matching `CHANGELOG.md` section. Follow [RELEASING.md](RELEASING.md), including its historical `v0.3.0` tagging instructions, rather than tagging an arbitrary current branch.
 
 ## Catalogue deployment
 
@@ -173,6 +178,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 ## Documentation
 
 - [Contribution guide](CONTRIBUTING.md)
+- [Release guide](RELEASING.md)
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
 - [Accessibility guidance](packages/iconography/docs/accessibility.md)
