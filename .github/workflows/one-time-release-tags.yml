@@ -1,0 +1,124 @@
+name: One-time release tags
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-release-tags.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  tags:
+    name: Create release tags
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create immutable tags
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          create_tag() {
+            local name="$1"
+            local target="$2"
+
+            git cat-file -e "${target}^{commit}"
+
+            if git ls-remote --exit-code --tags origin "refs/tags/${name}" >/tmp/existing-tag 2>/dev/null; then
+              existing=$(awk '{print $1}' /tmp/existing-tag)
+              if [ "$existing" != "$target" ]; then
+                echo "Tag ${name} already exists at ${existing}, expected ${target}." >&2
+                exit 1
+              fi
+              echo "Tag ${name} already exists at the expected commit."
+              return
+            fi
+
+            git tag "$name" "$target"
+            git push origin "refs/tags/${name}"
+          }
+
+          create_tag v0.3.0 e52a9bc58d1bebbcb0a15dbb0e5ca0a334ff0509
+          create_tag v0.4.0 20f1f009ffad4a986aedb9229546598b8349f0ce
+
+  releases:
+    name: Publish ${{ matrix.tag }}
+    needs: tags
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - tag: v0.3.0
+            version: 0.3.0
+            sha: e52a9bc58d1bebbcb0a15dbb0e5ca0a334ff0509
+          - tag: v0.4.0
+            version: 0.4.0
+            sha: 20f1f009ffad4a986aedb9229546598b8349f0ce
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare curated release notes
+        run: node tools/release-notes.mjs --version "${{ matrix.version }}" --out /tmp/release-notes.md
+
+      - name: Check out release commit
+        run: git checkout --force "${{ matrix.sha }}"
+
+      - run: npm ci --ignore-scripts
+
+      - name: Verify package version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./packages/iconography/package.json').version")
+          test "$VERSION" = "${{ matrix.version }}"
+
+      - run: npm run build:iconography
+
+      - name: Package release assets
+        shell: bash
+        run: |
+          VERSION="${{ matrix.version }}"
+          PACKAGE_DIR="release/est-iconography-${VERSION}"
+          mkdir -p "$PACKAGE_DIR"
+          cp -R packages/iconography/dist/. "$PACKAGE_DIR/"
+          cp packages/iconography/README.md "$PACKAGE_DIR/README.md"
+          cp packages/iconography/LICENSE-NOTICE.md "$PACKAGE_DIR/LICENSE-NOTICE.md"
+
+          (
+            cd release
+            zip -qr "est-iconography-${VERSION}.zip" "est-iconography-${VERSION}"
+          )
+
+          cp packages/iconography/dist/sprites/est-ui-icons.svg release/est-ui-icons.svg
+          cp packages/iconography/dist/sprites/est-icons.svg release/est-icons.svg
+          cp packages/iconography/dist/manifest/assets.json release/est-iconography-assets.json
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view "${{ matrix.tag }}" >/dev/null 2>&1; then
+            echo "Release ${{ matrix.tag }} already exists."
+            exit 0
+          fi
+
+          gh release create "${{ matrix.tag }}" \
+            "release/est-iconography-${{ matrix.version }}.zip" \
+            "release/est-ui-icons.svg" \
+            "release/est-icons.svg" \
+            "release/est-iconography-assets.json" \
+            --verify-tag \
+            --notes-file /tmp/release-notes.md \
+            --title "EST Iconography ${{ matrix.tag }}"
