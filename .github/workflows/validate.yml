@@ -52,3 +52,12 @@ jobs:
           grep -q 'data-selection-tray' _site/index.html
           grep -q 'js-select-asset' _site/index.html
           grep -q 'asset-manifest' _site/index.html
+      - name: Verify catalogue accessibility patterns
+        run: |
+          grep -q 'Accessible icon use' _site/accessibility/index.html
+          grep -q 'aria-hidden="true" focusable="false"' _site/accessibility/index.html
+          grep -q 'role="img" aria-label="Domestic property"' _site/accessibility/index.html
+          grep -q 'aria-label="Add property"' _site/accessibility/index.html
+          grep -q 'role="status"' _site/accessibility/index.html
+          grep -q 'Accessible implementation' _site/ui-icons/check-circle/index.html
+          grep -q 'decorative-usage-example' _site/ui-icons/check-circle/index.html

@@ -118,6 +118,21 @@ npm run bundle -- --out ./iconography-bundle ui-icon/house icon/kettle
 
 Use `--help` to show the command syntax.
 
+## Accessible implementation
+
+Accessibility is determined by the context in which an SVG is used, not by the asset file or metadata label.
+
+Use these defaults:
+
+- decorative icon beside visible text: `aria-hidden="true"` and `focusable="false"`
+- standalone informative SVG: `role="img"` with a concise contextual accessible name
+- icon inside a button or link: hide the SVG and name the containing control
+- dynamic status: keep visible text, hide the supporting icon and use `role="status"` only when the update needs announcing
+
+Do not use canonical IDs or filenames as automatic accessible names. Do not rely on icon shape or colour alone for status, warning, error or success meaning.
+
+Read [the full accessibility guidance](docs/accessibility.md) for examples, guardrails and the review checklist. The catalogue also exposes copy-ready examples on every asset detail page.
+
 ## Output contract
 
 ```text
