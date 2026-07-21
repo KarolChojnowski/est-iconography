@@ -1,10 +1,10 @@
-# Test-set review sheet
+# v0.2 baseline review record
 
 ## Purpose
 
-Use this set to settle the visual construction rules before migrating the wider EST library.
+This record captures the decisions made through the twelve-asset construction test. The approved baseline can now be used to review and migrate the wider EST iconography collection.
 
-## Assets
+## Approved assets
 
 ### UI icons — Bootstrap
 
@@ -13,40 +13,39 @@ Use this set to settle the visual construction rules before migrating the wider 
 - plus
 - arrow-right
 
-### UI icons — EST first-pass drawings
+### UI icons — EST
 
 - kettle
 - condensing-boiler
 - co2
 - car-front
 
-### Icons — EST first-pass drawings
+### Icons — EST
 
 - heat-pump
 - washing-machine
 - kettle
 - light-bulb
 
-## Review tasks
+## Accepted baseline
 
-1. Review UI icons at 16px and 32px enlargement.
-2. Review Icons at 48px, 64px and 96px.
-3. Compare the optical weight of Bootstrap and EST fill paths.
-4. Compare the kettle across both families.
-5. Identify any negative space or detail that closes, blurs or becomes ambiguous at actual size.
-6. Confirm live-area padding, minimum gaps, corner treatment and permitted optical overshoot.
-7. Confirm whether technical assets remain legible without unnecessary internal detail.
-8. Decide whether each draft should be refined, replaced or approved.
+- Both families use filled SVG paths and inherit colour through `fill="currentColor"`.
+- UI icons use a `0 0 16 16` viewBox and are reviewed primarily at 16px.
+- Icons use a `0 0 32 32` viewBox and are reviewed primarily at 48px.
+- EST artwork uses silhouettes, cut-outs and negative space rather than visible strokes.
+- Bootstrap imports retain their native flattened paths and are assessed by optical compatibility.
+- Matching concepts across families should feel related without reusing a mechanically scaled drawing.
+- Source artwork, metadata, sprite output and catalogue previews form one governed asset contract.
 
-## Specific questions
+## Review outcomes
 
-- Does `condensing-boiler` communicate a boiler, or only a generic appliance?
-- Is `CO₂` sufficiently legible without looking like interface text?
-- Does the UI `kettle` retain enough silhouette and negative space at 16px?
-- Does the 32-unit `kettle` feel related to the UI version without merely scaling it up?
-- Is the heat-pump fan too detailed at 48px?
-- Does the light-bulb metaphor communicate energy-efficient lighting clearly enough?
+- `condensing-boiler` is accepted as a specific domestic boiler metaphor and retains an avoid note for generic heating use.
+- `CO₂` is accepted as vector artwork rather than live interface text.
+- Both kettle assets are legible at their intended sizes and share a recognisable silhouette.
+- The heat-pump fan detail remains legible at 48px.
+- The light-bulb asset is accepted for domestic and energy-efficient lighting contexts.
+- All eight EST test assets are approved for the v0.2 baseline.
 
-## Important caveat
+## Continuing review
 
-The EST SVGs are design-test drafts. They demonstrate the construction system and expose weak points; they are not yet finished production artwork.
+New assets should begin as drafts and follow the approval threshold in `construction-rules.md`. The baseline is stable, but it can be refined through evidence from production use without silently changing canonical meanings or identifiers.
