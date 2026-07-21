@@ -4,6 +4,13 @@ All notable changes to the EST iconography library are recorded here.
 
 ## [Unreleased]
 
+### Added
+
+- An optional zero-specificity CSS helper for icon sizing, alignment, text composition and icon-only controls.
+- The same `styles/est-iconography.css` path in complete distributions and selected bundles.
+- Canonical implementation guidance and a rendered catalogue guide with copy-ready sprite, sizing, colour and control patterns.
+- Style-source validation and bundle tests covering the generated helper stylesheet.
+
 ## [0.4.0] — 2026-07-21
 
 ### Added
