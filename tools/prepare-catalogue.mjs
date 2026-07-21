@@ -20,6 +20,7 @@ await mkdir(catalogueData, { recursive: true });
 
 await cp(path.join(packageDist, 'svg'), path.join(catalogueAssets, 'svg'), { recursive: true });
 await cp(path.join(packageDist, 'sprites'), path.join(catalogueAssets, 'sprites'), { recursive: true });
+await cp(path.join(packageDist, 'styles'), path.join(catalogueAssets, 'styles'), { recursive: true });
 await cp(path.join(packageDist, 'licenses'), path.join(catalogueAssets, 'licenses'), { recursive: true });
 
 const packageManifest = JSON.parse(await readFile(path.join(packageDist, 'manifest/assets.json'), 'utf8'));
@@ -55,4 +56,4 @@ for (const asset of catalogueAssetsData) {
   await writeFile(path.join(pageDirectory, 'index.html'), page);
 }
 
-console.log(`Prepared ${catalogueManifest.assets.length} catalogue assets and detail pages from @est/iconography.`);
+console.log(`Prepared ${catalogueManifest.assets.length} catalogue assets, helper styles and detail pages from @est/iconography.`);
