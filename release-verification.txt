@@ -1,0 +1,3 @@
+v0.3.0 and v0.4.0 releases verified.
+Each release contains the versioned ZIP, both sprites and the asset manifest.
+Manifest versions match their release tags.
