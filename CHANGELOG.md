@@ -8,6 +8,8 @@ All notable changes to the EST iconography library are recorded here.
 
 - A selected-asset bundle command that generates project-specific individual SVGs, filtered family sprites, a filtered manifest and the required licence notices from canonical asset IDs.
 - Bundle validation covering mixed families, deterministic filtering, repeat builds, unknown and duplicate IDs, and protected output directories.
+- A persistent catalogue selection tray for visually assembling project-specific asset sets, copying canonical IDs and generating ready-to-run bundle commands.
+- Downloadable, versioned selection JSON files that can be consumed directly by the bundle builder through `--selection`.
 
 ## [0.3.0] — 2026-07-21
 
