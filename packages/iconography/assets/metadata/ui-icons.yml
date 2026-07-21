@@ -209,3 +209,48 @@ ui-icon/savings:
   construction: fill
   usage: Represents financial savings or money set aside.
   avoid: Do not use as evidence of guaranteed bill savings.
+
+ui-icon/info-circle:
+  label: Information circle
+  family: ui-icon
+  source: bootstrap
+  category: information
+  tags: [information, guidance, help, details, explanation]
+  aliases: [info circle, info, help]
+  status: approved
+  construction: fill
+  usage: Indicates supporting information, explanatory guidance or additional details.
+  avoid: Do not use for warnings, errors or required actions.
+  source_name: info-circle
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/pie-chart-fill:
+  label: Pie chart
+  family: ui-icon
+  source: bootstrap
+  category: data
+  tags: [chart, data, analytics, proportion, distribution]
+  aliases: [pie chart, data breakdown, analytics]
+  status: approved
+  construction: fill
+  usage: Represents a proportional breakdown, distribution or summary of data.
+  avoid: Do not rely on the icon alone to communicate a specific value or result.
+  source_name: pie-chart-fill
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/display:
+  label: Display
+  family: ui-icon
+  source: bootstrap
+  category: technology
+  tags: [display, screen, monitor, computer, digital]
+  aliases: [pc display, computer screen, monitor]
+  status: approved
+  construction: fill
+  usage: Represents a computer display, screen or digital interface.
+  avoid: Do not use for a specific device type when that distinction matters.
+  source_name: display
+  source_version: 1.13.1
+  license: MIT
