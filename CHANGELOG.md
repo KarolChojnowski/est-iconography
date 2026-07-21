@@ -10,6 +10,8 @@ All notable changes to the EST iconography library are recorded here.
 - Bundle validation covering mixed families, deterministic filtering, repeat builds, unknown and duplicate IDs, and protected output directories.
 - A persistent catalogue selection tray for visually assembling project-specific asset sets, copying canonical IDs and generating ready-to-run bundle commands.
 - Downloadable, versioned selection JSON files that can be consumed directly by the bundle builder through `--selection`.
+- Canonical accessibility guidance for decorative, informative, interactive and status-message icon contexts.
+- Copy-ready accessible implementation examples in the catalogue and on every asset detail page.
 
 ## [0.3.0] — 2026-07-21
 
