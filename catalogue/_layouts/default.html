@@ -11,6 +11,10 @@
     <header class="site-header">
       <div class="site-header__inner">
         <a class="site-title" href="{{ '/' | relative_url }}">EST Iconography</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Catalogue</a>
+          <a href="{{ '/accessibility/' | relative_url }}"{% if page.url == '/accessibility/' %} aria-current="page"{% endif %}>Accessibility</a>
+        </nav>
         <span class="site-status">v{{ site.data.generated.assets.libraryVersion }}</span>
       </div>
     </header>
