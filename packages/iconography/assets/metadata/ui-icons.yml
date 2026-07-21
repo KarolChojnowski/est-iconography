@@ -89,8 +89,8 @@ ui-icon/co2:
   aliases: [co2, carbon dioxide, emissions]
   status: draft
   construction: fill
-  usage: Represents carbon dioxide or carbon emissions.
-  note: Letterforms are vector paths; the SVG must not contain live text.
+  usage: Represents carbon dioxide, emissions or atmospheric carbon.
+  note: The CO₂ characters are vector paths; the SVG contains no live text.
 
 ui-icon/car-front:
   label: Car front
