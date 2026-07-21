@@ -1,0 +1,21 @@
+{
+  "name": "@est/iconography",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Authoritative EST iconography sources, metadata, validation and generated SVG distributions.",
+  "type": "module",
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "validate": "node scripts/build-assets.mjs --validate-only",
+    "build": "node scripts/build-assets.mjs",
+    "test": "npm run validate"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "js-yaml": "4.1.0",
+    "svgo": "4.0.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

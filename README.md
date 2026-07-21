@@ -1,6 +1,13 @@
 # EST Iconography
 
-A governed source library for Energy Saving Trust UI icons and Icons, with generated SVG assets, sprites, metadata and a searchable Jekyll catalogue.
+A governed iconography library with two independently buildable parts:
+
+```text
+packages/iconography/   Authoritative SVG sources, metadata and generated distributions
+catalogue/              Jekyll catalogue consuming the generated package outputs
+```
+
+The separation is based on a stable output contract rather than folder organisation alone. The iconography package never writes into Jekyll directories; `tools/prepare-catalogue.mjs` adapts package outputs for the catalogue.
 
 ## Asset families
 
@@ -11,15 +18,31 @@ A governed source library for Energy Saving Trust UI icons and Icons, with gener
 
 All assets are single-colour and inherit colour through `currentColor`.
 
-## Current status
+## Repository structure
 
-This v0.1 foundation contains a twelve-asset construction test set:
+```text
+packages/iconography/
+├── assets/source/
+├── assets/metadata/
+├── schema/
+├── scripts/
+├── docs/
+├── licenses/
+└── dist/                 generated; not committed
 
-- four Bootstrap UI icons
-- four draft EST UI icons
-- four draft EST Icons
+catalogue/
+├── _config.yml
+├── _layouts/
+├── _data/generated/      prepared; not committed
+├── assets/generated/     prepared; not committed
+├── assets/css/
+├── assets/js/
+└── index.html
 
-Bootstrap assets are approved upstream imports. EST drawings remain drafts until the Design System team completes the visual construction review.
+tools/
+├── prepare-catalogue.mjs
+└── clean-catalogue.mjs
+```
 
 ## Local development
 
@@ -29,39 +52,65 @@ Requirements:
 - Ruby 3.3 or later
 - Bundler
 
+Install dependencies:
+
 ```bash
-npm install
-npm run build:assets
-bundle install
+npm ci
+cd catalogue && bundle install && cd ..
+```
+
+Build only the iconography package:
+
+```bash
+npm run validate:iconography
+npm run build:iconography
+```
+
+Prepare and serve the catalogue:
+
+```bash
+npm run prepare:catalogue
+cd catalogue
 bundle exec jekyll serve
 ```
 
-The asset build validates source SVGs and metadata, creates optimised individual SVGs, generates separate family sprites and writes the catalogue manifest.
-
-## Useful commands
+Or run the combined command after Ruby dependencies are installed:
 
 ```bash
-npm run validate       # Validate source assets and metadata
-npm run build:assets   # Validate and regenerate distributable assets
-npm run clean          # Remove generated outputs
+npm run serve:catalogue
 ```
 
-## Repository model
+## Output contract
 
-Source SVGs and metadata are authoritative. Files under `assets/generated/` and `_data/generated/` are reproducible, build-time outputs. They are intentionally not committed and must not be edited manually.
+`packages/iconography/dist/` contains portable package outputs:
 
-Canonical IDs are namespaced by family, for example:
+```text
+dist/
+├── svg/
+├── sprites/
+├── manifest/assets.json
+└── licenses/
+```
 
-- `ui-icon/kettle`
-- `icon/kettle`
+Paths in the package manifest are relative to `dist/`. The catalogue adapter copies those outputs and rewrites only the public URL paths needed by Jekyll.
 
-This identity must align across source filenames, metadata, Figma, catalogue entries and sprite symbols.
+## Current status
+
+The v0.1 construction test set contains:
+
+- four approved Bootstrap UI-icon imports
+- four draft EST UI icons
+- four draft EST Icons
+
+EST artwork remains draft until the Design System team completes the visual construction review.
 
 ## Documentation
 
-- [Construction rules](docs/construction-rules.md)
-- [Test-set review](docs/test-set-review.md)
+- [Iconography package](packages/iconography/README.md)
+- [Construction rules](packages/iconography/docs/construction-rules.md)
+- [Test-set review](packages/iconography/docs/test-set-review.md)
+- [Catalogue](catalogue/README.md)
 
 ## Licensing
 
-Imported Bootstrap Icons are provided under the MIT licence; see `licenses/bootstrap-icons-MIT.txt`. A licence for EST-authored assets has not yet been declared, so they should not be treated as openly licensed.
+No general licence has yet been declared for EST-authored assets or catalogue code. See the licence notices in each part of the repository. Imported Bootstrap Icons retain their MIT licence.

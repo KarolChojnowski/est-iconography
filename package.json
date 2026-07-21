@@ -1,20 +1,21 @@
 {
-  "name": "@est/iconography",
+  "name": "est-iconography",
   "version": "0.1.0",
   "private": true,
-  "description": "EST iconography source library, build pipeline and Jekyll catalogue.",
-  "type": "module",
+  "description": "Monorepo for the EST iconography package and its Jekyll catalogue.",
+  "workspaces": [
+    "packages/iconography"
+  ],
   "scripts": {
-    "clean": "node scripts/clean.mjs",
-    "validate": "node scripts/build-assets.mjs --validate-only",
-    "build:assets": "node scripts/build-assets.mjs",
-    "build": "npm run build:assets",
-    "test": "npm run validate"
-  },
-  "devDependencies": {
-    "ajv": "8.20.0",
-    "js-yaml": "4.1.0",
-    "svgo": "4.0.0"
+    "clean": "npm run clean --workspace @est/iconography && node tools/clean-catalogue.mjs",
+    "validate": "npm run validate --workspace @est/iconography",
+    "validate:iconography": "npm run validate --workspace @est/iconography",
+    "build:iconography": "npm run build --workspace @est/iconography",
+    "prepare:catalogue": "node tools/prepare-catalogue.mjs",
+    "build:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll build --destination ../_site",
+    "serve:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll serve",
+    "build": "npm run build:catalogue",
+    "test": "npm run validate:iconography"
   },
   "engines": {
     "node": ">=22"

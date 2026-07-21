@@ -9,17 +9,39 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  iconography:
+    name: Validate iconography package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --ignore-scripts
-      - run: npm run build:assets
+      - run: npm ci --ignore-scripts
+      - run: npm run validate:iconography
+      - run: npm run build:iconography
+      - name: Verify deterministic output
+        run: |
+          cp -R packages/iconography/dist /tmp/iconography-dist
+          npm run build:iconography
+          diff -r /tmp/iconography-dist packages/iconography/dist
+
+  catalogue:
+    name: Build catalogue consumer
+    runs-on: ubuntu-latest
+    needs: iconography
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+      - run: npm run build:iconography
+      - run: npm run prepare:catalogue
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - run: bundle exec jekyll build --strict_front_matter
+          working-directory: catalogue
+      - run: bundle exec jekyll build --strict_front_matter --destination ../_site
+        working-directory: catalogue
