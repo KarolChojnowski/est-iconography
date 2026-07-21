@@ -80,6 +80,22 @@ Or run the combined command after Ruby dependencies are installed:
 npm run serve:catalogue
 ```
 
+## Project-specific bundles
+
+Generate a portable subset using canonical asset IDs:
+
+```bash
+npm run bundle:iconography -- \
+  --out ./build/harp-iconography \
+  ui-icon/check-circle \
+  ui-icon/property-information \
+  icon/heat-pump
+```
+
+The bundle contains only the selected individual SVGs, filtered family sprites, a filtered manifest and the relevant licence notices. It retains the complete distribution's paths and sprite IDs, so consumers do not need a different integration for subsets.
+
+The command rejects unknown or duplicate IDs and refuses to erase unrelated non-empty directories. See the [package documentation](packages/iconography/README.md#selected-bundles) for the full output contract and package-local command.
+
 ## Output contract
 
 `packages/iconography/dist/` contains portable package outputs:
