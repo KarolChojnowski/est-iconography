@@ -12,6 +12,18 @@ It owns:
 
 It does not contain catalogue layouts, search behaviour or Jekyll-specific data. The package writes only to its own `dist/` directory.
 
+## Current baseline
+
+Version `0.2.0` establishes the first approved construction baseline:
+
+- fill-based, single-colour SVG assets using `currentColor`
+- four approved Bootstrap UI-icon imports
+- four approved EST UI icons
+- four approved EST Icons
+- generated individual SVGs, family sprites and a versioned manifest
+
+New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
+
 ## Commands
 
 Run from the repository root:
@@ -43,7 +55,16 @@ dist/
 └── licenses/
 ```
 
-Files under `dist/` are generated and must not be edited manually.
+Files under `dist/` are generated and must not be edited manually. The manifest `libraryVersion` is derived from this package's `package.json` version.
+
+## Releases
+
+The package remains private and is not published to npm. Repository tags matching `v<package-version>` create a GitHub release containing:
+
+- a complete versioned ZIP archive
+- the UI-icon sprite
+- the Icon sprite
+- the generated asset manifest
 
 ## Licensing
 

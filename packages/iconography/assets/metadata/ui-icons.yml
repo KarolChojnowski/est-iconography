@@ -64,7 +64,7 @@ ui-icon/kettle:
   category: appliance
   tags: [kitchen, appliance, electricity, hot water, boiling]
   aliases: [electric kettle]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic electric kettle.
 
@@ -75,7 +75,7 @@ ui-icon/condensing-boiler:
   category: heating
   tags: [boiler, heating, gas, hot water, appliance]
   aliases: [boiler, gas boiler]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic condensing boiler.
   avoid: Do not use as a generic symbol for all heating systems.
@@ -87,7 +87,7 @@ ui-icon/co2:
   category: carbon
   tags: [carbon, emissions, carbon dioxide, greenhouse gas]
   aliases: [co2, carbon dioxide, emissions]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents carbon dioxide, emissions or atmospheric carbon.
   note: The CO₂ characters are vector paths; the SVG contains no live text.
@@ -99,6 +99,6 @@ ui-icon/car-front:
   category: transport
   tags: [vehicle, driving, transport, travel]
   aliases: [vehicle, automobile]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a passenger car or car travel.

@@ -8,6 +8,7 @@ import { optimize } from 'svgo';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const validateOnly = process.argv.includes('--validate-only');
+const packageMetadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 const families = [
   { id: 'ui-icon', metadata: 'assets/metadata/ui-icons.yml', sourceDir: 'assets/source/ui-icons', outputDir: 'ui-icons', viewBox: '0 0 16 16', sprite: 'est-ui-icons.svg' },
   { id: 'icon', metadata: 'assets/metadata/icons.yml', sourceDir: 'assets/source/icons', outputDir: 'icons', viewBox: '0 0 32 32', sprite: 'est-icons.svg' }
@@ -184,7 +185,7 @@ for (const family of families) {
 }
 
 const publicAssets = assets.map(({ optimizedSvg, ...asset }) => asset);
-const manifest = { libraryVersion: '0.1.0', assets: publicAssets };
+const manifest = { libraryVersion: packageMetadata.version, assets: publicAssets };
 const manifestPath = path.join(root, 'dist/manifest/assets.json');
 await mkdir(path.dirname(manifestPath), { recursive: true });
 await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

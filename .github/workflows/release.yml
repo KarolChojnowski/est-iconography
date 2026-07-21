@@ -1,0 +1,65 @@
+name: Release iconography
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci --ignore-scripts
+
+      - name: Verify release version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./packages/iconography/package.json').version")
+          if [ "v${VERSION}" != "${GITHUB_REF_NAME}" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match package version v${VERSION}." >&2
+            exit 1
+          fi
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
+      - run: npm run build:iconography
+
+      - name: Package release assets
+        shell: bash
+        run: |
+          PACKAGE_DIR="release/est-iconography-${VERSION}"
+          mkdir -p "$PACKAGE_DIR"
+          cp -R packages/iconography/dist/. "$PACKAGE_DIR/"
+          cp packages/iconography/README.md "$PACKAGE_DIR/README.md"
+          cp packages/iconography/LICENSE-NOTICE.md "$PACKAGE_DIR/LICENSE-NOTICE.md"
+
+          (
+            cd release
+            zip -qr "est-iconography-${VERSION}.zip" "est-iconography-${VERSION}"
+          )
+
+          cp packages/iconography/dist/sprites/est-ui-icons.svg release/est-ui-icons.svg
+          cp packages/iconography/dist/sprites/est-icons.svg release/est-icons.svg
+          cp packages/iconography/dist/manifest/assets.json release/est-iconography-assets.json
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "release/est-iconography-${VERSION}.zip" \
+            "release/est-ui-icons.svg" \
+            "release/est-icons.svg" \
+            "release/est-iconography-assets.json" \
+            --verify-tag \
+            --generate-notes \
+            --title "EST Iconography ${GITHUB_REF_NAME}"
