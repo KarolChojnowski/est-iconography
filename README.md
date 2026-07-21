@@ -139,7 +139,7 @@ npm run test:example
 
 The generated page demonstrates both family sprites, the optional helper stylesheet, product-level colour and layout overrides, decorative and informative SVGs, an accessible icon-only button and a dynamic status message.
 
-Its smoke test resolves every external `<use>` reference to a symbol in the generated sprites and verifies the bundle manifest, individual SVGs, helper CSS and accessibility attributes. See the [example README](examples/vanilla/README.md).
+Its smoke test resolves every external `<use>` reference to a symbol in the generated sprites and verifies version alignment, canonical manifest order, exact sprite contents, individual SVGs, helper CSS and accessibility attributes. See the [example README](examples/vanilla/README.md).
 
 ## Accessible implementation
 
@@ -172,23 +172,23 @@ Paths in the package manifest are relative to `dist/`. The catalogue adapter cop
 
 ## Current status
 
-Version `0.4.0` is the adoption-tooling release. It retains the approved `0.3.0` asset contract:
+Version `0.5.0` is the implementation and adoption checkpoint. It retains the approved 24-asset contract established in `0.3.0`:
 
 - twenty approved UI icons: thirteen EST-authored assets and seven curated Bootstrap imports
 - four approved EST Icons
 - complete migration, consolidation or replacement decisions for the sixteen-icon legacy Design System collection
 - fill-based construction and actual-size approval rules
 
-It adds:
+It provides:
 
-- safe project-specific bundle generation from canonical IDs
-- visual catalogue selection with downloadable selection JSON
+- safe project-specific bundle generation from canonical IDs or selection JSON
+- visual catalogue selection with downloadable selection files
 - framework-independent accessibility guidance and copy-ready examples
+- optional zero-specificity implementation CSS and rendered implementation guidance
+- an executable vanilla consumer and independent integration smoke test
 - deterministic changelog-derived GitHub release notes
 
-All 24 assets remain approved stable contracts. No artwork, canonical IDs or metadata meanings change in `0.4.0`. New EST assets should still enter as drafts and be approved only after review at their intended display size.
-
-Unreleased adoption work adds optional implementation CSS, copy-ready developer guidance and an executable vanilla consumer without changing the asset contract.
+All 24 assets remain approved stable contracts. No artwork, canonical IDs or metadata meanings change in `0.5.0`. New EST assets should still enter as drafts and be approved only after review at their intended display size.
 
 The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
@@ -200,11 +200,12 @@ Approved canonical IDs are stable consumer contracts. Use the pull-request templ
 
 ## Releases
 
-The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.4.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
+The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.5.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
 
 - `est-iconography-<version>.zip`
 - `est-ui-icons.svg`
 - `est-icons.svg`
+- `est-iconography.css`
 - `est-iconography-assets.json`
 
 Release notes are extracted from the matching `CHANGELOG.md` section. Follow [RELEASING.md](RELEASING.md) rather than tagging an arbitrary current branch.

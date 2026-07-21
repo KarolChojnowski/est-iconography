@@ -15,15 +15,16 @@ The package is private and is distributed through versioned GitHub releases rath
 1. Create a release pull request that:
    - moves the accumulated `Unreleased` entries into a dated version section
    - bumps `packages/iconography/package.json`
-   - updates repository status documentation
-2. Merge the pull request after CI passes.
+   - aligns any checked-in selection files with the new package version
+   - updates repository status and release documentation
+2. Merge the pull request after all package, catalogue and consumer-example checks pass.
 3. Tag the resulting merge commit:
 
 ```bash
 git checkout main
 git pull --ff-only
-git tag v0.4.0
-git push origin v0.4.0
+git tag v0.5.0
+git push origin v0.5.0
 ```
 
 4. Confirm that the **Release iconography** workflow succeeds.
@@ -31,34 +32,24 @@ git push origin v0.4.0
    - `est-iconography-<version>.zip`
    - `est-ui-icons.svg`
    - `est-icons.svg`
+   - `est-iconography.css`
    - `est-iconography-assets.json`
-6. Confirm the release notes match the corresponding changelog section.
+6. Confirm the ZIP contains the complete `svg/`, `sprites/`, `styles/`, `manifest/` and `licenses/` distribution.
+7. Confirm the release notes match the corresponding changelog section.
 
 The workflow rejects a tag when its name does not match the package version at that commit. It also fails when the matching changelog section is missing or empty.
 
-## Historical `v0.3.0` release
+## Historical releases
 
-The `v0.3.0` release pull request was merged before its tag was created. Later adoption features then landed on `main`, so tagging the current branch as `v0.3.0` would publish more than the recorded `0.3.0` release contents.
+`v0.3.0` was published from its original release commit rather than a later `main` head:
 
-Create `v0.3.0` from its original release commit instead:
-
-```bash
-git fetch origin
-git tag v0.3.0 e52a9bc58d1bebbcb0a15dbb0e5ca0a334ff0509
-git push origin v0.3.0
+```text
+e52a9bc58d1bebbcb0a15dbb0e5ca0a334ff0509
 ```
 
-That commit contains the `0.3.0` package version, changelog entry and approved 24-asset production-migration baseline. Do not tag current `main` as `v0.3.0`.
+`v0.4.0` was then published from the adoption-release merge. Both releases are complete and verified. Do not move or recreate either tag.
 
-## Release sequencing
-
-When publishing both outstanding versions:
-
-1. create the historical `v0.3.0` tag at the commit above
-2. merge the `v0.4.0` release pull request
-3. create `v0.4.0` from the new `main` head
-
-This preserves an accurate relationship between source, changelog and downloadable artifacts for both releases.
+When reconstructing an older release, always use the recorded release commit and verify its package version and changelog section before creating a tag. Never tag current `main` with an older version number.
 
 ## Failed releases
 
@@ -66,6 +57,6 @@ When a release workflow fails:
 
 - do not move the tag to another commit
 - fix the source on a new patch version, or delete an unpublished tag only when no GitHub release or consumer has used it
-- inspect whether the package version, changelog section or build output caused the failure
+- inspect whether the package version, changelog section, generated output or release-asset packaging caused the failure
 
 Once a release is visible to consumers, correct it with a new version rather than rewriting history.

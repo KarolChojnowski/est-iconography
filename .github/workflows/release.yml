@@ -52,6 +52,7 @@ jobs:
 
           cp packages/iconography/dist/sprites/est-ui-icons.svg release/est-ui-icons.svg
           cp packages/iconography/dist/sprites/est-icons.svg release/est-icons.svg
+          cp packages/iconography/dist/styles/est-iconography.css release/est-iconography.css
           cp packages/iconography/dist/manifest/assets.json release/est-iconography-assets.json
 
       - name: Create GitHub release
@@ -63,6 +64,7 @@ jobs:
             "release/est-iconography-${VERSION}.zip" \
             "release/est-ui-icons.svg" \
             "release/est-icons.svg" \
+            "release/est-iconography.css" \
             "release/est-iconography-assets.json" \
             --verify-tag \
             --notes-file release/notes.md \
