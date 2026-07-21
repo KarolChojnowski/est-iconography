@@ -130,6 +130,57 @@ layout: default
         </div>
       </section>
 
+      {% capture decorative_example %}<span class="icon-label">
+  <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
+    <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
+  </svg>
+  {{ asset.label }}
+</span>{% endcapture %}
+
+      {% capture informative_example %}<svg
+  width="{{ asset.defaultSize }}"
+  height="{{ asset.defaultSize }}"
+  role="img"
+  aria-label="{{ asset.label }}"
+>
+  <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
+</svg>{% endcapture %}
+
+      <section class="documentation-section" aria-labelledby="accessible-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow eyebrow--dark">Accessible implementation</p>
+            <h2 id="accessible-title">Choose treatment from context</h2>
+            <p>Hide the SVG when nearby text or a containing control already communicates the meaning. Expose it as an image only when it provides standalone information.</p>
+          </div>
+          <a class="button button--secondary" href="{{ '/accessibility/' | relative_url }}">Read full guidance</a>
+        </div>
+
+        <div class="pattern-grid pattern-grid--compact">
+          <article class="pattern-card">
+            <div class="pattern-card__heading">
+              <div>
+                <h3>Decorative beside text</h3>
+                <p>This is the usual interface treatment and avoids duplicate announcements.</p>
+              </div>
+              <button class="button button--secondary js-copy-code" type="button" data-copy-target="decorative-usage-example">Copy code</button>
+            </div>
+            <pre class="code-block"><code id="decorative-usage-example">{{ decorative_example | escape }}</code></pre>
+          </article>
+
+          <article class="pattern-card">
+            <div class="pattern-card__heading">
+              <div>
+                <h3>Standalone informative icon</h3>
+                <p>Replace the example label with wording that describes the meaning in its product context.</p>
+              </div>
+              <button class="button button--secondary js-copy-code" type="button" data-copy-target="informative-usage-example">Copy code</button>
+            </div>
+            <pre class="code-block"><code id="informative-usage-example">{{ informative_example | escape }}</code></pre>
+          </article>
+        </div>
+      </section>
+
       <section class="documentation-section" aria-labelledby="inline-title">
         <div class="section-heading">
           <div>
