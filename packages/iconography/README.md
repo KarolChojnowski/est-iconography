@@ -66,6 +66,30 @@ npm run bundle:iconography -- \
   icon/heat-pump
 ```
 
+The catalogue selection tray can also download a reusable JSON file:
+
+```json
+{
+  "formatVersion": 1,
+  "libraryVersion": "0.3.0",
+  "assetIds": [
+    "ui-icon/check-circle",
+    "ui-icon/property-information",
+    "icon/heat-pump"
+  ]
+}
+```
+
+Build directly from that selection:
+
+```bash
+npm run bundle:iconography -- \
+  --out ./build/harp-iconography \
+  --selection ./est-iconography-selection-v0.3.0.json
+```
+
+Use either positional canonical IDs or `--selection`, not both. A selection exported from a different library version is accepted with a warning; unknown or removed canonical IDs still fail validation.
+
 The command rebuilds the authoritative package first, then writes:
 
 ```text
