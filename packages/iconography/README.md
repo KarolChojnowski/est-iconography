@@ -28,7 +28,7 @@ New EST artwork should begin with `status: draft` and follow the actual-size rev
 
 The [legacy Design System icon audit](docs/legacy-design-system-audit.md) records the complete source inventory and the canonical migrate, consolidate or replace decision for every legacy asset.
 
-Migrated artwork enters as draft and is not treated as a stable package contract until the catalogue review and approval decision are explicit.
+Migrated EST artwork enters as draft and is not treated as a stable package contract until the catalogue review and approval decision are explicit. Generic legacy symbols use curated Bootstrap imports with exact upstream version and MIT licence metadata rather than duplicated EST artwork.
 
 ## Contributing
 
