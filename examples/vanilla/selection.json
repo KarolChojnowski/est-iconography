@@ -1,0 +1,10 @@
+{
+  "formatVersion": 1,
+  "libraryVersion": "0.4.0",
+  "assetIds": [
+    "ui-icon/check-circle",
+    "ui-icon/house",
+    "ui-icon/plus",
+    "icon/heat-pump"
+  ]
+}
