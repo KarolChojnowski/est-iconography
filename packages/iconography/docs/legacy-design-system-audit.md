@@ -23,19 +23,19 @@ The legacy directory contains sixteen 16×16 fill-based SVG assets. The audit av
 | `info-circle` | Replace with Bootstrap | `ui-icon/info-circle` | A generic interface symbol uses the approved Bootstrap Icons `info-circle` asset rather than EST-specific artwork. |
 | `pie-chart` | Replace with Bootstrap | `ui-icon/pie-chart-fill` | A generic data-visualisation symbol uses the approved Bootstrap Icons `pie-chart-fill` asset. |
 | `pc-display` | Replace with Bootstrap | `ui-icon/display` | A generic computer-display symbol uses the approved Bootstrap Icons `display` asset. |
-| `house` | Migrate as draft | `ui-icon/house` | The literal object name is clear and broadly useful. |
-| `house-info` | Migrate and rename | `ui-icon/property-information` | The canonical name describes the property-information concept rather than the overlaid shapes. |
-| `house-roof` | Migrate and rename | `ui-icon/roof` | The represented object is a roof; the house prefix is unnecessary. |
-| `house-spanner` | Migrate and rename | `ui-icon/property-maintenance` | The canonical name describes repair and maintenance rather than the drawing composition. |
-| `house-person` | Migrate and rename | `ui-icon/household` | Legacy tags identify occupancy; `household` is a clearer reusable concept. |
-| `house-power-plug` | Migrate and rename | `ui-icon/home-electricity` | The canonical name describes domestic electricity rather than the overlaid shapes. |
-| `floor-pattern` | Migrate and rename | `ui-icon/flooring` | The canonical name describes the building element rather than its rendered pattern. |
-| `glazing` | Migrate as draft | `ui-icon/glazing` | The existing name is specific, recognised and suitable for building-fabric contexts. |
-| `piggy-bank` | Migrate and rename | `ui-icon/savings` | The canonical name describes the intended financial meaning; the legacy visual name remains an alias. |
+| `house` | Migrate and approve | `ui-icon/house` | The literal object name is clear and broadly useful. |
+| `house-info` | Migrate, rename and approve | `ui-icon/property-information` | The canonical name describes the property-information concept rather than the overlaid shapes. |
+| `house-roof` | Migrate, rename and approve | `ui-icon/roof` | The represented object is a roof; the house prefix is unnecessary. |
+| `house-spanner` | Migrate, rename and approve | `ui-icon/property-maintenance` | The canonical name describes repair and maintenance rather than the drawing composition. |
+| `house-person` | Migrate, rename and approve | `ui-icon/household` | Legacy tags identify occupancy; `household` is a clearer reusable concept. |
+| `house-power-plug` | Migrate, rename and approve | `ui-icon/home-electricity` | The canonical name describes domestic electricity rather than the overlaid shapes. |
+| `floor-pattern` | Migrate, rename and approve | `ui-icon/flooring` | The canonical name describes the building element rather than its rendered pattern. |
+| `glazing` | Migrate and approve | `ui-icon/glazing` | The existing name is specific, recognised and suitable for building-fabric contexts. |
+| `piggy-bank` | Migrate, rename and approve | `ui-icon/savings` | The canonical name describes the intended financial meaning; the legacy visual name remains an alias. |
 
 ## First production batch
 
-The following nine assets are imported in the first migration batch:
+The following nine assets form the first migrated production batch:
 
 ```text
 ui-icon/house
@@ -49,26 +49,28 @@ ui-icon/glazing
 ui-icon/savings
 ```
 
-The source paths are cleaned to remove legacy CSS classes, element IDs and unused `clip-rule` attributes. The underlying EST path artwork is otherwise retained for review.
+The source paths are cleaned to remove legacy CSS classes, element IDs and unused `clip-rule` attributes. The underlying EST path artwork is otherwise retained.
 
-All nine assets enter with:
+All nine assets use:
 
 ```yaml
-status: draft
+status: approved
 construction: fill
 ```
 
-They are not stable production contracts until they have been reviewed in the catalogue at 16px, beside interface text and against neighbouring approved assets.
+They become stable production contracts in `v0.3.0`.
 
-## Review focus
+## Approval record
 
-- Confirm that the composite house assets remain legible at 16px.
-- Check whether `property-information`, `property-maintenance`, `household` and `home-electricity` communicate without supporting labels.
-- Check whether the `roof` silhouette is substantial enough to balance the other UI icons.
-- Confirm that `flooring` does not become visually noisy at actual size.
-- Confirm that `glazing` reads as glazing rather than overlapping generic rectangles.
-- Confirm that `savings` communicates financial savings without implying a guaranteed outcome.
-- Validate the canonical names and Figma names before approval.
+The batch was reviewed in the catalogue at 16px, beside interface text and against neighbouring approved EST and Bootstrap assets. The approval decision confirms that:
+
+- the composite property concepts remain legible at actual size
+- `property-information`, `property-maintenance`, `household` and `home-electricity` are sufficiently distinct with their usage guidance
+- `roof` has acceptable optical weight within the family
+- `flooring` retains usable negative space at 16px
+- `glazing` reads as a window or glazing element in building-fabric contexts
+- `savings` is paired with guidance that avoids implying a guaranteed financial outcome
+- canonical names and legacy aliases provide an acceptable Figma, catalogue and code contract
 
 ## Bootstrap replacement batch
 
