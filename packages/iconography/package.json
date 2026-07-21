@@ -2,6 +2,7 @@
   "name": "@est/iconography",
   "version": "0.1.0",
   "private": true,
+  "license": "UNLICENSED",
   "description": "Authoritative EST iconography sources, metadata, validation and generated SVG distributions.",
   "type": "module",
   "scripts": {
