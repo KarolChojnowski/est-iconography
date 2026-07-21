@@ -15,6 +15,50 @@
       </div>
     </header>
     <main>{{ content }}</main>
+
+    <aside class="selection-tray" data-selection-tray hidden aria-label="Selected assets">
+      <div class="selection-tray__inner">
+        <div class="selection-tray__summary">
+          <div>
+            <strong><span data-selection-count>0</span> assets selected</strong>
+            <span class="selection-tray__hint">Build a project-specific SVG bundle.</span>
+          </div>
+          <div class="selection-tray__actions">
+            <button class="button button--secondary" type="button" data-copy-bundle-command>Copy command</button>
+            <button class="button" type="button" data-toggle-selection aria-expanded="false">Review selection</button>
+            <button class="button button--quiet" type="button" data-clear-selection>Clear</button>
+          </div>
+        </div>
+
+        <div class="selection-tray__panel" data-selection-panel hidden>
+          <div class="selection-tray__assets">
+            <div class="selection-tray__heading">
+              <div>
+                <p class="eyebrow eyebrow--dark">Project bundle</p>
+                <h2>Selected canonical assets</h2>
+              </div>
+              <button class="button button--quiet" type="button" data-copy-asset-ids>Copy IDs</button>
+            </div>
+            <ul class="selection-list" data-selection-list></ul>
+          </div>
+
+          <div class="selection-tray__command">
+            <label class="bundle-output-control">
+              <span>Output directory</span>
+              <input type="text" value="./build/iconography-bundle" data-bundle-output>
+            </label>
+            <pre class="code-block code-block--compact"><code data-bundle-command></code></pre>
+            <div class="button-row">
+              <button class="button" type="button" data-copy-bundle-command>Copy bundle command</button>
+              <button class="button button--secondary" type="button" data-download-selection>Download selection JSON</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="visually-hidden" role="status" aria-live="polite" data-selection-status></div>
+    <script id="asset-manifest" type="application/json">{{ site.data.generated.assets | jsonify }}</script>
     <script src="{{ '/assets/js/catalogue.js' | relative_url }}" defer></script>
   </body>
 </html>

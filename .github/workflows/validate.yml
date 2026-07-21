@@ -39,6 +39,7 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run build:iconography
       - run: npm run prepare:catalogue
+      - run: node --check catalogue/assets/js/catalogue.js
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
@@ -46,3 +47,8 @@ jobs:
           working-directory: catalogue
       - run: bundle exec jekyll build --strict_front_matter --destination ../_site
         working-directory: catalogue
+      - name: Verify catalogue selection hooks
+        run: |
+          grep -q 'data-selection-tray' _site/index.html
+          grep -q 'js-select-asset' _site/index.html
+          grep -q 'asset-manifest' _site/index.html

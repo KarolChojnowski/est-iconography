@@ -11,26 +11,32 @@ const usage = `Build a portable subset of the generated EST iconography distribu
 
 Usage:
   node scripts/build-bundle.mjs [--out <directory>] <canonical-id> [...]
+  node scripts/build-bundle.mjs [--out <directory>] --selection <json-file>
 
-Example:
+Examples:
   node scripts/build-bundle.mjs --out ./harp-icons \
     ui-icon/check-circle \
     ui-icon/property-information \
     icon/heat-pump
 
+  node scripts/build-bundle.mjs --out ./harp-icons \
+    --selection ./est-iconography-selection.json
+
 Options:
-  -o, --out <directory>  Output directory. Defaults to ./iconography-bundle.
-  -h, --help             Show this help.
+  -o, --out <directory>     Output directory. Defaults to ./iconography-bundle.
+  -s, --selection <file>    Catalogue selection JSON containing an assetIds array.
+  -h, --help                Show this help.
 `;
 
 function parseArguments(argumentsList) {
   const ids = [];
   let output = 'iconography-bundle';
+  let selection = null;
 
   for (let index = 0; index < argumentsList.length; index += 1) {
     const argument = argumentsList[index];
 
-    if (argument === '--help' || argument === '-h') return { help: true, ids, output };
+    if (argument === '--help' || argument === '-h') return { help: true, ids, output, selection };
     if (argument === '--out' || argument === '-o') {
       const value = argumentsList[index + 1];
       if (!value || value.startsWith('-')) throw new Error(`${argument} requires a directory path.`);
@@ -38,11 +44,19 @@ function parseArguments(argumentsList) {
       index += 1;
       continue;
     }
+    if (argument === '--selection' || argument === '-s') {
+      const value = argumentsList[index + 1];
+      if (!value || value.startsWith('-')) throw new Error(`${argument} requires a JSON file path.`);
+      if (selection) throw new Error('Provide only one selection file.');
+      selection = value;
+      index += 1;
+      continue;
+    }
     if (argument.startsWith('-')) throw new Error(`Unknown option: ${argument}`);
     ids.push(argument);
   }
 
-  return { help: false, ids, output };
+  return { help: false, ids, output, selection };
 }
 
 function svgAttributes(svg) {
@@ -121,6 +135,38 @@ async function readManifest() {
   }
 }
 
+async function readSelectionFile(selectionPath) {
+  const resolved = path.resolve(process.cwd(), selectionPath);
+  let document;
+
+  try {
+    document = JSON.parse(await readFile(resolved, 'utf8'));
+  } catch (error) {
+    if (error.code === 'ENOENT') throw new Error(`Selection file not found: ${resolved}`);
+    if (error instanceof SyntaxError) throw new Error(`Selection file is not valid JSON: ${resolved}`);
+    throw error;
+  }
+
+  if (!document || typeof document !== 'object' || Array.isArray(document)) {
+    throw new Error('Selection file must contain a JSON object.');
+  }
+  if (!Array.isArray(document.assetIds)) {
+    throw new Error('Selection file must contain an assetIds array.');
+  }
+  if (document.assetIds.some((id) => typeof id !== 'string' || id.trim() === '')) {
+    throw new Error('Every selection asset ID must be a non-empty string.');
+  }
+  if (document.libraryVersion !== undefined && typeof document.libraryVersion !== 'string') {
+    throw new Error('Selection libraryVersion must be a string when provided.');
+  }
+
+  return {
+    ids: document.assetIds,
+    libraryVersion: document.libraryVersion ?? null,
+    path: resolved
+  };
+}
+
 async function writeSprite(outputDirectory, spritePath, assets) {
   const symbols = [];
 
@@ -143,22 +189,38 @@ async function main() {
     console.log(usage);
     return;
   }
-  if (options.ids.length === 0) throw new Error('Provide at least one canonical asset ID. Use --help for an example.');
+  if (options.selection && options.ids.length > 0) {
+    throw new Error('Use either canonical IDs or --selection, not both.');
+  }
 
-  const duplicateIds = options.ids.filter((id, index, all) => all.indexOf(id) !== index);
+  const manifest = await readManifest();
+  let requestedIds = options.ids;
+
+  if (options.selection) {
+    const selection = await readSelectionFile(options.selection);
+    requestedIds = selection.ids;
+    if (selection.libraryVersion && selection.libraryVersion !== manifest.libraryVersion) {
+      console.warn(`Selection ${selection.path} was exported from v${selection.libraryVersion}; building against v${manifest.libraryVersion}.`);
+    }
+  }
+
+  if (requestedIds.length === 0) {
+    throw new Error('Provide at least one canonical asset ID or a non-empty --selection file. Use --help for examples.');
+  }
+
+  const duplicateIds = requestedIds.filter((id, index, all) => all.indexOf(id) !== index);
   if (duplicateIds.length > 0) {
     throw new Error(`Duplicate canonical ID${duplicateIds.length > 1 ? 's' : ''}: ${[...new Set(duplicateIds)].join(', ')}`);
   }
 
-  const manifest = await readManifest();
   const availableAssets = new Map(manifest.assets.map((asset) => [asset.id, asset]));
-  const unknownIds = options.ids.filter((id) => !availableAssets.has(id));
+  const unknownIds = requestedIds.filter((id) => !availableAssets.has(id));
   if (unknownIds.length > 0) {
     throw new Error(`Unknown canonical ID${unknownIds.length > 1 ? 's' : ''}: ${unknownIds.join(', ')}`);
   }
 
-  const requestedIds = new Set(options.ids);
-  const selectedAssets = manifest.assets.filter((asset) => requestedIds.has(asset.id));
+  const requestedIdSet = new Set(requestedIds);
+  const selectedAssets = manifest.assets.filter((asset) => requestedIdSet.has(asset.id));
   const outputDirectory = assertSafeOutputDirectory(options.output);
   await prepareOutputDirectory(outputDirectory, manifest.libraryVersion);
 

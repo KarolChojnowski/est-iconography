@@ -7,7 +7,7 @@ title: Catalogue
   <div class="hero__inner">
     <p class="eyebrow">Design System asset library</p>
     <h1>UI icons and Icons</h1>
-    <p class="lede">Browse the initial construction test set. EST assets remain drafts until their visual rules are approved.</p>
+    <p class="lede">Browse the approved EST iconography library, review usage guidance and select the assets needed for a project bundle.</p>
   </div>
 </section>
 <section class="catalogue" aria-labelledby="catalogue-title">
@@ -42,7 +42,7 @@ title: Catalogue
   <div class="asset-grid" id="asset-grid">
     {% for asset in manifest.assets %}
       {% assign search_terms = asset.label | append: ' ' | append: asset.category | append: ' ' | append: asset.tags | append: ' ' | append: asset.aliases | downcase %}
-      <article class="asset-card" data-family="{{ asset.family }}" data-source="{{ asset.source }}" data-search="{{ search_terms | escape }}">
+      <article class="asset-card" data-family="{{ asset.family }}" data-source="{{ asset.source }}" data-search="{{ search_terms | escape }}" data-asset-id="{{ asset.id }}">
         <div class="asset-card__preview">
           <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
             <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
@@ -60,6 +60,7 @@ title: Catalogue
             <span>{{ asset.source }}</span>
           </div>
           <div class="asset-card__actions">
+            <button class="button button--quiet js-select-asset" type="button" data-asset-id="{{ asset.id }}" aria-pressed="false">Select</button>
             <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
             <a class="button" href="{{ asset.detailPath | relative_url }}">View details</a>
           </div>

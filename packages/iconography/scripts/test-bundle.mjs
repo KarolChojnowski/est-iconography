@@ -68,6 +68,35 @@ try {
   assert.equal(await exists(path.join(outputDirectory, 'sprites/est-icons.svg')), false);
   assert.equal(await exists(path.join(outputDirectory, 'licenses/bootstrap-icons-MIT.txt')), false);
 
+  const selectionFile = path.join(temporaryRoot, 'catalogue-selection.json');
+  await writeFile(selectionFile, `${JSON.stringify({
+    libraryVersion: packageMetadata.version,
+    assetIds: ['ui-icon/info-circle', 'icon/kettle']
+  }, null, 2)}\n`);
+  const selectionOutput = path.join(temporaryRoot, 'selection-output');
+  const selectionResult = runBundle(['--out', selectionOutput, '--selection', selectionFile]);
+  assert.equal(selectionResult.status, 0, selectionResult.stderr);
+  const selectionManifest = JSON.parse(await readFile(path.join(selectionOutput, 'manifest/assets.json'), 'utf8'));
+  assert.deepEqual(selectionManifest.assets.map((asset) => asset.id), ['ui-icon/info-circle', 'icon/kettle']);
+  assert.equal(await exists(path.join(selectionOutput, 'licenses/bootstrap-icons-MIT.txt')), true);
+
+  const mixedInput = runBundle([
+    '--out', path.join(temporaryRoot, 'mixed-input'),
+    '--selection', selectionFile,
+    'ui-icon/house'
+  ]);
+  assert.notEqual(mixedInput.status, 0);
+  assert.match(mixedInput.stderr, /Use either canonical IDs or --selection, not both/);
+
+  const invalidSelectionFile = path.join(temporaryRoot, 'invalid-selection.json');
+  await writeFile(invalidSelectionFile, '{"libraryVersion":"0.3.0"}\n');
+  const invalidSelection = runBundle([
+    '--out', path.join(temporaryRoot, 'invalid-selection-output'),
+    '--selection', invalidSelectionFile
+  ]);
+  assert.notEqual(invalidSelection.status, 0);
+  assert.match(invalidSelection.stderr, /Selection file must contain an assetIds array/);
+
   const unknown = runBundle(['--out', path.join(temporaryRoot, 'unknown'), 'ui-icon/not-real']);
   assert.notEqual(unknown.status, 0);
   assert.match(unknown.stderr, /Unknown canonical ID: ui-icon\/not-real/);
