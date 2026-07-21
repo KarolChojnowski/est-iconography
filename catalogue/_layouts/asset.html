@@ -1,0 +1,208 @@
+---
+layout: default
+---
+{% assign asset = site.data.generated.assets.assets | where: "id", page.asset_id | first %}
+{% if asset %}
+  {% assign family_label = asset.family | replace: '-', ' ' %}
+  {% if asset.family == 'ui-icon' %}
+    {% assign actual_size = 16 %}
+    {% assign enlarged_size = 64 %}
+  {% else %}
+    {% assign actual_size = 48 %}
+    {% assign enlarged_size = 96 %}
+  {% endif %}
+  <section class="asset-hero">
+    <div class="content-width">
+      <a class="back-link" href="{{ '/' | relative_url }}">← Back to catalogue</a>
+      <div class="asset-title-row">
+        <div>
+          <p class="eyebrow">{{ family_label }}</p>
+          <h1>{{ asset.label }}</h1>
+          <code class="canonical-id">{{ asset.id }}</code>
+        </div>
+        <span class="status status--{{ asset.status }}">{{ asset.status }}</span>
+      </div>
+      <p class="asset-summary">{{ asset.usage }}</p>
+    </div>
+  </section>
+
+  <div class="asset-detail content-width">
+    <main class="asset-detail__main">
+      <section class="review-panel" aria-labelledby="review-title" data-asset-preview>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow eyebrow--dark">Visual review</p>
+            <h2 id="review-title">Review at intended size</h2>
+          </div>
+          <span class="size-note">Default: {{ asset.defaultSize }}px</span>
+        </div>
+
+        <div class="review-controls" aria-label="Preview controls">
+          <label>
+            <span>Background</span>
+            <select data-preview-background>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+              <option value="neutral">Neutral</option>
+            </select>
+          </label>
+          <label>
+            <span>Icon colour</span>
+            <select data-preview-color>
+              <option value="#0b1d3a">EST navy</option>
+              <option value="#005ea5">Blue</option>
+              <option value="#4b6b52">Muted green</option>
+              <option value="#ffffff">White</option>
+            </select>
+          </label>
+          <label>
+            <span>Rendered size</span>
+            <select data-preview-size>
+              {% if asset.family == 'ui-icon' %}
+                <option value="16" selected>16px — actual</option>
+                <option value="24">24px</option>
+                <option value="32">32px</option>
+                <option value="48">48px</option>
+                <option value="64">64px — enlarged</option>
+              {% else %}
+                <option value="32">32px — compact</option>
+                <option value="48" selected>48px — actual</option>
+                <option value="64">64px</option>
+                <option value="96">96px — enlarged</option>
+              {% endif %}
+            </select>
+          </label>
+          <label class="checkbox-control">
+            <input type="checkbox" data-preview-canvas>
+            <span>Show canvas</span>
+          </label>
+        </div>
+
+        <div class="preview-stage preview-stage--light" data-preview-stage>
+          <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-label="{{ asset.label }} preview" role="img" data-preview-icon>
+            <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+          </svg>
+        </div>
+
+        <div class="actual-size-comparison">
+          <div>
+            <span class="comparison-label">Actual size</span>
+            <div class="comparison-swatch">
+              <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false">
+                <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <span class="comparison-label">Enlarged inspection</span>
+            <div class="comparison-swatch">
+              <svg width="{{ enlarged_size }}" height="{{ enlarged_size }}" aria-hidden="true" focusable="false">
+                <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="text-comparison">
+            <span class="comparison-label">Beside text</span>
+            <p><svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false"><use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use></svg> Example supporting label</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="documentation-section" aria-labelledby="usage-title">
+        <h2 id="usage-title">Usage guidance</h2>
+        <div class="guidance-grid">
+          <div class="guidance-card">
+            <h3>Use for</h3>
+            <p>{{ asset.usage }}</p>
+          </div>
+          {% if asset.avoid %}
+            <div class="guidance-card guidance-card--caution">
+              <h3>Avoid</h3>
+              <p>{{ asset.avoid }}</p>
+            </div>
+          {% endif %}
+          {% if asset.note %}
+            <div class="guidance-card">
+              <h3>Implementation note</h3>
+              <p>{{ asset.note }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section class="documentation-section" aria-labelledby="inline-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="inline-title">Inline SVG</h2>
+            <p>Use the optimised SVG when the icon needs to be embedded directly in markup.</p>
+          </div>
+          <div class="button-row">
+            <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
+            <a class="button" href="{{ asset.svgPath | relative_url }}" download>Download SVG</a>
+          </div>
+        </div>
+        <pre class="code-block"><code data-svg-source data-svg-path="{{ asset.svgPath | relative_url }}">Loading SVG…</code></pre>
+      </section>
+
+      <section class="documentation-section" aria-labelledby="sprite-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="sprite-title">Sprite usage</h2>
+            <p>Reference the generated symbol when the full family sprite is already loaded by the product.</p>
+          </div>
+          <button class="button button--secondary js-copy-code" type="button" data-copy-target="sprite-example">Copy code</button>
+        </div>
+        {% capture sprite_example %}<svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
+  <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
+</svg>{% endcapture %}
+        <pre class="code-block"><code id="sprite-example">{{ sprite_example | escape }}</code></pre>
+      </section>
+    </main>
+
+    <aside class="asset-facts" aria-labelledby="facts-title">
+      <h2 id="facts-title">Asset details</h2>
+      <dl>
+        <div><dt>Family</dt><dd>{{ family_label }}</dd></div>
+        <div><dt>Source</dt><dd>{{ asset.source }}</dd></div>
+        <div><dt>Category</dt><dd>{{ asset.category }}</dd></div>
+        <div><dt>Construction</dt><dd>{{ asset.construction }}</dd></div>
+        <div><dt>ViewBox</dt><dd><code>{{ asset.viewBox }}</code></dd></div>
+        <div><dt>Default size</dt><dd>{{ asset.defaultSize }}px</dd></div>
+        {% if asset.sourceVersion %}<div><dt>Source version</dt><dd>{{ asset.sourceVersion }}</dd></div>{% endif %}
+        {% if asset.license %}<div><dt>Licence</dt><dd>{{ asset.license }}</dd></div>{% endif %}
+      </dl>
+
+      <div class="fact-group">
+        <h3>Tags</h3>
+        <ul class="tag-list">
+          {% for tag in asset.tags %}<li>{{ tag }}</li>{% endfor %}
+        </ul>
+      </div>
+
+      {% if asset.aliases.size > 0 %}
+        <div class="fact-group">
+          <h3>Aliases</h3>
+          <ul class="tag-list tag-list--muted">
+            {% for alias in asset.aliases %}<li>{{ alias }}</li>{% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="ownership-note">
+        {% if asset.source == 'est' %}
+          <strong>EST proprietary asset</strong>
+          <p>For Energy Saving Trust use only. Copying, modification and redistribution are not permitted without EST authorisation.</p>
+        {% else %}
+          <strong>Third-party asset</strong>
+          <p>Imported from Bootstrap Icons and retained under its MIT licence.</p>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+{% else %}
+  <section class="content-width missing-asset">
+    <h1>Asset not found</h1>
+    <p>The generated page does not match an entry in the catalogue manifest.</p>
+    <a class="button" href="{{ '/' | relative_url }}">Return to catalogue</a>
+  </section>
+{% endif %}
