@@ -25,6 +25,7 @@ jobs:
           cp -R packages/iconography/dist /tmp/iconography-dist
           npm run build:iconography
           diff -r /tmp/iconography-dist packages/iconography/dist
+      - run: npm run test:bundle --workspace @est/iconography
 
   catalogue:
     name: Build catalogue consumer
