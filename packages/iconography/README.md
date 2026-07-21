@@ -24,6 +24,12 @@ Version `0.2.0` establishes the first approved construction baseline:
 
 New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
 
+## Legacy migration
+
+The [legacy Design System icon audit](docs/legacy-design-system-audit.md) records the complete source inventory and the canonical migrate, consolidate or replace decision for every legacy asset.
+
+Migrated artwork enters as draft and is not treated as a stable package contract until the catalogue review and approval decision are explicit.
+
 ## Contributing
 
 Use the repository-level [contribution guide](../../CONTRIBUTING.md) for naming, SVG construction, metadata, compatibility and approval rules.

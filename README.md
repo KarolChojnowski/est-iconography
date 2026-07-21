@@ -106,6 +106,8 @@ Version `0.2.0` is the first approved construction baseline. It contains:
 
 New EST assets should enter as drafts and be approved only after review at their intended display size.
 
+Unreleased migration work adds nine draft UI icons from the legacy EST Design System collection. The complete sixteen-asset source inventory and each migrate, consolidate or replace decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
+
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding or changing an asset. It defines canonical naming, source and metadata requirements, actual-size review, approval states, compatibility rules and semantic versioning.
@@ -143,6 +145,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
 - [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
+- [Legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md)
 - [Catalogue](catalogue/README.md)
 - [Changelog](CHANGELOG.md)
 
