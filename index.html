@@ -1,0 +1,71 @@
+---
+layout: default
+title: Catalogue
+---
+{% assign manifest = site.data.generated.assets %}
+<section class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">Design System asset library</p>
+    <h1>UI icons and Icons</h1>
+    <p class="lede">Browse the initial construction test set. EST assets remain drafts until their visual rules are approved.</p>
+  </div>
+</section>
+<section class="catalogue" aria-labelledby="catalogue-title">
+  <div class="catalogue__toolbar">
+    <div>
+      <h2 id="catalogue-title">Catalogue</h2>
+      <p id="result-count">{{ manifest.assets | size }} assets</p>
+    </div>
+    <div class="filters" role="search">
+      <label>
+        <span>Search</span>
+        <input id="search" type="search" placeholder="Name, tag or alias">
+      </label>
+      <label>
+        <span>Family</span>
+        <select id="family-filter">
+          <option value="">All families</option>
+          <option value="ui-icon">UI icons</option>
+          <option value="icon">Icons</option>
+        </select>
+      </label>
+      <label>
+        <span>Source</span>
+        <select id="source-filter">
+          <option value="">All sources</option>
+          <option value="est">EST</option>
+          <option value="bootstrap">Bootstrap</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="asset-grid" id="asset-grid">
+    {% for asset in manifest.assets %}
+      {% assign search_terms = asset.label | append: ' ' | append: asset.category | append: ' ' | append: asset.tags | append: ' ' | append: asset.aliases | downcase %}
+      <article class="asset-card" data-family="{{ asset.family }}" data-source="{{ asset.source }}" data-search="{{ search_terms | escape }}">
+        <div class="asset-card__preview">
+          <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
+            <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+          </svg>
+        </div>
+        <div class="asset-card__body">
+          <div class="asset-card__heading">
+            <h3>{{ asset.label }}</h3>
+            <span class="status status--{{ asset.status }}">{{ asset.status }}</span>
+          </div>
+          <code>{{ asset.id }}</code>
+          <p>{{ asset.usage }}</p>
+          <div class="asset-card__meta">
+            <span>{{ asset.family | replace: '-', ' ' }}</span>
+            <span>{{ asset.source }}</span>
+          </div>
+          <div class="asset-card__actions">
+            <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
+            <a class="button" href="{{ asset.svgPath | relative_url }}" download>Download</a>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+  <p class="empty-state" id="empty-state" hidden>No assets match those filters.</p>
+</section>

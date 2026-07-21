@@ -1,0 +1,104 @@
+# Canonical metadata for 16×16 UI icons.
+# The canonical ID is the YAML key and aligns with Figma, catalogue, sprite and code.
+
+ui-icon/exclamation-circle:
+  label: Exclamation circle
+  family: ui-icon
+  source: bootstrap
+  category: status
+  tags: [alert, warning, attention, error]
+  aliases: [warning circle, alert circle]
+  status: approved
+  construction: fill
+  usage: Indicates a warning, issue or point requiring attention.
+  source_name: exclamation-circle
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/check-circle:
+  label: Check circle
+  family: ui-icon
+  source: bootstrap
+  category: status
+  tags: [success, complete, confirmed, done]
+  aliases: [success circle, confirmation]
+  status: approved
+  construction: fill
+  usage: Indicates successful completion or confirmation.
+  source_name: check-circle
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/plus:
+  label: Plus
+  family: ui-icon
+  source: bootstrap
+  category: action
+  tags: [add, create, new, expand]
+  aliases: [add, create]
+  status: approved
+  construction: fill
+  usage: Adds or creates an item.
+  source_name: plus
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/arrow-right:
+  label: Arrow right
+  family: ui-icon
+  source: bootstrap
+  category: navigation
+  tags: [next, continue, forward, direction]
+  aliases: [continue, next]
+  status: approved
+  construction: fill
+  usage: Indicates forward movement, continuation or navigation to the right.
+  source_name: arrow-right
+  source_version: 1.13.1
+  license: MIT
+
+ui-icon/kettle:
+  label: Kettle
+  family: ui-icon
+  source: est
+  category: appliance
+  tags: [kitchen, appliance, electricity, hot water, boiling]
+  aliases: [electric kettle]
+  status: draft
+  construction: stroke
+  usage: Represents a domestic electric kettle.
+
+ui-icon/condensing-boiler:
+  label: Condensing boiler
+  family: ui-icon
+  source: est
+  category: heating
+  tags: [boiler, heating, gas, hot water, appliance]
+  aliases: [boiler, gas boiler]
+  status: draft
+  construction: stroke
+  usage: Represents a domestic condensing boiler.
+  avoid: Do not use as a generic symbol for all heating systems.
+
+ui-icon/co2:
+  label: CO₂
+  family: ui-icon
+  source: est
+  category: carbon
+  tags: [carbon, emissions, carbon dioxide, greenhouse gas]
+  aliases: [co2, carbon dioxide, emissions]
+  status: draft
+  construction: stroke
+  usage: Represents carbon dioxide or carbon emissions.
+  note: Letterforms are vector paths; the SVG must not contain live text.
+
+ui-icon/car:
+  label: Car
+  family: ui-icon
+  source: est
+  category: transport
+  tags: [vehicle, driving, transport, travel]
+  aliases: [vehicle, automobile]
+  status: draft
+  construction: stroke
+  usage: Represents a passenger car or car travel.

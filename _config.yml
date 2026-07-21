@@ -1,0 +1,14 @@
+title: EST Iconography
+description: A governed library of EST UI icons and Icons.
+url: ""
+baseurl: ""
+markdown: kramdown
+exclude:
+  - node_modules
+  - scripts
+  - schema
+  - package.json
+  - package-lock.json
+  - test
+  - README.md
+  - LICENSE

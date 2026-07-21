@@ -1,0 +1,22 @@
+{
+  "name": "@est/iconography",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EST iconography source library, build pipeline and Jekyll catalogue.",
+  "type": "module",
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "validate": "node scripts/build-assets.mjs --validate-only",
+    "build:assets": "node scripts/build-assets.mjs",
+    "build": "npm run build:assets",
+    "test": "npm run validate"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "js-yaml": "4.1.0",
+    "svgo": "4.0.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

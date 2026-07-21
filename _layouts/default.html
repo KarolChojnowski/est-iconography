@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" href="{{ '/assets/css/catalogue.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-title" href="{{ '/' | relative_url }}">EST Iconography</a>
+        <span class="site-status">v0.1 foundation</span>
+      </div>
+    </header>
+    <main>{{ content }}</main>
+    <script src="{{ '/assets/js/catalogue.js' | relative_url }}" defer></script>
+  </body>
+</html>
