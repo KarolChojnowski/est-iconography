@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EST iconography vanilla example</title>
+    <link rel="stylesheet" href="./assets/styles/est-iconography.css">
+    <link rel="stylesheet" href="./app.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <svg class="est-icon est-icon--64 est-icon--block" aria-hidden="true" focusable="false">
+          <use href="./assets/sprites/est-icons.svg#est-icon-heat-pump"></use>
+        </svg>
+        <div>
+          <p class="eyebrow">External sprite consumer</p>
+          <h1 id="page-title">Plan a lower-carbon home</h1>
+          <p>This page uses only a selected asset bundle, the optional helper stylesheet and ordinary product CSS.</p>
+        </div>
+      </section>
+
+      <section class="example-grid" aria-label="Icon implementation examples">
+        <article class="example-card">
+          <h2>Decorative beside text</h2>
+          <p class="est-icon-text">
+            <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
+              <use href="./assets/sprites/est-ui-icons.svg#est-ui-icon-house"></use>
+            </svg>
+            Domestic property
+          </p>
+        </article>
+
+        <article class="example-card">
+          <h2>Standalone informative icon</h2>
+          <svg class="est-icon est-icon--32 est-icon--block informative-icon" role="img" aria-label="Domestic property">
+            <use href="./assets/sprites/est-ui-icons.svg#est-ui-icon-house"></use>
+          </svg>
+        </article>
+
+        <article class="example-card">
+          <h2>Icon-only control</h2>
+          <button class="action-button est-icon-button" type="button" aria-label="Add property">
+            <svg class="est-icon est-icon--24" aria-hidden="true" focusable="false">
+              <use href="./assets/sprites/est-ui-icons.svg#est-ui-icon-plus"></use>
+            </svg>
+          </button>
+        </article>
+
+        <article class="example-card">
+          <h2>Dynamic status</h2>
+          <div class="success-message est-icon-text" role="status">
+            <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
+              <use href="./assets/sprites/est-ui-icons.svg#est-ui-icon-check-circle"></use>
+            </svg>
+            Portfolio uploaded successfully.
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
