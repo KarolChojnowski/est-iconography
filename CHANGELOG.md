@@ -2,6 +2,13 @@
 
 All notable changes to the EST iconography library are recorded here.
 
+## [Unreleased]
+
+### Added
+
+- Contribution guidance covering asset naming, source and metadata changes, actual-size review, approval states, compatibility and semantic versioning.
+- A pull-request template for artwork, metadata, rename, deprecation, third-party, tooling and release changes.
+
 ## [0.2.0] — 2026-07-21
 
 ### Added
