@@ -1,0 +1,46 @@
+# Canonical metadata for 32×32 Icons, normally displayed at 48px.
+
+icon/heat-pump:
+  label: Heat pump
+  family: icon
+  source: est
+  category: heating
+  tags: [heating, renewable energy, low carbon, home]
+  aliases: [air source heat pump, ASHP]
+  status: draft
+  construction: stroke
+  usage: Represents a domestic outdoor heat-pump unit.
+
+icon/washing-machine:
+  label: Washing machine
+  family: icon
+  source: est
+  category: appliance
+  tags: [laundry, appliance, electricity, efficiency]
+  aliases: [washer, clothes washer]
+  status: draft
+  construction: stroke
+  usage: Represents a domestic washing machine.
+
+icon/kettle:
+  label: Kettle
+  family: icon
+  source: est
+  category: appliance
+  tags: [kitchen, appliance, electricity, hot water, boiling]
+  aliases: [electric kettle]
+  status: draft
+  construction: stroke
+  usage: Represents a domestic electric kettle with more detail than the UI-icon version.
+
+icon/light-bulb:
+  label: Light bulb
+  family: icon
+  source: est
+  category: lighting
+  tags: [light, lighting, electricity, efficiency, idea]
+  aliases: [bulb, lamp]
+  status: draft
+  construction: stroke
+  usage: Represents domestic lighting or an energy-saving light bulb.
+  avoid: Avoid using it as a generic idea symbol when the context is specifically energy use.
