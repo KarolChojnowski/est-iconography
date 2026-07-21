@@ -100,5 +100,5 @@ ui-icon/car-front:
   tags: [vehicle, driving, transport, travel]
   aliases: [vehicle, automobile]
   status: draft
-  construction: stroke
+  construction: fill
   usage: Represents a passenger car or car travel.
