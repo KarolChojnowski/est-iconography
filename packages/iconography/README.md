@@ -14,21 +14,21 @@ It does not contain catalogue layouts, search behaviour or Jekyll-specific data.
 
 ## Current baseline
 
-Version `0.2.0` establishes the first approved construction baseline:
+Version `0.3.0` establishes the first approved production-migration baseline:
 
 - fill-based, single-colour SVG assets using `currentColor`
-- four approved Bootstrap UI-icon imports
-- four approved EST UI icons
+- twenty approved UI icons: thirteen EST-authored assets and seven curated Bootstrap imports
 - four approved EST Icons
+- complete canonical decisions for the sixteen-icon legacy Design System collection
 - generated individual SVGs, family sprites and a versioned manifest
 
-New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
+All current assets are approved stable contracts. New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
 
 ## Legacy migration
 
 The [legacy Design System icon audit](docs/legacy-design-system-audit.md) records the complete source inventory and the canonical migrate, consolidate or replace decision for every legacy asset.
 
-Migrated EST artwork enters as draft and is not treated as a stable package contract until the catalogue review and approval decision are explicit. Generic legacy symbols use curated Bootstrap imports with exact upstream version and MIT licence metadata rather than duplicated EST artwork.
+Migrated EST artwork was reviewed in the catalogue and approved for `v0.3.0`. Generic legacy symbols use curated Bootstrap imports with exact upstream version and MIT licence metadata rather than duplicated EST artwork.
 
 ## Contributing
 
