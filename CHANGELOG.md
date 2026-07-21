@@ -10,6 +10,7 @@ All notable changes to the EST iconography library are recorded here.
 - A pull-request template for artwork, metadata, rename, deprecation, third-party, tooling and release changes.
 - A complete audit of the sixteen legacy Design System icons and their migration, consolidation or replacement decisions.
 - Nine draft EST UI icons for property, building-fabric, household, energy and savings concepts.
+- Three approved Bootstrap UI icons replacing generic legacy information, data-visualisation and computer-display artwork.
 
 ## [0.2.0] — 2026-07-21
 

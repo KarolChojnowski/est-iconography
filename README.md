@@ -106,7 +106,7 @@ Version `0.2.0` is the first approved construction baseline. It contains:
 
 New EST assets should enter as drafts and be approved only after review at their intended display size.
 
-Unreleased migration work adds nine draft UI icons from the legacy EST Design System collection. The complete sixteen-asset source inventory and each migrate, consolidate or replace decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
+Unreleased migration work adds nine draft EST UI icons and three approved Bootstrap replacements for generic legacy symbols. The complete sixteen-asset source inventory and each migrate, consolidate or replace decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
 ## Contributing
 
