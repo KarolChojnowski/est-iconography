@@ -6,7 +6,10 @@
     <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ site.description }}">
     <link rel="stylesheet" href="{{ '/assets/css/catalogue.css' | relative_url }}">
-    {% if page.iconography_styles %}<link rel="stylesheet" href="{{ '/assets/generated/styles/est-iconography.css' | relative_url }}">{% endif %}
+    {% if page.iconography_styles %}
+      <link rel="stylesheet" href="{{ '/assets/generated/styles/est-iconography.css' | relative_url }}">
+      <link rel="stylesheet" href="{{ '/assets/css/implementation.css' | relative_url }}">
+    {% endif %}
   </head>
   <body>
     <header class="site-header">
