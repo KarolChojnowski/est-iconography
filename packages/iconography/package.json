@@ -9,7 +9,9 @@
     "clean": "node scripts/clean.mjs",
     "validate": "node scripts/build-assets.mjs --validate-only",
     "build": "node scripts/build-assets.mjs",
-    "test": "npm run validate"
+    "bundle": "npm run build && node scripts/build-bundle.mjs",
+    "test:bundle": "node scripts/test-bundle.mjs",
+    "test": "npm run validate && npm run build && npm run test:bundle"
   },
   "devDependencies": {
     "ajv": "8.20.0",

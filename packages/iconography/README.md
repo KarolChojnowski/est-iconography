@@ -9,8 +9,9 @@ It owns:
 - construction and naming rules
 - SVG validation and optimisation
 - individual SVG, sprite and manifest generation
+- selected-asset bundle generation
 
-It does not contain catalogue layouts, search behaviour or Jekyll-specific data. The package writes only to its own `dist/` directory.
+It does not contain catalogue layouts, search behaviour or Jekyll-specific data. The package writes its full generated distribution only to its own `dist/` directory.
 
 ## Current baseline
 
@@ -50,7 +51,48 @@ Or run within this package:
 ```bash
 npm run validate
 npm run build
+npm test
 ```
+
+## Selected bundles
+
+Projects can create a portable distribution containing only the assets they use. Pass canonical IDs rather than filenames:
+
+```bash
+npm run bundle:iconography -- \
+  --out ./build/harp-iconography \
+  ui-icon/check-circle \
+  ui-icon/property-information \
+  icon/heat-pump
+```
+
+The command rebuilds the authoritative package first, then writes:
+
+```text
+build/harp-iconography/
+├── .est-iconography-bundle
+├── svg/
+│   ├── ui-icons/
+│   └── icons/
+├── sprites/
+│   ├── est-ui-icons.svg
+│   └── est-icons.svg
+├── manifest/
+│   └── assets.json
+└── licenses/
+```
+
+The subset keeps the same relative paths, sprite IDs and manifest fields as the complete distribution. A family sprite is included only when that family was selected. The Bootstrap Icons MIT licence is included only when the bundle contains Bootstrap assets; the EST proprietary asset notice is always included.
+
+The builder fails on unknown or duplicate canonical IDs. It can safely rebuild a directory it previously created, but refuses to erase a non-empty directory that does not contain its `.est-iconography-bundle` marker.
+
+Run the package-local command when working inside `packages/iconography`:
+
+```bash
+npm run bundle -- --out ./iconography-bundle ui-icon/house icon/kettle
+```
+
+Use `--help` to show the command syntax.
 
 ## Output contract
 
