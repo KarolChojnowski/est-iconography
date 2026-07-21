@@ -15,15 +15,17 @@ It does not contain catalogue layouts, search behaviour or Jekyll-specific data.
 
 ## Current baseline
 
-Version `0.3.0` establishes the first approved production-migration baseline:
+Version `0.4.0` retains the approved `0.3.0` asset baseline and adds adoption tooling:
 
 - fill-based, single-colour SVG assets using `currentColor`
 - twenty approved UI icons: thirteen EST-authored assets and seven curated Bootstrap imports
 - four approved EST Icons
 - complete canonical decisions for the sixteen-icon legacy Design System collection
 - generated individual SVGs, family sprites and a versioned manifest
+- project-specific subset generation from canonical IDs or selection JSON
+- framework-independent accessible implementation guidance
 
-All current assets are approved stable contracts. New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
+All current assets remain approved stable contracts. No artwork, canonical IDs or represented meanings change in `0.4.0`. New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
 
 ## Legacy migration
 
@@ -71,7 +73,7 @@ The catalogue selection tray can also download a reusable JSON file:
 ```json
 {
   "formatVersion": 1,
-  "libraryVersion": "0.3.0",
+  "libraryVersion": "0.4.0",
   "assetIds": [
     "ui-icon/check-circle",
     "ui-icon/property-information",
@@ -85,7 +87,7 @@ Build directly from that selection:
 ```bash
 npm run bundle:iconography -- \
   --out ./build/harp-iconography \
-  --selection ./est-iconography-selection-v0.3.0.json
+  --selection ./est-iconography-selection-v0.4.0.json
 ```
 
 Use either positional canonical IDs or `--selection`, not both. A selection exported from a different library version is accepted with a warning; unknown or removed canonical IDs still fail validation.
@@ -158,6 +160,8 @@ The package remains private and is not published to npm. Repository tags matchin
 - the UI-icon sprite
 - the Icon sprite
 - the generated asset manifest
+
+Release notes come from the matching `CHANGELOG.md` section. Follow the repository-level [release guide](../../RELEASING.md), especially when creating an older release after later commits have reached `main`.
 
 ## Licensing
 

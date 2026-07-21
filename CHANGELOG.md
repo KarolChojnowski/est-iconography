@@ -4,6 +4,8 @@ All notable changes to the EST iconography library are recorded here.
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-07-21
+
 ### Added
 
 - A selected-asset bundle command that generates project-specific individual SVGs, filtered family sprites, a filtered manifest and the required licence notices from canonical asset IDs.
@@ -12,6 +14,12 @@ All notable changes to the EST iconography library are recorded here.
 - Downloadable, versioned selection JSON files that can be consumed directly by the bundle builder through `--selection`.
 - Canonical accessibility guidance for decorative, informative, interactive and status-message icon contexts.
 - Copy-ready accessible implementation examples in the catalogue and on every asset detail page.
+- A repeatable release guide covering normal, historical and failed release scenarios.
+
+### Changed
+
+- Release automation now publishes the matching curated changelog section rather than automatically generated GitHub notes.
+- Release validation now confirms that the package version has a non-empty changelog section before a release is tagged.
 
 ## [0.3.0] — 2026-07-21
 
