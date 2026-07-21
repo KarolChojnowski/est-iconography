@@ -106,6 +106,12 @@ Version `0.2.0` is the first approved construction baseline. It contains:
 
 New EST assets should enter as drafts and be approved only after review at their intended display size.
 
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding or changing an asset. It defines canonical naming, source and metadata requirements, actual-size review, approval states, compatibility rules and semantic versioning.
+
+Approved canonical IDs are stable consumer contracts. Use the pull-request template to identify the change type, record visual evidence and make the intended approval decision explicit.
+
 ## Releases
 
 The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.2.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
@@ -133,6 +139,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 
 ## Documentation
 
+- [Contribution guide](CONTRIBUTING.md)
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
 - [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
