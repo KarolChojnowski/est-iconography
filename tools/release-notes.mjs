@@ -41,7 +41,7 @@ function extractVersionSection(changelog, version) {
   if (!match) throw new Error(`CHANGELOG.md does not contain a ${version} release section.`);
 
   const remainder = changelog.slice(match.index + match[0].length);
-  const nextHeadingIndex = remainder.search(/^## \\[/m);
+  const nextHeadingIndex = remainder.search(/^## \[/m);
   const section = (nextHeadingIndex === -1 ? remainder : remainder.slice(0, nextHeadingIndex)).trim();
   if (!section) throw new Error(`CHANGELOG.md release section ${version} is empty.`);
 
