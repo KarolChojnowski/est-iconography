@@ -50,5 +50,5 @@ jobs:
       - name: Verify catalogue selection hooks
         run: |
           grep -q 'data-selection-tray' _site/index.html
-          grep -q 'data-select-asset' _site/index.html
+          grep -q 'js-select-asset' _site/index.html
           grep -q 'asset-manifest' _site/index.html
