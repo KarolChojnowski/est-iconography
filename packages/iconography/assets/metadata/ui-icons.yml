@@ -65,7 +65,7 @@ ui-icon/kettle:
   tags: [kitchen, appliance, electricity, hot water, boiling]
   aliases: [electric kettle]
   status: draft
-  construction: stroke
+  construction: fill
   usage: Represents a domestic electric kettle.
 
 ui-icon/condensing-boiler:
@@ -76,7 +76,7 @@ ui-icon/condensing-boiler:
   tags: [boiler, heating, gas, hot water, appliance]
   aliases: [boiler, gas boiler]
   status: draft
-  construction: stroke
+  construction: fill
   usage: Represents a domestic condensing boiler.
   avoid: Do not use as a generic symbol for all heating systems.
 
@@ -88,7 +88,7 @@ ui-icon/co2:
   tags: [carbon, emissions, carbon dioxide, greenhouse gas]
   aliases: [co2, carbon dioxide, emissions]
   status: draft
-  construction: stroke
+  construction: fill
   usage: Represents carbon dioxide or carbon emissions.
   note: Letterforms are vector paths; the SVG must not contain live text.
 

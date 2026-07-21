@@ -29,7 +29,14 @@ async function listSvgFiles(dir) {
 function svgAttributes(svg) {
   const open = svg.match(/<svg\b([^>]*)>/i)?.[1] ?? '';
   const attr = (name) => open.match(new RegExp(`${name}=["']([^"']+)["']`, 'i'))?.[1];
-  return { viewBox: attr('viewBox'), fill: attr('fill'), stroke: attr('stroke'), strokeWidth: attr('stroke-width') };
+  return {
+    viewBox: attr('viewBox'),
+    fill: attr('fill'),
+    stroke: attr('stroke'),
+    strokeWidth: attr('stroke-width'),
+    strokeLinecap: attr('stroke-linecap'),
+    strokeLinejoin: attr('stroke-linejoin')
+  };
 }
 
 function unsafeMarkup(svg) {
@@ -44,6 +51,20 @@ function hardCodedColours(svg) {
 
 function innerSvg(svg) {
   return svg.replace(/^.*?<svg\b[^>]*>/is, '').replace(/<\/svg>\s*$/is, '').trim();
+}
+
+function symbolPresentationAttributes(svg) {
+  const attributes = svgAttributes(svg);
+  return [
+    ['fill', attributes.fill],
+    ['stroke', attributes.stroke],
+    ['stroke-width', attributes.strokeWidth],
+    ['stroke-linecap', attributes.strokeLinecap],
+    ['stroke-linejoin', attributes.strokeLinejoin]
+  ]
+    .filter(([, value]) => value)
+    .map(([name, value]) => `${name}="${value}"`)
+    .join(' ');
 }
 
 const schema = JSON.parse(await readFile(path.join(root, 'schema/asset.schema.json'), 'utf8'));
@@ -84,10 +105,12 @@ for (const family of families) {
     if (unsafeMarkup(svg)) fail(id, 'Contains disallowed or unsafe SVG markup');
     const colours = hardCodedColours(svg);
     if (colours.length) fail(id, `Contains hard-coded colour values: ${[...new Set(colours)].join(', ')}`);
-    if (source === 'est' && item.construction === 'stroke') {
-      if (attributes.stroke?.toLowerCase() !== 'currentcolor') fail(id, 'EST stroke assets must set stroke="currentColor" on the root SVG');
-      if (attributes.strokeWidth !== '1') fail(id, 'EST stroke assets must use a 1-unit root stroke');
-      if (attributes.fill?.toLowerCase() !== 'none') fail(id, 'EST stroke assets must set fill="none" on the root SVG');
+    if (item.construction === 'fill') {
+      if (attributes.fill?.toLowerCase() !== 'currentcolor') fail(id, 'Fill assets must set fill="currentColor" on the root SVG');
+      if (attributes.stroke && attributes.stroke.toLowerCase() !== 'none') fail(id, 'Fill assets must not define a visible root stroke');
+    }
+    if (source === 'est' && item.construction !== 'fill') {
+      fail(id, 'EST-authored assets must use fill construction');
     }
     if (source === 'bootstrap' && (!item.source_name || !item.source_version || !item.license)) {
       fail(id, 'Bootstrap assets require source_name, source_version and license metadata');
@@ -149,7 +172,11 @@ for (const asset of assets) {
 
 for (const family of families) {
   const familyAssets = assets.filter((asset) => asset.family === family.id);
-  const symbols = familyAssets.map((asset) => `  <symbol id="${asset.spriteId}" viewBox="${asset.viewBox}">\n    ${innerSvg(asset.optimizedSvg).replaceAll('\n', '\n    ')}\n  </symbol>`).join('\n');
+  const symbols = familyAssets.map((asset) => {
+    const presentation = symbolPresentationAttributes(asset.optimizedSvg);
+    const presentationSuffix = presentation ? ` ${presentation}` : '';
+    return `  <symbol id="${asset.spriteId}" viewBox="${asset.viewBox}"${presentationSuffix}>\n    ${innerSvg(asset.optimizedSvg).replaceAll('\n', '\n    ')}\n  </symbol>`;
+  }).join('\n');
   const sprite = `<svg xmlns="http://www.w3.org/2000/svg">\n${symbols}\n</svg>\n`;
   const output = path.join(root, 'dist/sprites', family.sprite);
   await mkdir(path.dirname(output), { recursive: true });
