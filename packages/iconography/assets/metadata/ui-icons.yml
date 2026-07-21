@@ -110,7 +110,7 @@ ui-icon/house:
   category: property
   tags: [house, home, property, building, dwelling]
   aliases: [home, property]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic property or home.
   avoid: Do not use when a specific property type is important to the meaning.
@@ -122,7 +122,7 @@ ui-icon/property-information:
   category: property
   tags: [property, information, details, data, home]
   aliases: [house info, home information, property details]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents information or details about a property.
   avoid: Do not use as a generic information icon without a property context.
@@ -134,7 +134,7 @@ ui-icon/roof:
   category: building-fabric
   tags: [roof, roofing, property, building fabric, home]
   aliases: [house roof, roofing]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a roof or roof-related building fabric.
 
@@ -145,7 +145,7 @@ ui-icon/property-maintenance:
   category: property
   tags: [maintenance, repair, renovation, retrofit, property]
   aliases: [house spanner, home repair, property repair]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents repair, maintenance or renovation work on a property.
   avoid: Do not use for a specific retrofit measure when a dedicated measure icon exists.
@@ -157,7 +157,7 @@ ui-icon/household:
   category: people
   tags: [household, resident, occupant, occupancy, home]
   aliases: [house person, resident, occupant]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a household, resident or property occupancy.
   avoid: Do not use for an individual user profile without a property context.
@@ -169,7 +169,7 @@ ui-icon/home-electricity:
   category: energy
   tags: [electricity, power, plug, home energy, property]
   aliases: [house power plug, domestic electricity]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents electricity supply or electricity use in a home.
   avoid: Do not use for a specific appliance or renewable technology.
@@ -181,7 +181,7 @@ ui-icon/flooring:
   category: building-fabric
   tags: [floor, flooring, property, building fabric, pattern]
   aliases: [floor pattern, floor covering]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents flooring or a floor-related building element.
   avoid: Do not use for floor insulation unless that meaning is clear from nearby content.
@@ -193,7 +193,7 @@ ui-icon/glazing:
   category: building-fabric
   tags: [glazing, window, glass, building fabric, property]
   aliases: [window, double glazing]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents windows or glazing as a building-fabric element.
   avoid: Do not imply a specific glazing performance or type without supporting text.
@@ -205,7 +205,7 @@ ui-icon/savings:
   category: finance
   tags: [savings, money, cost, finance, budget]
   aliases: [piggy bank, financial savings, cost saving]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents financial savings or money set aside.
   avoid: Do not use as evidence of guaranteed bill savings.
