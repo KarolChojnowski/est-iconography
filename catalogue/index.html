@@ -50,7 +50,7 @@ title: Catalogue
         </div>
         <div class="asset-card__body">
           <div class="asset-card__heading">
-            <h3>{{ asset.label }}</h3>
+            <h3><a href="{{ asset.detailPath | relative_url }}">{{ asset.label }}</a></h3>
             <span class="status status--{{ asset.status }}">{{ asset.status }}</span>
           </div>
           <code>{{ asset.id }}</code>
@@ -61,7 +61,7 @@ title: Catalogue
           </div>
           <div class="asset-card__actions">
             <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
-            <a class="button" href="{{ asset.svgPath | relative_url }}" download>Download</a>
+            <a class="button" href="{{ asset.detailPath | relative_url }}">View details</a>
           </div>
         </div>
       </article>
