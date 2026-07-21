@@ -1,21 +1,20 @@
-import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
+import { copyFile, readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import Ajv2020 from 'ajv/dist/2020.js';
 import { optimize } from 'svgo';
 
-const root = process.cwd();
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const validateOnly = process.argv.includes('--validate-only');
 const families = [
-  { id: 'ui-icon', metadata: 'assets/metadata/ui-icons.yml', sourceDir: 'assets/source/ui-icons', viewBox: '0 0 16 16', sprite: 'est-ui-icons.svg' },
-  { id: 'icon', metadata: 'assets/metadata/icons.yml', sourceDir: 'assets/source/icons', viewBox: '0 0 32 32', sprite: 'est-icons.svg' }
+  { id: 'ui-icon', metadata: 'assets/metadata/ui-icons.yml', sourceDir: 'assets/source/ui-icons', outputDir: 'ui-icons', viewBox: '0 0 16 16', sprite: 'est-ui-icons.svg' },
+  { id: 'icon', metadata: 'assets/metadata/icons.yml', sourceDir: 'assets/source/icons', outputDir: 'icons', viewBox: '0 0 32 32', sprite: 'est-icons.svg' }
 ];
 const errors = [];
 
-function fail(id, message) {
-  errors.push(`${id}: ${message}`);
-}
+function fail(id, message) { errors.push(`${id}: ${message}`); }
 
 async function listSvgFiles(dir) {
   const result = [];
@@ -52,10 +51,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: false });
 const validateMetadata = ajv.compile(schema);
 const assets = [];
 
-if (!validateOnly) {
-  await rm(path.join(root, 'assets/generated'), { recursive: true, force: true });
-  await rm(path.join(root, '_data/generated'), { recursive: true, force: true });
-}
+if (!validateOnly) await rm(path.join(root, 'dist'), { recursive: true, force: true });
 
 for (const family of families) {
   const metadata = yaml.load(await readFile(path.join(root, family.metadata), 'utf8')) ?? {};
@@ -64,7 +60,8 @@ for (const family of families) {
 
   for (const absolutePath of files) {
     const relativeToFamily = path.relative(path.join(root, family.sourceDir), absolutePath).replaceAll(path.sep, '/');
-    const [source, filename] = relativeToFamily.split('/');
+    const [source, ...filenameParts] = relativeToFamily.split('/');
+    const filename = filenameParts.join('/');
     const name = path.basename(filename, '.svg');
     const id = `${family.id}/${name}`;
     discoveredIds.add(id);
@@ -96,13 +93,9 @@ for (const family of families) {
       fail(id, 'Bootstrap assets require source_name, source_version and license metadata');
     }
 
-    const optimized = optimize(svg, {
-      path: absolutePath,
-      multipass: true,
-      plugins: ['preset-default', 'removeDimensions']
-    }).data;
+    const optimized = optimize(svg, { path: absolutePath, multipass: true, plugins: ['preset-default', 'removeDimensions'] }).data;
     const spriteId = family.id === 'ui-icon' ? `est-ui-icon-${name}` : `est-icon-${name}`;
-    const outputPath = `assets/generated/svg/${family.id}s/${source}/${name}.svg`;
+    const svgPath = `svg/${family.outputDir}/${source}/${name}.svg`;
     assets.push({
       id,
       name,
@@ -123,8 +116,8 @@ for (const family of families) {
       viewBox: family.viewBox,
       defaultSize: family.id === 'ui-icon' ? 16 : 48,
       spriteId,
-      svgPath: `/${outputPath}`,
-      spritePath: `/assets/generated/sprites/${family.sprite}`,
+      svgPath,
+      spritePath: `sprites/${family.sprite}`,
       optimizedSvg: optimized
     });
   }
@@ -149,7 +142,7 @@ if (validateOnly) {
 }
 
 for (const asset of assets) {
-  const output = path.join(root, asset.svgPath.slice(1));
+  const output = path.join(root, 'dist', asset.svgPath);
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, `${asset.optimizedSvg}\n`);
 }
@@ -158,17 +151,19 @@ for (const family of families) {
   const familyAssets = assets.filter((asset) => asset.family === family.id);
   const symbols = familyAssets.map((asset) => `  <symbol id="${asset.spriteId}" viewBox="${asset.viewBox}">\n    ${innerSvg(asset.optimizedSvg).replaceAll('\n', '\n    ')}\n  </symbol>`).join('\n');
   const sprite = `<svg xmlns="http://www.w3.org/2000/svg">\n${symbols}\n</svg>\n`;
-  const output = path.join(root, 'assets/generated/sprites', family.sprite);
+  const output = path.join(root, 'dist/sprites', family.sprite);
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, sprite);
 }
 
 const publicAssets = assets.map(({ optimizedSvg, ...asset }) => asset);
 const manifest = { libraryVersion: '0.1.0', assets: publicAssets };
-for (const output of ['assets/generated/manifests/assets.json', '_data/generated/assets.json']) {
-  const absolute = path.join(root, output);
-  await mkdir(path.dirname(absolute), { recursive: true });
-  await writeFile(absolute, `${JSON.stringify(manifest, null, 2)}\n`);
-}
+const manifestPath = path.join(root, 'dist/manifest/assets.json');
+await mkdir(path.dirname(manifestPath), { recursive: true });
+await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
-console.log(`Built ${assets.length} assets, 2 sprites and 1 manifest.`);
+const licenceOutput = path.join(root, 'dist/licenses');
+await mkdir(licenceOutput, { recursive: true });
+await copyFile(path.join(root, 'licenses/bootstrap-icons-MIT.txt'), path.join(licenceOutput, 'bootstrap-icons-MIT.txt'));
+
+console.log(`Built ${assets.length} assets, 2 sprites and 1 manifest in packages/iconography/dist.`);

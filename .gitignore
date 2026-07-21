@@ -1,7 +1,11 @@
-_site/
-.jekyll-cache/
-.sass-cache/
 node_modules/
 .DS_Store
-assets/generated/
-_data/generated/
+_site/
+packages/iconography/dist/
+catalogue/_site/
+catalogue/.jekyll-cache/
+catalogue/.sass-cache/
+catalogue/.bundle/
+catalogue/vendor/
+catalogue/assets/generated/
+catalogue/_data/generated/

@@ -22,18 +22,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --ignore-scripts
-      - run: npm run build:assets
+      - run: npm ci --ignore-scripts
+      - run: npm run build:iconography
+      - run: npm run prepare:catalogue
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
+          working-directory: catalogue
       - id: pages
         uses: actions/configure-pages@v5
-      - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+      - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --destination ../_site
+        working-directory: catalogue
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
   deploy:
     environment:
       name: github-pages

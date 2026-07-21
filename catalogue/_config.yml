@@ -4,11 +4,8 @@ url: ""
 baseurl: ""
 markdown: kramdown
 exclude:
-  - node_modules
-  - scripts
-  - schema
-  - package.json
-  - package-lock.json
-  - test
+  - Gemfile
+  - Gemfile.lock
   - README.md
-  - LICENSE
+  - LICENSE-NOTICE.md
+  - vendor
