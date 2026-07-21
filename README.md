@@ -13,10 +13,10 @@ The separation is based on a stable output contract rather than folder organisat
 
 | Family | Source canvas | Construction | Default display size |
 | --- | ---: | --- | ---: |
-| UI icons | 16×16 | Flattened fill paths with controlled negative space | 16px |
+| UI icons | 16×16 | Filled paths with clear negative space | 16px |
 | Icons | 32×32 | Filled silhouettes and cut-outs, normally within a 28×28 live area | 48px |
 
-All assets are single-colour and inherit colour through `fill="currentColor"`. EST-authored assets and curated Bootstrap imports share the same fill-based delivery model.
+All assets are single-colour and inherit colour through `fill="currentColor"`.
 
 ## Repository structure
 
@@ -96,13 +96,26 @@ Paths in the package manifest are relative to `dist/`. The catalogue adapter cop
 
 ## Current status
 
-The v0.1 construction test set contains:
+Version `0.2.0` is the first approved construction baseline. It contains:
 
 - four approved Bootstrap UI-icon imports
-- four draft EST UI icons
-- four draft EST Icons
+- four approved EST UI icons
+- four approved EST Icons
+- fill-based construction and actual-size approval rules
+- generated detail pages and visual review controls
 
-All twelve test assets now use fill-based SVG construction. EST artwork remains draft until the Design System team completes the visual review.
+New EST assets should enter as drafts and be approved only after review at their intended display size.
+
+## Releases
+
+The iconography package remains private and is not published to npm. Tags matching the package version, such as `v0.2.0`, trigger `.github/workflows/release.yml` and create a GitHub release containing:
+
+- `est-iconography-<version>.zip`
+- `est-ui-icons.svg`
+- `est-icons.svg`
+- `est-iconography-assets.json`
+
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Catalogue deployment
 
@@ -122,8 +135,9 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
-- [Test-set review](packages/iconography/docs/test-set-review.md)
+- [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
 - [Catalogue](catalogue/README.md)
+- [Changelog](CHANGELOG.md)
 
 ## Licensing
 
