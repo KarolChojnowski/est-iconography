@@ -41,6 +41,10 @@ jobs:
           cp packages/iconography/README.md "$PACKAGE_DIR/README.md"
           cp packages/iconography/LICENSE-NOTICE.md "$PACKAGE_DIR/LICENSE-NOTICE.md"
 
+          node tools/release-notes.mjs \
+            --version "$VERSION" \
+            --out release/notes.md
+
           (
             cd release
             zip -qr "est-iconography-${VERSION}.zip" "est-iconography-${VERSION}"
@@ -61,5 +65,5 @@ jobs:
             "release/est-icons.svg" \
             "release/est-iconography-assets.json" \
             --verify-tag \
-            --generate-notes \
+            --notes-file release/notes.md \
             --title "EST Iconography ${GITHUB_REF_NAME}"
