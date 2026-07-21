@@ -26,3 +26,14 @@ cd catalogue
 bundle install
 bundle exec jekyll serve
 ```
+
+## Generated asset pages
+
+`npm run prepare:catalogue` also creates one Jekyll page for every manifest entry:
+
+```text
+/ui-icons/<name>/
+/icons/<name>/
+```
+
+These pages are generated under `catalogue/ui-icons/` and `catalogue/icons/`, are excluded from Git, and must not be edited directly. Their presentation is owned by `_layouts/asset.html`.
