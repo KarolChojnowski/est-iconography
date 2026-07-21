@@ -4,13 +4,22 @@ All notable changes to the EST iconography library are recorded here.
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-07-21
+
 ### Added
 
 - Contribution guidance covering asset naming, source and metadata changes, actual-size review, approval states, compatibility and semantic versioning.
 - A pull-request template for artwork, metadata, rename, deprecation, third-party, tooling and release changes.
 - A complete audit of the sixteen legacy Design System icons and their migration, consolidation or replacement decisions.
-- Nine draft EST UI icons for property, building-fabric, household, energy and savings concepts.
-- Three approved Bootstrap UI icons replacing generic legacy information, data-visualisation and computer-display artwork.
+- Nine EST UI icons for property, building-fabric, household, energy and savings concepts.
+- Three curated Bootstrap UI icons replacing generic legacy information, data-visualisation and computer-display artwork.
+
+### Changed
+
+- Approved the nine migrated EST UI icons after catalogue review.
+- Normalised legacy implementation-era names into reusable canonical concepts while retaining old names as aliases.
+- Consolidated the legacy heating-boiler concept into `ui-icon/condensing-boiler` rather than adding a near-duplicate.
+- Completed the legacy collection migration with all 24 library assets approved.
 
 ## [0.2.0] — 2026-07-21
 
