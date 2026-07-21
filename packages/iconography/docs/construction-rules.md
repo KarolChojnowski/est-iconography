@@ -1,6 +1,6 @@
-# Construction rules — fill-based test baseline
+# Construction rules — v0.2 baseline
 
-These rules remain provisional until the twelve-asset test set has been reviewed at actual size, but the construction model is now settled: both EST-authored assets and curated Bootstrap imports use fill-based SVG paths.
+These rules define the approved construction baseline for EST UI icons and Icons. Both EST-authored assets and curated Bootstrap imports use fill-based SVG paths.
 
 ## Shared construction model
 
@@ -9,7 +9,7 @@ These rules remain provisional until the twelve-asset test set has been reviewed
 - Shapes may use multiple filled paths or compound paths with `fill-rule="evenodd"` to create controlled negative space.
 - Avoid hard-coded colours, live text, embedded bitmaps, unnecessary masks, scripts and external references.
 - Judge assets by rendered optical weight and legibility, not by path count or geometric uniformity.
-- Details that close, merge or blur at the intended display size should be simplified or removed.
+- Details that close, merge or blur at the intended display size must be simplified or removed.
 
 ## UI icons
 
@@ -31,6 +31,11 @@ These rules remain provisional until the twelve-asset test set has been reviewed
 - Preserve more descriptive detail than the UI-icon family, but remove features that do not remain clear at 48px.
 - Matching concepts across the two families should feel related without simply scaling the same drawing.
 
-## Review threshold
+## Approval threshold
 
-No EST test asset should be marked `approved` until the family has been reviewed at actual size and the construction rules have been amended to reflect the findings.
+- New EST assets enter the library with `status: draft`.
+- Review UI icons at 16px and Icons at 48px before approval.
+- Compare optical weight beside nearby approved assets and relevant Bootstrap imports.
+- Confirm the metaphor, name, usage guidance and negative space remain clear at actual size.
+- Change the metadata to `status: approved` only after the visual review is complete.
+- Material artwork changes to an approved asset require another actual-size review.
