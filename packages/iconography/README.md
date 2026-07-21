@@ -9,6 +9,7 @@ It owns:
 - construction and naming rules
 - SVG validation and optimisation
 - individual SVG, sprite and manifest generation
+- optional implementation-helper CSS
 - selected-asset bundle generation
 
 It does not contain catalogue layouts, search behaviour or Jekyll-specific data. The package writes its full generated distribution only to its own `dist/` directory.
@@ -26,6 +27,8 @@ Version `0.4.0` retains the approved `0.3.0` asset baseline and adds adoption to
 - framework-independent accessible implementation guidance
 
 All current assets remain approved stable contracts. No artwork, canonical IDs or represented meanings change in `0.4.0`. New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
+
+Unreleased implementation helpers add an optional zero-specificity stylesheet without changing the approved asset contract.
 
 ## Legacy migration
 
@@ -103,12 +106,14 @@ build/harp-iconography/
 ├── sprites/
 │   ├── est-ui-icons.svg
 │   └── est-icons.svg
+├── styles/
+│   └── est-iconography.css
 ├── manifest/
 │   └── assets.json
 └── licenses/
 ```
 
-The subset keeps the same relative paths, sprite IDs and manifest fields as the complete distribution. A family sprite is included only when that family was selected. The Bootstrap Icons MIT licence is included only when the bundle contains Bootstrap assets; the EST proprietary asset notice is always included.
+The subset keeps the same relative SVG, sprite, stylesheet and manifest paths as the complete distribution. A family sprite is included only when that family was selected. The Bootstrap Icons MIT licence is included only when the bundle contains Bootstrap assets; the EST proprietary asset notice is always included.
 
 The builder fails on unknown or duplicate canonical IDs. It can safely rebuild a directory it previously created, but refuses to erase a non-empty directory that does not contain its `.est-iconography-bundle` marker.
 
@@ -119,6 +124,33 @@ npm run bundle -- --out ./iconography-bundle ui-icon/house icon/kettle
 ```
 
 Use `--help` to show the command syntax.
+
+## Implementation helpers
+
+The generated `styles/est-iconography.css` file is optional. It supplies low-specificity utilities for:
+
+- predictable SVG sizing
+- baseline or block alignment
+- icon-and-text composition
+- icon-only control centring and a 44px minimum target
+
+Load it once from the copied release or bundle:
+
+```html
+<link rel="stylesheet" href="/assets/iconography/styles/est-iconography.css">
+```
+
+Use the base class with a family sprite:
+
+```html
+<svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
+  <use href="/assets/iconography/sprites/est-ui-icons.svg#est-ui-icon-house"></use>
+</svg>
+```
+
+The helper uses `:where()` selectors so product styles can override it without specificity escalation. Products may implement equivalent rules in their own design system instead.
+
+Read [the implementation guide](docs/implementation.md) for sizing, alignment, colour, text, controls and delivery guidance. The catalogue publishes the same patterns as rendered examples.
 
 ## Accessible implementation
 
@@ -145,12 +177,14 @@ dist/
 ├── sprites/
 │   ├── est-ui-icons.svg
 │   └── est-icons.svg
+├── styles/
+│   └── est-iconography.css
 ├── manifest/
 │   └── assets.json
 └── licenses/
 ```
 
-Files under `dist/` are generated and must not be edited manually. The manifest `libraryVersion` is derived from this package's `package.json` version.
+Files under `dist/` are generated and must not be edited manually. The manifest `libraryVersion` is derived from this package's `package.json` version. The optional stylesheet is generated from `styles/est-iconography.css` and is included unchanged in complete and selected distributions.
 
 ## Releases
 
