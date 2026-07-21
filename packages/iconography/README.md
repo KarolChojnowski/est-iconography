@@ -24,6 +24,12 @@ Version `0.2.0` establishes the first approved construction baseline:
 
 New EST artwork should begin with `status: draft` and follow the actual-size review defined in `docs/construction-rules.md`.
 
+## Contributing
+
+Use the repository-level [contribution guide](../../CONTRIBUTING.md) for naming, SVG construction, metadata, compatibility and approval rules.
+
+Source artwork and metadata must be changed together. Do not edit files under `dist/`; they are rebuilt from the authoritative sources.
+
 ## Commands
 
 Run from the repository root:
