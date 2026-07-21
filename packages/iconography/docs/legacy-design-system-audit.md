@@ -20,9 +20,9 @@ The legacy directory contains sixteen 16×16 fill-based SVG assets. The audit av
 | `co2` | Already represented | `ui-icon/co2` | Included and approved in the v0.2 baseline. |
 | `kettle` | Already represented | `ui-icon/kettle` | Included and approved in the v0.2 baseline. |
 | `heating-boiler` | Consolidate | `ui-icon/condensing-boiler` | The existing approved boiler asset covers the intended domestic-boiler concept; a second near-duplicate is not imported. |
-| `info-circle` | Prefer Bootstrap | Future curated `info-circle` import | A generic interface symbol should use an established upstream asset rather than EST-specific artwork. |
-| `pie-chart` | Prefer Bootstrap | Future curated `pie-chart-fill` import | A generic data-visualisation symbol does not require custom EST artwork. |
-| `pc-display` | Prefer Bootstrap | Future curated `display` import | A generic computer-display symbol does not require custom EST artwork. |
+| `info-circle` | Replace with Bootstrap | `ui-icon/info-circle` | A generic interface symbol uses the approved Bootstrap Icons `info-circle` asset rather than EST-specific artwork. |
+| `pie-chart` | Replace with Bootstrap | `ui-icon/pie-chart-fill` | A generic data-visualisation symbol uses the approved Bootstrap Icons `pie-chart-fill` asset. |
+| `pc-display` | Replace with Bootstrap | `ui-icon/display` | A generic computer-display symbol uses the approved Bootstrap Icons `display` asset. |
 | `house` | Migrate as draft | `ui-icon/house` | The literal object name is clear and broadly useful. |
 | `house-info` | Migrate and rename | `ui-icon/property-information` | The canonical name describes the property-information concept rather than the overlaid shapes. |
 | `house-roof` | Migrate and rename | `ui-icon/roof` | The represented object is a roof; the house prefix is unnecessary. |
@@ -70,14 +70,16 @@ They are not stable production contracts until they have been reviewed in the ca
 - Confirm that `savings` communicates financial savings without implying a guaranteed outcome.
 - Validate the canonical names and Figma names before approval.
 
-## Deferred follow-up
+## Bootstrap replacement batch
 
-A separate curated-import change should evaluate Bootstrap Icons for:
+The three generic legacy symbols are represented by curated Bootstrap Icons `v1.13.1` imports:
 
 ```text
-info-circle
-pie-chart-fill
-display
+ui-icon/info-circle      source: info-circle
+ui-icon/pie-chart-fill   source: pie-chart-fill
+ui-icon/display          source: display
 ```
 
-Those imports should record exact upstream version and MIT licence metadata and should not copy the legacy EST versions.
+These assets are approved because they retain the established upstream artwork and record exact source-version and MIT licence metadata. Their source roots are normalised for this repository by removing Bootstrap CSS classes while preserving the upstream path data.
+
+The legacy EST versions are not copied into the governed library, preventing duplicate generic concepts and reducing custom artwork maintenance.
