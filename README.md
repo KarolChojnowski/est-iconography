@@ -96,6 +96,19 @@ The bundle contains only the selected individual SVGs, filtered family sprites, 
 
 The command rejects unknown or duplicate IDs and refuses to erase unrelated non-empty directories. See the [package documentation](packages/iconography/README.md#selected-bundles) for the full output contract and package-local command.
 
+## Accessible implementation
+
+The product context determines whether an SVG is decorative, informative, part of a control or part of a status message. The artwork and canonical ID do not automatically provide an accessible name.
+
+As a default:
+
+- hide icons from assistive technology when visible text or a containing control already communicates the meaning
+- give standalone informative SVGs `role="img"` and a contextual accessible name
+- put accessible names on icon-only buttons and links, not on their child SVGs
+- keep visible text for warning, error, success and other important states
+
+See the [canonical accessibility guidance](packages/iconography/docs/accessibility.md) and the copy-ready [catalogue accessibility guide](https://karolchojnowski.github.io/est-iconography/accessibility/).
+
 ## Output contract
 
 `packages/iconography/dist/` contains portable package outputs:
@@ -121,6 +134,8 @@ Version `0.3.0` is the first approved production-migration release. It contains:
 - contribution governance, generated detail pages and visual review controls
 
 All 24 current assets are approved stable contracts. New EST assets should still enter as drafts and be approved only after review at their intended display size.
+
+Unreleased adoption tooling adds project-specific bundles, catalogue selection and accessible implementation guidance without changing the approved asset contract.
 
 The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
@@ -160,6 +175,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 - [Contribution guide](CONTRIBUTING.md)
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
+- [Accessibility guidance](packages/iconography/docs/accessibility.md)
 - [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
 - [Legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md)
 - [Catalogue](catalogue/README.md)
