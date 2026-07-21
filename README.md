@@ -104,6 +104,20 @@ The v0.1 construction test set contains:
 
 EST artwork remains draft until the Design System team completes the visual construction review.
 
+## Catalogue deployment
+
+The catalogue deploys through the custom GitHub Actions workflow in `.github/workflows/pages.yml`.
+
+Before the first deployment, enable GitHub Pages once for the repository:
+
+1. Open **Settings**.
+2. Select **Pages** under **Code and automation**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+
+After that setting is saved, rerun the failed **Deploy catalogue** workflow or trigger it manually from the Actions tab.
+
+The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that has never had a Pages site. Automatic enablement would require a separate token with elevated repository administration and Pages permissions, so the one-time manual setting is intentionally preferred.
+
 ## Documentation
 
 - [Iconography package](packages/iconography/README.md)
@@ -113,4 +127,6 @@ EST artwork remains draft until the Design System team completes the visual cons
 
 ## Licensing
 
-No general licence has yet been declared for EST-authored assets or catalogue code. See the licence notices in each part of the repository. Imported Bootstrap Icons retain their MIT licence.
+EST-authored UI icons and Icons are proprietary assets owned by Energy Saving Trust and are intended for EST use only. Public repository visibility does not grant permission to copy, modify, redistribute or use them outside EST-owned or expressly authorised work.
+
+Imported Bootstrap Icons retain their MIT licence. No general licence has yet been declared for the catalogue code. See the licence notices in each part of the repository for the detailed boundaries.

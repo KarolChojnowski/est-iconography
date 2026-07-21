@@ -30,11 +30,14 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
           working-directory: catalogue
-      - id: pages
+      # One-time repository prerequisite:
+      # Settings → Pages → Build and deployment → Source: GitHub Actions.
+      - name: Configure GitHub Pages
+        id: pages
         uses: actions/configure-pages@v5
       - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --destination ../_site
         working-directory: catalogue
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 

@@ -44,3 +44,9 @@ dist/
 ```
 
 Files under `dist/` are generated and must not be edited manually.
+
+## Licensing
+
+EST-authored UI icons and Icons are proprietary assets owned by Energy Saving Trust and are intended for EST use only. Public repository visibility does not grant permission for external reuse, modification or redistribution.
+
+Imported Bootstrap Icons retain their MIT licence. See [the proprietary asset notice](LICENSE-NOTICE.md) for the full boundary between EST and third-party assets.

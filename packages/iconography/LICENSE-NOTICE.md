@@ -1,7 +1,19 @@
-# Licence notice
+# Proprietary asset notice
 
-No general licence has yet been granted for EST-authored iconography in this package. Public repository visibility does not by itself grant permission to copy, modify or redistribute those assets.
+Copyright © Energy Saving Trust. All rights reserved.
 
-Imported Bootstrap Icons remain subject to the Bootstrap Icons MIT licence in `licenses/bootstrap-icons-MIT.txt` and the copied notice under `dist/licenses/`.
+## EST-authored assets
 
-A definitive licence for EST-authored assets must be agreed before this package is published for external reuse.
+The UI icons and Icons authored by Energy Saving Trust are proprietary assets intended for EST use only. This includes:
+
+- EST SVG source files under `assets/source/**/est/`
+- the associated EST visual designs and metadata
+- generated SVGs, sprites and other derivatives of those assets under `dist/`
+
+Public access to this repository does not grant a licence to copy, modify, redistribute, sublicense or use these assets outside Energy Saving Trust.
+
+The assets may be used in EST-owned products and services, or in work expressly authorised by Energy Saving Trust. Any other use requires prior written permission from Energy Saving Trust.
+
+## Third-party assets
+
+Imported Bootstrap Icons are not covered by the proprietary terms above. They remain subject to the Bootstrap Icons MIT licence in `licenses/bootstrap-icons-MIT.txt` and the copied notice under `dist/licenses/`.
