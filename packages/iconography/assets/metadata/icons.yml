@@ -7,7 +7,7 @@ icon/heat-pump:
   category: heating
   tags: [heating, renewable energy, low carbon, home]
   aliases: [air source heat pump, ASHP]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic outdoor heat-pump unit.
 
@@ -18,7 +18,7 @@ icon/washing-machine:
   category: appliance
   tags: [laundry, appliance, electricity, efficiency]
   aliases: [washer, clothes washer]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic washing machine.
 
@@ -29,7 +29,7 @@ icon/kettle:
   category: appliance
   tags: [kitchen, appliance, electricity, hot water, boiling]
   aliases: [electric kettle]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents a domestic electric kettle with more detail than the UI-icon version.
 
@@ -40,7 +40,7 @@ icon/light-bulb:
   category: lighting
   tags: [light, lighting, electricity, efficiency, idea]
   aliases: [bulb, lamp]
-  status: draft
+  status: approved
   construction: fill
   usage: Represents domestic lighting or an energy-saving light bulb.
   avoid: Avoid using it as a generic idea symbol when the context is specifically energy use.
