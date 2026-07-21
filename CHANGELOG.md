@@ -10,6 +10,8 @@ All notable changes to the EST iconography library are recorded here.
 - The same `styles/est-iconography.css` path in complete distributions and selected bundles.
 - Canonical implementation guidance and a rendered catalogue guide with copy-ready sprite, sizing, colour and control patterns.
 - Style-source validation and bundle tests covering the generated helper stylesheet.
+- An executable vanilla HTML consumer built from a checked-in selection file and the production bundle command.
+- A consumer smoke test covering manifests, individual SVGs, external sprite symbols, helper CSS and accessibility attributes.
 
 ## [0.4.0] — 2026-07-21
 
