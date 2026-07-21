@@ -13,10 +13,10 @@ The separation is based on a stable output contract rather than folder organisat
 
 | Family | Source canvas | Construction | Default display size |
 | --- | ---: | --- | ---: |
-| UI icons | 16×16 | 1-unit stroke for EST originals; curated Bootstrap imports retain native paths | 16px |
-| Icons | 32×32 | 1-unit stroke, normally within a 28×28 live area | 48px |
+| UI icons | 16×16 | Flattened fill paths with controlled negative space | 16px |
+| Icons | 32×32 | Filled silhouettes and cut-outs, normally within a 28×28 live area | 48px |
 
-All assets are single-colour and inherit colour through `currentColor`.
+All assets are single-colour and inherit colour through `fill="currentColor"`. EST-authored assets and curated Bootstrap imports share the same fill-based delivery model.
 
 ## Repository structure
 
@@ -102,7 +102,7 @@ The v0.1 construction test set contains:
 - four draft EST UI icons
 - four draft EST Icons
 
-EST artwork remains draft until the Design System team completes the visual construction review.
+All twelve test assets now use fill-based SVG construction. EST artwork remains draft until the Design System team completes the visual review.
 
 ## Catalogue deployment
 
