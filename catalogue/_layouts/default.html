@@ -6,6 +6,10 @@
     <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ site.description }}">
     <link rel="stylesheet" href="{{ '/assets/css/catalogue.css' | relative_url }}">
+    {% if page.iconography_styles %}
+      <link rel="stylesheet" href="{{ '/assets/generated/styles/est-iconography.css' | relative_url }}">
+      <link rel="stylesheet" href="{{ '/assets/css/implementation.css' | relative_url }}">
+    {% endif %}
   </head>
   <body>
     <header class="site-header">
@@ -13,6 +17,7 @@
         <a class="site-title" href="{{ '/' | relative_url }}">EST Iconography</a>
         <nav class="site-nav" aria-label="Primary">
           <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Catalogue</a>
+          <a href="{{ '/implementation/' | relative_url }}"{% if page.url == '/implementation/' %} aria-current="page"{% endif %}>Implementation</a>
           <a href="{{ '/accessibility/' | relative_url }}"{% if page.url == '/accessibility/' %} aria-current="page"{% endif %}>Accessibility</a>
         </nav>
         <span class="site-status">v{{ site.data.generated.assets.libraryVersion }}</span>

@@ -20,6 +20,11 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run validate:iconography
       - run: npm run build:iconography
+      - name: Verify helper stylesheet output
+        run: |
+          test -s packages/iconography/dist/styles/est-iconography.css
+          grep -q ':where(.est-icon)' packages/iconography/dist/styles/est-iconography.css
+          grep -q 'fill: currentColor' packages/iconography/dist/styles/est-iconography.css
       - name: Verify deterministic output
         run: |
           cp -R packages/iconography/dist /tmp/iconography-dist
@@ -66,3 +71,11 @@ jobs:
           grep -q 'role="status"' _site/accessibility/index.html
           grep -q 'Accessible implementation' _site/ui-icons/check-circle/index.html
           grep -q 'decorative-usage-example' _site/ui-icons/check-circle/index.html
+      - name: Verify catalogue implementation guide
+        run: |
+          test -s _site/assets/generated/styles/est-iconography.css
+          grep -q 'Implement iconography consistently' _site/implementation/index.html
+          grep -q 'est-icon--16' _site/implementation/index.html
+          grep -q 'est-icon-text' _site/implementation/index.html
+          grep -q 'est-icon-button' _site/implementation/index.html
+          grep -q '/assets/generated/styles/est-iconography.css' _site/implementation/index.html

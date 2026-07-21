@@ -7,9 +7,9 @@
   "type": "module",
   "scripts": {
     "clean": "node scripts/clean.mjs",
-    "validate": "node scripts/build-assets.mjs --validate-only",
-    "build": "node scripts/build-assets.mjs",
-    "bundle": "npm run build && node scripts/build-bundle.mjs",
+    "validate": "node scripts/build-assets.mjs --validate-only && node scripts/build-styles.mjs --validate-only",
+    "build": "node scripts/build-assets.mjs && node scripts/build-styles.mjs",
+    "bundle": "npm run build && node scripts/build-bundle-with-styles.mjs",
     "test:bundle": "node scripts/test-bundle.mjs",
     "test": "npm run validate && npm run build && npm run test:bundle"
   },

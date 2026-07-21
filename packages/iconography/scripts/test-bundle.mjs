@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const bundleScript = path.join(packageRoot, 'scripts/build-bundle.mjs');
+const bundleScript = path.join(packageRoot, 'scripts/build-bundle-with-styles.mjs');
 const packageMetadata = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
 const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'est-iconography-bundle-'));
 
@@ -37,6 +37,7 @@ try {
 
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /Built bundle with 3 assets/);
+  assert.match(result.stdout, /Included styles\/est-iconography\.css/);
 
   const manifest = JSON.parse(await readFile(path.join(outputDirectory, 'manifest/assets.json'), 'utf8'));
   assert.equal(manifest.libraryVersion, packageMetadata.version);
@@ -48,8 +49,13 @@ try {
   assert.equal(await exists(path.join(outputDirectory, 'svg/ui-icons/bootstrap/check-circle.svg')), true);
   assert.equal(await exists(path.join(outputDirectory, 'svg/ui-icons/est/house.svg')), true);
   assert.equal(await exists(path.join(outputDirectory, 'svg/icons/est/heat-pump.svg')), true);
+  assert.equal(await exists(path.join(outputDirectory, 'styles/est-iconography.css')), true);
   assert.equal(await exists(path.join(outputDirectory, 'licenses/EST-ASSET-NOTICE.md')), true);
   assert.equal(await exists(path.join(outputDirectory, 'licenses/bootstrap-icons-MIT.txt')), true);
+
+  const helperCss = await readFile(path.join(outputDirectory, 'styles/est-iconography.css'), 'utf8');
+  assert.match(helperCss, /:where\(\.est-icon\)/);
+  assert.match(helperCss, /fill:\s*currentColor/);
 
   const uiSprite = await readFile(path.join(outputDirectory, 'sprites/est-ui-icons.svg'), 'utf8');
   assert.match(uiSprite, /id="est-ui-icon-check-circle"/);
@@ -66,6 +72,7 @@ try {
   assert.deepEqual(rebuiltManifest.assets.map((asset) => asset.id), ['ui-icon/house']);
   assert.equal(await exists(path.join(outputDirectory, 'svg/icons/est/heat-pump.svg')), false);
   assert.equal(await exists(path.join(outputDirectory, 'sprites/est-icons.svg')), false);
+  assert.equal(await exists(path.join(outputDirectory, 'styles/est-iconography.css')), true);
   assert.equal(await exists(path.join(outputDirectory, 'licenses/bootstrap-icons-MIT.txt')), false);
 
   const selectionFile = path.join(temporaryRoot, 'catalogue-selection.json');
@@ -78,6 +85,7 @@ try {
   assert.equal(selectionResult.status, 0, selectionResult.stderr);
   const selectionManifest = JSON.parse(await readFile(path.join(selectionOutput, 'manifest/assets.json'), 'utf8'));
   assert.deepEqual(selectionManifest.assets.map((asset) => asset.id), ['ui-icon/info-circle', 'icon/kettle']);
+  assert.equal(await exists(path.join(selectionOutput, 'styles/est-iconography.css')), true);
   assert.equal(await exists(path.join(selectionOutput, 'licenses/bootstrap-icons-MIT.txt')), true);
 
   const mixedInput = runBundle([

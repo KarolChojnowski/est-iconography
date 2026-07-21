@@ -11,7 +11,7 @@
     "validate": "npm run validate --workspace @est/iconography",
     "validate:iconography": "npm run validate --workspace @est/iconography",
     "build:iconography": "npm run build --workspace @est/iconography",
-    "bundle:iconography": "npm run build:iconography && node packages/iconography/scripts/build-bundle.mjs",
+    "bundle:iconography": "npm run build:iconography && node packages/iconography/scripts/build-bundle-with-styles.mjs",
     "prepare:catalogue": "node tools/prepare-catalogue.mjs",
     "build:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll build --destination ../_site",
     "serve:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll serve",

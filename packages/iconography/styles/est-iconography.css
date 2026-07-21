@@ -1,0 +1,49 @@
+/*
+ * EST iconography implementation helpers.
+ *
+ * These zero-specificity utilities provide predictable SVG sizing and
+ * alignment while allowing product styles to override every declaration.
+ */
+
+:where(.est-icon) {
+  display: inline-block;
+  inline-size: var(--est-icon-size, 1em);
+  block-size: var(--est-icon-size, 1em);
+  flex: none;
+  vertical-align: var(--est-icon-align, -0.125em);
+  fill: currentColor;
+}
+
+:where(.est-icon--block) {
+  display: block;
+  vertical-align: 0;
+}
+
+:where(.est-icon--16) { --est-icon-size: 1rem; }
+:where(.est-icon--24) { --est-icon-size: 1.5rem; }
+:where(.est-icon--32) { --est-icon-size: 2rem; }
+:where(.est-icon--48) { --est-icon-size: 3rem; }
+:where(.est-icon--64) { --est-icon-size: 4rem; }
+
+:where(.est-icon-text) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--est-icon-gap, 0.5em);
+}
+
+:where(.est-icon-text > .est-icon) {
+  vertical-align: 0;
+}
+
+:where(.est-icon-button) {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  padding: 0.5rem;
+}
+
+:where(.est-icon-button > .est-icon) {
+  display: block;
+  vertical-align: 0;
+}

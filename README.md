@@ -24,6 +24,7 @@ All assets are single-colour and inherit colour through `fill="currentColor"`.
 packages/iconography/
 ├── assets/source/
 ├── assets/metadata/
+├── styles/
 ├── schema/
 ├── scripts/
 ├── docs/
@@ -93,9 +94,32 @@ npm run bundle:iconography -- \
   icon/heat-pump
 ```
 
-The bundle contains only the selected individual SVGs, filtered family sprites, a filtered manifest and the relevant licence notices. It retains the complete distribution's paths and sprite IDs, so consumers do not need a different integration for subsets.
+The bundle contains only the selected individual SVGs, filtered family sprites, the optional helper stylesheet, a filtered manifest and the relevant licence notices. It retains the complete distribution's paths and sprite IDs, so consumers do not need a different integration for subsets.
 
 The command rejects unknown or duplicate IDs and refuses to erase unrelated non-empty directories. See the [package documentation](packages/iconography/README.md#selected-bundles) for the full output contract and package-local command.
+
+## Implementation helpers
+
+Complete releases and selected bundles include an optional zero-specificity stylesheet at:
+
+```text
+styles/est-iconography.css
+```
+
+It provides predictable sizing, baseline and block alignment, icon-and-text composition, and icon-only control centring without introducing a component framework or brand styling.
+
+```html
+<link rel="stylesheet" href="/assets/iconography/styles/est-iconography.css">
+
+<span class="est-icon-text">
+  <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
+    <use href="/assets/iconography/sprites/est-ui-icons.svg#est-ui-icon-house"></use>
+  </svg>
+  Property details
+</span>
+```
+
+Products may implement equivalent rules in their own design system instead. Read the [canonical implementation guide](packages/iconography/docs/implementation.md) or use the copy-ready [catalogue implementation guide](https://karolchojnowski.github.io/est-iconography/implementation/).
 
 ## Accessible implementation
 
@@ -118,6 +142,8 @@ See the [canonical accessibility guidance](packages/iconography/docs/accessibili
 dist/
 ├── svg/
 ├── sprites/
+├── styles/
+│   └── est-iconography.css
 ├── manifest/assets.json
 └── licenses/
 ```
@@ -142,6 +168,8 @@ It adds:
 
 All 24 assets remain approved stable contracts. No artwork, canonical IDs or metadata meanings change in `0.4.0`. New EST assets should still enter as drafts and be approved only after review at their intended display size.
 
+Unreleased implementation helpers add optional CSS and copy-ready developer guidance without changing the asset contract.
+
 The complete legacy source inventory and every canonical mapping decision are recorded in the [legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md).
 
 ## Contributing
@@ -159,7 +187,7 @@ The iconography package remains private and is not published to npm. Tags matchi
 - `est-icons.svg`
 - `est-iconography-assets.json`
 
-Release notes are extracted from the matching `CHANGELOG.md` section. Follow [RELEASING.md](RELEASING.md), including its historical `v0.3.0` tagging instructions, rather than tagging an arbitrary current branch.
+Release notes are extracted from the matching `CHANGELOG.md` section. Follow [RELEASING.md](RELEASING.md) rather than tagging an arbitrary current branch.
 
 ## Catalogue deployment
 
@@ -181,6 +209,7 @@ The standard workflow `GITHUB_TOKEN` cannot enable Pages for a repository that h
 - [Release guide](RELEASING.md)
 - [Iconography package](packages/iconography/README.md)
 - [Construction rules](packages/iconography/docs/construction-rules.md)
+- [Implementation guidance](packages/iconography/docs/implementation.md)
 - [Accessibility guidance](packages/iconography/docs/accessibility.md)
 - [v0.2 baseline review](packages/iconography/docs/test-set-review.md)
 - [Legacy Design System icon audit](packages/iconography/docs/legacy-design-system-audit.md)
