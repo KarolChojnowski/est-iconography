@@ -9,3 +9,5 @@ catalogue/.bundle/
 catalogue/vendor/
 catalogue/assets/generated/
 catalogue/_data/generated/
+catalogue/ui-icons/
+catalogue/icons/
