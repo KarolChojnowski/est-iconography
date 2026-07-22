@@ -1,0 +1,121 @@
+name: Deprecate, consolidate or remove assets
+description: Propose a compatibility-managed lifecycle change for one or more canonical assets.
+title: "[Lifecycle]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Approved canonical IDs are stable consumer contracts. Deprecation and consolidation must preserve a migration path; removal is reserved for a breaking release.
+
+  - type: textarea
+    id: canonical_ids
+    attributes:
+      label: Affected canonical asset IDs
+      description: List every current asset involved, one per line.
+      placeholder: |
+        ui-icon/example-old
+        ui-icon/example-duplicate
+    validations:
+      required: true
+
+  - type: input
+    id: owner
+    attributes:
+      label: Request owner
+      description: Name the person responsible for confirming the decision and migration guidance.
+      placeholder: Name and team
+    validations:
+      required: true
+
+  - type: dropdown
+    id: lifecycle_action
+    attributes:
+      label: Proposed lifecycle action
+      options:
+        - Deprecate and retain the current ID
+        - Consolidate multiple assets into one preferred asset
+        - Introduce a replacement and migrate consumers
+        - Remove an already deprecated asset in a major release
+        - Restore or reconsider a deprecated asset
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Explain the duplication, ambiguity, quality, licensing or semantic problem being resolved.
+      placeholder: Why is the current library state harmful or unnecessarily complex?
+    validations:
+      required: true
+
+  - type: input
+    id: replacement
+    attributes:
+      label: Preferred replacement
+      description: Give the canonical ID when a replacement exists. Write “To be defined” when review is needed.
+      placeholder: ui-icon/preferred-asset
+    validations:
+      required: true
+
+  - type: textarea
+    id: consumer_evidence
+    attributes:
+      label: Known usage and consumer evidence
+      description: Identify code references, Figma components, selected bundles, documentation or products using the affected IDs.
+      placeholder: Include search results, repository links and screenshots without sensitive information.
+    validations:
+      required: true
+
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration guidance
+      description: State what consumers should use, whether visual or semantic differences exist, and how long compatibility should be retained.
+      placeholder: Replace X with Y; review these contexts; retain X through the next minor releases…
+    validations:
+      required: true
+
+  - type: dropdown
+    id: release_timing
+    attributes:
+      label: Proposed release timing
+      options:
+        - Deprecate in the next minor release
+        - Consolidate guidance now and change artwork later
+        - Remove in the next planned major release
+        - No release date yet — evidence gathering only
+        - Unsure — needs review
+    validations:
+      required: true
+
+  - type: dropdown
+    id: figma_impact
+    attributes:
+      label: Figma impact
+      options:
+        - Preserve the current component and mark it deprecated
+        - Redirect designers to an existing preferred component
+        - Add a replacement component before deprecating the old one
+        - Remove only after published instances are migrated
+        - No known Figma impact
+        - Unsure — needs review
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Request checks
+      options:
+        - label: I searched for known code, bundle, documentation and Figma consumers.
+          required: true
+        - label: I provided a replacement or explained why one cannot yet be named.
+          required: true
+        - label: I understand that deprecation retains the old ID and immediate deletion is not permitted.
+          required: true
+        - label: I understand that removing an approved ID requires migration guidance and a major release.
+          required: true
+        - label: Screenshots and links contain no personal, confidential or sensitive information.
+          required: true
