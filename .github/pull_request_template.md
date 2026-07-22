@@ -2,6 +2,12 @@
 
 <!-- What changed, why it is needed, and the intended outcome. -->
 
+## Originating request
+
+<!-- Link the governed asset request, for example `Closes #123`. For tooling, catalogue or documentation work without an asset-contract change, explain why no request is needed. -->
+
+- 
+
 ## Change type
 
 Select the primary change type:
@@ -71,6 +77,7 @@ Select the intended outcome for affected assets:
 
 ## Validation
 
+- [ ] `npm run validate:issue-forms`
 - [ ] `npm run validate:iconography`
 - [ ] `npm run build:iconography`
 - [ ] `npm run prepare:catalogue`
