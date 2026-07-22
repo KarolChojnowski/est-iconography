@@ -35,8 +35,8 @@ catalogue/
 ├── _config.yml
 ├── _layouts/
 ├── _data/generated/      prepared; not committed
+├── _vendor/bootstrap/    pinned licence notice
 ├── assets/generated/     prepared; not committed
-├── assets/css/
 ├── assets/js/
 └── index.html
 
@@ -50,6 +50,7 @@ examples/vanilla/
 tools/
 ├── prepare-catalogue.mjs
 ├── clean-catalogue.mjs
+├── validate-issue-forms.mjs
 └── release-notes.mjs
 ```
 
@@ -68,9 +69,10 @@ npm ci
 cd catalogue && bundle install && cd ..
 ```
 
-Build only the iconography package:
+Validate governance and build only the iconography package:
 
 ```bash
+npm run validate:issue-forms
 npm run validate:iconography
 npm run build:iconography
 ```
@@ -194,9 +196,11 @@ The complete legacy source inventory and every canonical mapping decision are re
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding or changing an asset. It defines canonical naming, source and metadata requirements, actual-size review, approval states, compatibility rules and semantic versioning.
+Start asset-contract work through the [governed issue chooser](https://github.com/KarolChojnowski/est-iconography/issues/new/choose). Separate forms cover new assets, changes to existing assets, and deprecation, consolidation or removal.
 
-Approved canonical IDs are stable consumer contracts. Use the pull-request template to identify the change type, record visual evidence and make the intended approval decision explicit.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before implementing a request. It defines canonical naming, source and metadata requirements, actual-size review, approval states, compatibility rules and semantic versioning.
+
+Approved canonical IDs are stable consumer contracts. Link the originating request and use the pull-request template to identify the change type, record visual evidence and make the intended approval decision explicit.
 
 ## Releases
 
