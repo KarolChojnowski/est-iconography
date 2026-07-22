@@ -3,70 +3,85 @@ layout: default
 title: Catalogue
 ---
 {% assign manifest = site.data.generated.assets %}
-<section class="hero">
-  <div class="hero__inner">
-    <p class="eyebrow">Design System asset library</p>
-    <h1>UI icons and Icons</h1>
-    <p class="lede">Browse the approved EST iconography library, review usage guidance and select the assets needed for a project bundle.</p>
+<section class="bg-dark text-white py-5">
+  <div class="container py-3">
+    <p class="text-uppercase small fw-semibold mb-2">Design System asset library</p>
+    <h1 class="display-3 fw-bold">UI icons and Icons</h1>
+    <p class="lead col-lg-8 mb-0">Browse the approved EST iconography library, review usage guidance and select the assets needed for a project bundle.</p>
   </div>
 </section>
-<section class="catalogue" aria-labelledby="catalogue-title">
-  <div class="catalogue__toolbar">
-    <div>
+
+<section class="container py-5" aria-labelledby="catalogue-title">
+  <div class="row g-4 align-items-end mb-4">
+    <div class="col-12 col-xl">
       <h2 id="catalogue-title">Catalogue</h2>
-      <p id="result-count">{{ manifest.assets | size }} assets</p>
+      <p class="text-body-secondary mb-0" id="result-count">{{ manifest.assets | size }} assets</p>
     </div>
-    <div class="filters" role="search">
-      <label>
-        <span>Search</span>
-        <input id="search" type="search" placeholder="Name, tag or alias">
-      </label>
-      <label>
-        <span>Family</span>
-        <select id="family-filter">
-          <option value="">All families</option>
-          <option value="ui-icon">UI icons</option>
-          <option value="icon">Icons</option>
-        </select>
-      </label>
-      <label>
-        <span>Source</span>
-        <select id="source-filter">
-          <option value="">All sources</option>
-          <option value="est">EST</option>
-          <option value="bootstrap">Bootstrap</option>
-        </select>
-      </label>
+    <div class="col-12 col-xl-auto">
+      <div class="row g-3" role="search">
+        <div class="col-12 col-md">
+          <label class="form-label" for="search">Search</label>
+          <input class="form-control" id="search" type="search" placeholder="Name, tag or alias">
+        </div>
+        <div class="col-6 col-md-auto">
+          <label class="form-label" for="family-filter">Family</label>
+          <select class="form-select" id="family-filter">
+            <option value="">All families</option>
+            <option value="ui-icon">UI icons</option>
+            <option value="icon">Icons</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-auto">
+          <label class="form-label" for="source-filter">Source</label>
+          <select class="form-select" id="source-filter">
+            <option value="">All sources</option>
+            <option value="est">EST</option>
+            <option value="bootstrap">Bootstrap</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="asset-grid" id="asset-grid">
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="asset-grid">
     {% for asset in manifest.assets %}
       {% assign search_terms = asset.label | append: ' ' | append: asset.category | append: ' ' | append: asset.tags | append: ' ' | append: asset.aliases | downcase %}
-      <article class="asset-card" data-family="{{ asset.family }}" data-source="{{ asset.source }}" data-search="{{ search_terms | escape }}" data-asset-id="{{ asset.id }}">
-        <div class="asset-card__preview">
-          <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
-            <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
-          </svg>
-        </div>
-        <div class="asset-card__body">
-          <div class="asset-card__heading">
-            <h3><a href="{{ asset.detailPath | relative_url }}">{{ asset.label }}</a></h3>
-            <span class="status status--{{ asset.status }}">{{ asset.status }}</span>
+      <article class="col asset-card" data-family="{{ asset.family }}" data-source="{{ asset.source }}" data-search="{{ search_terms | escape }}" data-asset-id="{{ asset.id }}">
+        <div class="card h-100" data-asset-card-shell>
+          <div class="card-img-top bg-body-tertiary d-flex align-items-center justify-content-center p-5">
+            <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
+              <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+            </svg>
           </div>
-          <code>{{ asset.id }}</code>
-          <p>{{ asset.usage }}</p>
-          <div class="asset-card__meta">
-            <span>{{ asset.family | replace: '-', ' ' }}</span>
-            <span>{{ asset.source }}</span>
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
+              <h3 class="h5 card-title mb-0"><a class="link-body-emphasis text-decoration-none" href="{{ asset.detailPath | relative_url }}">{{ asset.label }}</a></h3>
+              {% if asset.status == 'approved' %}
+                <span class="badge text-bg-success">Approved</span>
+              {% elsif asset.status == 'draft' %}
+                <span class="badge text-bg-warning">Draft</span>
+              {% else %}
+                <span class="badge text-bg-secondary">{{ asset.status | capitalize }}</span>
+              {% endif %}
+            </div>
+            <code class="d-block small mb-3">{{ asset.id }}</code>
+            <p class="card-text">{{ asset.usage }}</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge text-bg-secondary">{{ asset.family | replace: '-', ' ' }}</span>
+              <span class="badge text-bg-light border text-body">{{ asset.source }}</span>
+            </div>
           </div>
-          <div class="asset-card__actions">
-            <button class="button button--quiet js-select-asset" type="button" data-asset-id="{{ asset.id }}" aria-pressed="false">Select</button>
-            <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
-            <a class="button" href="{{ asset.detailPath | relative_url }}">View details</a>
+          <div class="card-footer bg-transparent border-top-0 pt-0">
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-outline-primary btn-sm js-select-asset" type="button" data-asset-id="{{ asset.id }}" aria-pressed="false">Select</button>
+              <button class="btn btn-outline-secondary btn-sm js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
+              <a class="btn btn-primary btn-sm" href="{{ asset.detailPath | relative_url }}">View details</a>
+            </div>
           </div>
         </div>
       </article>
     {% endfor %}
   </div>
-  <p class="empty-state" id="empty-state" hidden>No assets match those filters.</p>
+
+  <p class="alert alert-secondary text-center mt-4" id="empty-state" hidden>No assets match those filters.</p>
 </section>

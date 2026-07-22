@@ -83,6 +83,8 @@ for (const button of document.querySelectorAll('.js-copy-code')) {
   });
 }
 
+const previewBackgroundClasses = ['bg-white', 'bg-dark', 'bg-body-secondary'];
+
 for (const preview of document.querySelectorAll('[data-asset-preview]')) {
   const stage = preview.querySelector('[data-preview-stage]');
   const icon = preview.querySelector('[data-preview-icon]');
@@ -92,12 +94,12 @@ for (const preview of document.querySelectorAll('[data-asset-preview]')) {
   const canvas = preview.querySelector('[data-preview-canvas]');
 
   function updatePreview() {
-    stage.className = `preview-stage preview-stage--${background.value}`;
-    stage.classList.toggle('preview-stage--show-canvas', canvas.checked);
+    stage.classList.remove(...previewBackgroundClasses);
+    stage.classList.add(background.value);
     icon.style.color = colour.value;
     icon.setAttribute('width', size.value);
     icon.setAttribute('height', size.value);
-    stage.style.setProperty('--preview-size', `${size.value}px`);
+    icon.style.outline = canvas.checked ? '1px dashed var(--bs-danger)' : 'none';
   }
 
   for (const control of [background, colour, size, canvas]) control.addEventListener('input', updatePreview);
@@ -106,10 +108,9 @@ for (const preview of document.querySelectorAll('[data-asset-preview]')) {
 
 const manifestElement = document.querySelector('#asset-manifest');
 const tray = document.querySelector('[data-selection-tray]');
-const selectionCount = document.querySelector('[data-selection-count]');
+const launcher = document.querySelector('[data-selection-launcher]');
+const selectionCounts = [...document.querySelectorAll('[data-selection-count]')];
 const selectionList = document.querySelector('[data-selection-list]');
-const selectionPanel = document.querySelector('[data-selection-panel]');
-const selectionToggle = document.querySelector('[data-toggle-selection]');
 const selectionStatus = document.querySelector('[data-selection-status]');
 const bundleOutput = document.querySelector('[data-bundle-output]');
 const bundleCommandBlocks = [...document.querySelectorAll('[data-bundle-command]')];
@@ -182,13 +183,6 @@ function announce(message) {
   if (selectionStatus) selectionStatus.textContent = message;
 }
 
-function setPanelOpen(open) {
-  if (!selectionPanel || !selectionToggle) return;
-  selectionPanel.hidden = !open;
-  selectionToggle.setAttribute('aria-expanded', String(open));
-  selectionToggle.textContent = open ? 'Hide selection' : 'Review selection';
-}
-
 function renderSelectionList(assets) {
   if (!selectionList) return;
   selectionList.replaceChildren();
@@ -200,12 +194,16 @@ function renderSelectionList(assets) {
     const id = document.createElement('code');
     const remove = document.createElement('button');
 
+    item.className = 'list-group-item d-flex align-items-start justify-content-between gap-3';
+    details.className = 'flex-grow-1';
+    label.className = 'd-block';
+    id.className = 'd-block small text-break mt-1';
     label.textContent = asset.label;
     id.textContent = asset.id;
     details.append(label, id);
 
     remove.type = 'button';
-    remove.className = 'button button--quiet';
+    remove.className = 'btn btn-outline-danger btn-sm';
     remove.dataset.removeAsset = asset.id;
     remove.textContent = 'Remove';
     remove.setAttribute('aria-label', `Remove ${asset.label} from selection`);
@@ -223,18 +221,25 @@ function updateSelectionUi() {
     const selected = selectedIds.has(button.dataset.assetId);
     button.setAttribute('aria-pressed', String(selected));
     button.textContent = selected ? 'Selected' : 'Select';
-    button.closest('.asset-card')?.classList.toggle('asset-card--selected', selected);
+    button.classList.toggle('btn-primary', selected);
+    button.classList.toggle('btn-outline-primary', !selected);
+
+    const shell = button.closest('.asset-card')?.querySelector('[data-asset-card-shell]');
+    shell?.classList.toggle('border-primary', selected);
+    shell?.classList.toggle('border-2', selected);
+    shell?.classList.toggle('shadow-sm', selected);
   }
 
-  if (tray) tray.hidden = !hasSelection;
-  document.body.classList.toggle('has-selection-tray', hasSelection);
-  if (selectionCount) selectionCount.textContent = String(assets.length);
+  if (launcher) launcher.hidden = !hasSelection;
+  for (const selectionCount of selectionCounts) selectionCount.textContent = String(assets.length);
   renderSelectionList(assets);
 
   const command = hasSelection ? createBundleCommand(assets) : '';
   for (const block of bundleCommandBlocks) block.textContent = command;
 
-  if (!hasSelection) setPanelOpen(false);
+  if (!hasSelection && tray && window.bootstrap?.Offcanvas) {
+    window.bootstrap.Offcanvas.getInstance(tray)?.hide();
+  }
 }
 
 function toggleAsset(id) {
@@ -256,10 +261,6 @@ function toggleAsset(id) {
 for (const button of selectButtons) {
   button.addEventListener('click', () => toggleAsset(button.dataset.assetId));
 }
-
-selectionToggle?.addEventListener('click', () => {
-  setPanelOpen(selectionToggle.getAttribute('aria-expanded') !== 'true');
-});
 
 document.querySelector('[data-clear-selection]')?.addEventListener('click', () => {
   selectedIds.clear();

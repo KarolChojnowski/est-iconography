@@ -11,133 +11,158 @@ layout: default
     {% assign actual_size = 48 %}
     {% assign enlarged_size = 96 %}
   {% endif %}
-  <section class="asset-hero">
-    <div class="content-width">
-      <a class="back-link" href="{{ '/' | relative_url }}">← Back to catalogue</a>
-      <div class="asset-title-row">
+
+  <section class="bg-dark text-white py-5">
+    <div class="container">
+      <a class="link-light d-inline-block mb-4" href="{{ '/' | relative_url }}">← Back to catalogue</a>
+      <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
         <div>
-          <p class="eyebrow">{{ family_label }}</p>
-          <h1>{{ asset.label }}</h1>
-          <code class="canonical-id">{{ asset.id }}</code>
+          <p class="text-uppercase small fw-semibold mb-2">{{ family_label }}</p>
+          <h1 class="display-4 fw-bold">{{ asset.label }}</h1>
+          <code class="text-white-50">{{ asset.id }}</code>
         </div>
-        <span class="status status--{{ asset.status }}">{{ asset.status }}</span>
+        {% if asset.status == 'approved' %}
+          <span class="badge text-bg-success align-self-start">Approved</span>
+        {% elsif asset.status == 'draft' %}
+          <span class="badge text-bg-warning align-self-start">Draft</span>
+        {% else %}
+          <span class="badge text-bg-secondary align-self-start">{{ asset.status | capitalize }}</span>
+        {% endif %}
       </div>
-      <p class="asset-summary">{{ asset.usage }}</p>
+      <p class="lead col-lg-8 mt-4 mb-0">{{ asset.usage }}</p>
     </div>
   </section>
 
-  <div class="asset-detail content-width">
-    <main class="asset-detail__main">
-      <section class="review-panel" aria-labelledby="review-title" data-asset-preview>
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow eyebrow--dark">Visual review</p>
-            <h2 id="review-title">Review at intended size</h2>
-          </div>
-          <span class="size-note">Default: {{ asset.defaultSize }}px</span>
-        </div>
+  <div class="container py-5">
+    <div class="row g-4">
+      <main class="col-12 col-lg-8">
+        <section class="card mb-4" aria-labelledby="review-title" data-asset-preview>
+          <div class="card-body">
+            <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-4">
+              <div>
+                <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Visual review</p>
+                <h2 class="h4" id="review-title">Review at intended size</h2>
+              </div>
+              <span class="badge text-bg-light border text-body align-self-start">Default: {{ asset.defaultSize }}px</span>
+            </div>
 
-        <div class="review-controls" aria-label="Preview controls">
-          <label>
-            <span>Background</span>
-            <select data-preview-background>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-              <option value="neutral">Neutral</option>
-            </select>
-          </label>
-          <label>
-            <span>Icon colour</span>
-            <select data-preview-color>
-              <option value="#0b1d3a">EST navy</option>
-              <option value="#005ea5">Blue</option>
-              <option value="#4b6b52">Muted green</option>
-              <option value="#ffffff">White</option>
-            </select>
-          </label>
-          <label>
-            <span>Rendered size</span>
-            <select data-preview-size>
-              {% if asset.family == 'ui-icon' %}
-                <option value="16" selected>16px — actual</option>
-                <option value="24">24px</option>
-                <option value="32">32px</option>
-                <option value="48">48px</option>
-                <option value="64">64px — enlarged</option>
-              {% else %}
-                <option value="32">32px — compact</option>
-                <option value="48" selected>48px — actual</option>
-                <option value="64">64px</option>
-                <option value="96">96px — enlarged</option>
+            <div class="row g-3 align-items-end mb-4" aria-label="Preview controls">
+              <div class="col-12 col-sm-6 col-xl-3">
+                <label class="form-label" for="preview-background">Background</label>
+                <select class="form-select" id="preview-background" data-preview-background>
+                  <option value="bg-white">Light</option>
+                  <option value="bg-dark">Dark</option>
+                  <option value="bg-body-secondary">Neutral</option>
+                </select>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-3">
+                <label class="form-label" for="preview-colour">Icon colour</label>
+                <select class="form-select" id="preview-colour" data-preview-color>
+                  <option value="var(--bs-body-color)">Body</option>
+                  <option value="var(--bs-primary)">Primary</option>
+                  <option value="var(--bs-success)">Success</option>
+                  <option value="var(--bs-white)">White</option>
+                </select>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-3">
+                <label class="form-label" for="preview-size">Rendered size</label>
+                <select class="form-select" id="preview-size" data-preview-size>
+                  {% if asset.family == 'ui-icon' %}
+                    <option value="16" selected>16px — actual</option>
+                    <option value="24">24px</option>
+                    <option value="32">32px</option>
+                    <option value="48">48px</option>
+                    <option value="64">64px — enlarged</option>
+                  {% else %}
+                    <option value="32">32px — compact</option>
+                    <option value="48" selected>48px — actual</option>
+                    <option value="64">64px</option>
+                    <option value="96">96px — enlarged</option>
+                  {% endif %}
+                </select>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-3">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="preview-canvas" data-preview-canvas>
+                  <label class="form-check-label" for="preview-canvas">Show canvas</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="ratio ratio-21x9 border rounded bg-white mb-3" data-preview-stage>
+              <div class="d-flex align-items-center justify-content-center">
+                <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-label="{{ asset.label }} preview" role="img" data-preview-icon>
+                  <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+                </svg>
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-12 col-md-3">
+                <span class="d-block small fw-semibold text-body-secondary mb-2">Actual size</span>
+                <div class="border rounded bg-body-tertiary p-4 h-100 d-flex align-items-center justify-content-center">
+                  <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false">
+                    <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+                  </svg>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <span class="d-block small fw-semibold text-body-secondary mb-2">Enlarged inspection</span>
+                <div class="border rounded bg-body-tertiary p-4 h-100 d-flex align-items-center justify-content-center">
+                  <svg width="{{ enlarged_size }}" height="{{ enlarged_size }}" aria-hidden="true" focusable="false">
+                    <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
+                  </svg>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <span class="d-block small fw-semibold text-body-secondary mb-2">Beside text</span>
+                <div class="border rounded bg-body-tertiary p-4 h-100 d-flex align-items-center gap-2">
+                  <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false"><use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use></svg>
+                  <span>Example supporting label</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card mb-4" aria-labelledby="usage-title">
+          <div class="card-body">
+            <h2 class="h4" id="usage-title">Usage guidance</h2>
+            <div class="row g-3 mt-1">
+              <div class="col-12{% if asset.avoid %} col-md-6{% endif %}">
+                <div class="alert alert-primary h-100 mb-0">
+                  <h3 class="h6">Use for</h3>
+                  <p class="mb-0">{{ asset.usage }}</p>
+                </div>
+              </div>
+              {% if asset.avoid %}
+                <div class="col-12 col-md-6">
+                  <div class="alert alert-warning h-100 mb-0">
+                    <h3 class="h6">Avoid</h3>
+                    <p class="mb-0">{{ asset.avoid }}</p>
+                  </div>
+                </div>
               {% endif %}
-            </select>
-          </label>
-          <label class="checkbox-control">
-            <input type="checkbox" data-preview-canvas>
-            <span>Show canvas</span>
-          </label>
-        </div>
-
-        <div class="preview-stage preview-stage--light" data-preview-stage>
-          <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-label="{{ asset.label }} preview" role="img" data-preview-icon>
-            <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
-          </svg>
-        </div>
-
-        <div class="actual-size-comparison">
-          <div>
-            <span class="comparison-label">Actual size</span>
-            <div class="comparison-swatch">
-              <svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false">
-                <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
-              </svg>
+              {% if asset.note %}
+                <div class="col-12">
+                  <div class="alert alert-secondary mb-0">
+                    <h3 class="h6">Implementation note</h3>
+                    <p class="mb-0">{{ asset.note }}</p>
+                  </div>
+                </div>
+              {% endif %}
             </div>
           </div>
-          <div>
-            <span class="comparison-label">Enlarged inspection</span>
-            <div class="comparison-swatch">
-              <svg width="{{ enlarged_size }}" height="{{ enlarged_size }}" aria-hidden="true" focusable="false">
-                <use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use>
-              </svg>
-            </div>
-          </div>
-          <div class="text-comparison">
-            <span class="comparison-label">Beside text</span>
-            <p><svg width="{{ actual_size }}" height="{{ actual_size }}" aria-hidden="true" focusable="false"><use href="{{ asset.spritePath | relative_url }}#{{ asset.spriteId }}"></use></svg> Example supporting label</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="documentation-section" aria-labelledby="usage-title">
-        <h2 id="usage-title">Usage guidance</h2>
-        <div class="guidance-grid">
-          <div class="guidance-card">
-            <h3>Use for</h3>
-            <p>{{ asset.usage }}</p>
-          </div>
-          {% if asset.avoid %}
-            <div class="guidance-card guidance-card--caution">
-              <h3>Avoid</h3>
-              <p>{{ asset.avoid }}</p>
-            </div>
-          {% endif %}
-          {% if asset.note %}
-            <div class="guidance-card">
-              <h3>Implementation note</h3>
-              <p>{{ asset.note }}</p>
-            </div>
-          {% endif %}
-        </div>
-      </section>
-
-      {% capture decorative_example %}<span class="icon-label">
+        {% capture decorative_example %}<span class="icon-label">
   <svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
     <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
   </svg>
   {{ asset.label }}
 </span>{% endcapture %}
 
-      {% capture informative_example %}<svg
+        {% capture informative_example %}<svg
   width="{{ asset.defaultSize }}"
   height="{{ asset.defaultSize }}"
   role="img"
@@ -146,114 +171,134 @@ layout: default
   <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
 </svg>{% endcapture %}
 
-      <section class="documentation-section" aria-labelledby="accessible-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow eyebrow--dark">Accessible implementation</p>
-            <h2 id="accessible-title">Choose treatment from context</h2>
-            <p>Hide the SVG when nearby text or a containing control already communicates the meaning. Expose it as an image only when it provides standalone information.</p>
-          </div>
-          <a class="button button--secondary" href="{{ '/accessibility/' | relative_url }}">Read full guidance</a>
-        </div>
-
-        <div class="pattern-grid pattern-grid--compact">
-          <article class="pattern-card">
-            <div class="pattern-card__heading">
+        <section class="card mb-4" aria-labelledby="accessible-title">
+          <div class="card-body">
+            <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-4">
               <div>
-                <h3>Decorative beside text</h3>
-                <p>This is the usual interface treatment and avoids duplicate announcements.</p>
+                <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Accessible implementation</p>
+                <h2 class="h4" id="accessible-title">Choose treatment from context</h2>
+                <p class="text-body-secondary mb-0">Hide the SVG when nearby text or a containing control already communicates the meaning. Expose it as an image only when it provides standalone information.</p>
               </div>
-              <button class="button button--secondary js-copy-code" type="button" data-copy-target="decorative-usage-example">Copy code</button>
+              <a class="btn btn-outline-primary align-self-start" href="{{ '/accessibility/' | relative_url }}">Read full guidance</a>
             </div>
-            <pre class="code-block"><code id="decorative-usage-example">{{ decorative_example | escape }}</code></pre>
-          </article>
 
-          <article class="pattern-card">
-            <div class="pattern-card__heading">
+            <div class="row g-3">
+              <article class="col-12 col-xl-6">
+                <div class="card h-100 bg-body-tertiary">
+                  <div class="card-body">
+                    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                      <div>
+                        <h3 class="h6">Decorative beside text</h3>
+                        <p class="small text-body-secondary mb-0">This is the usual interface treatment and avoids duplicate announcements.</p>
+                      </div>
+                      <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="decorative-usage-example">Copy code</button>
+                    </div>
+                    <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="decorative-usage-example">{{ decorative_example | escape }}</code></pre>
+                  </div>
+                </div>
+              </article>
+
+              <article class="col-12 col-xl-6">
+                <div class="card h-100 bg-body-tertiary">
+                  <div class="card-body">
+                    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                      <div>
+                        <h3 class="h6">Standalone informative icon</h3>
+                        <p class="small text-body-secondary mb-0">Replace the example label with wording that describes the meaning in its product context.</p>
+                      </div>
+                      <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="informative-usage-example">Copy code</button>
+                    </div>
+                    <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="informative-usage-example">{{ informative_example | escape }}</code></pre>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="card mb-4" aria-labelledby="inline-title">
+          <div class="card-body">
+            <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-3">
               <div>
-                <h3>Standalone informative icon</h3>
-                <p>Replace the example label with wording that describes the meaning in its product context.</p>
+                <h2 class="h4" id="inline-title">Inline SVG</h2>
+                <p class="text-body-secondary mb-0">Use the optimised SVG when the icon needs to be embedded directly in markup.</p>
               </div>
-              <button class="button button--secondary js-copy-code" type="button" data-copy-target="informative-usage-example">Copy code</button>
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
+                <a class="btn btn-primary" href="{{ asset.svgPath | relative_url }}" download>Download SVG</a>
+              </div>
             </div>
-            <pre class="code-block"><code id="informative-usage-example">{{ informative_example | escape }}</code></pre>
-          </article>
-        </div>
-      </section>
+            <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code data-svg-source data-svg-path="{{ asset.svgPath | relative_url }}">Loading SVG…</code></pre>
+          </div>
+        </section>
 
-      <section class="documentation-section" aria-labelledby="inline-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="inline-title">Inline SVG</h2>
-            <p>Use the optimised SVG when the icon needs to be embedded directly in markup.</p>
-          </div>
-          <div class="button-row">
-            <button class="button button--secondary js-copy-svg" type="button" data-svg-path="{{ asset.svgPath | relative_url }}">Copy SVG</button>
-            <a class="button" href="{{ asset.svgPath | relative_url }}" download>Download SVG</a>
-          </div>
-        </div>
-        <pre class="code-block"><code data-svg-source data-svg-path="{{ asset.svgPath | relative_url }}">Loading SVG…</code></pre>
-      </section>
-
-      <section class="documentation-section" aria-labelledby="sprite-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="sprite-title">Sprite usage</h2>
-            <p>Reference the generated symbol when the full family sprite is already loaded by the product.</p>
-          </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="sprite-example">Copy code</button>
-        </div>
-        {% capture sprite_example %}<svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
+        <section class="card" aria-labelledby="sprite-title">
+          <div class="card-body">
+            <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-3">
+              <div>
+                <h2 class="h4" id="sprite-title">Sprite usage</h2>
+                <p class="text-body-secondary mb-0">Reference the generated symbol when the full family sprite is already loaded by the product.</p>
+              </div>
+              <button class="btn btn-outline-secondary align-self-start js-copy-code" type="button" data-copy-target="sprite-example">Copy code</button>
+            </div>
+            {% capture sprite_example %}<svg width="{{ asset.defaultSize }}" height="{{ asset.defaultSize }}" aria-hidden="true" focusable="false">
   <use href="{{ asset.spritePath }}#{{ asset.spriteId }}"></use>
 </svg>{% endcapture %}
-        <pre class="code-block"><code id="sprite-example">{{ sprite_example | escape }}</code></pre>
-      </section>
-    </main>
+            <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="sprite-example">{{ sprite_example | escape }}</code></pre>
+          </div>
+        </section>
+      </main>
 
-    <aside class="asset-facts" aria-labelledby="facts-title">
-      <h2 id="facts-title">Asset details</h2>
-      <dl>
-        <div><dt>Family</dt><dd>{{ family_label }}</dd></div>
-        <div><dt>Source</dt><dd>{{ asset.source }}</dd></div>
-        <div><dt>Category</dt><dd>{{ asset.category }}</dd></div>
-        <div><dt>Construction</dt><dd>{{ asset.construction }}</dd></div>
-        <div><dt>ViewBox</dt><dd><code>{{ asset.viewBox }}</code></dd></div>
-        <div><dt>Default size</dt><dd>{{ asset.defaultSize }}px</dd></div>
-        {% if asset.sourceVersion %}<div><dt>Source version</dt><dd>{{ asset.sourceVersion }}</dd></div>{% endif %}
-        {% if asset.license %}<div><dt>Licence</dt><dd>{{ asset.license }}</dd></div>{% endif %}
-      </dl>
-
-      <div class="fact-group">
-        <h3>Tags</h3>
-        <ul class="tag-list">
-          {% for tag in asset.tags %}<li>{{ tag }}</li>{% endfor %}
-        </ul>
-      </div>
-
-      {% if asset.aliases.size > 0 %}
-        <div class="fact-group">
-          <h3>Aliases</h3>
-          <ul class="tag-list tag-list--muted">
-            {% for alias in asset.aliases %}<li>{{ alias }}</li>{% endfor %}
-          </ul>
+      <aside class="col-12 col-lg-4" aria-labelledby="facts-title">
+        <div class="card sticky-lg-top">
+          <div class="card-body">
+            <h2 class="h4" id="facts-title">Asset details</h2>
+          </div>
+          <dl class="list-group list-group-flush mb-0">
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>Family</dt><dd class="mb-0 text-end text-capitalize">{{ family_label }}</dd></div>
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>Source</dt><dd class="mb-0 text-end text-capitalize">{{ asset.source }}</dd></div>
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>Category</dt><dd class="mb-0 text-end text-capitalize">{{ asset.category }}</dd></div>
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>Construction</dt><dd class="mb-0 text-end text-capitalize">{{ asset.construction }}</dd></div>
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>ViewBox</dt><dd class="mb-0 text-end"><code>{{ asset.viewBox }}</code></dd></div>
+            <div class="list-group-item d-flex justify-content-between gap-3"><dt>Default size</dt><dd class="mb-0 text-end">{{ asset.defaultSize }}px</dd></div>
+            {% if asset.sourceVersion %}<div class="list-group-item d-flex justify-content-between gap-3"><dt>Source version</dt><dd class="mb-0 text-end">{{ asset.sourceVersion }}</dd></div>{% endif %}
+            {% if asset.license %}<div class="list-group-item d-flex justify-content-between gap-3"><dt>Licence</dt><dd class="mb-0 text-end">{{ asset.license }}</dd></div>{% endif %}
+          </dl>
+          <div class="card-body border-top">
+            <h3 class="h6">Tags</h3>
+            <div class="d-flex flex-wrap gap-2">
+              {% for tag in asset.tags %}<span class="badge text-bg-secondary">{{ tag }}</span>{% endfor %}
+            </div>
+          </div>
+          {% if asset.aliases.size > 0 %}
+            <div class="card-body border-top">
+              <h3 class="h6">Aliases</h3>
+              <div class="d-flex flex-wrap gap-2">
+                {% for alias in asset.aliases %}<span class="badge text-bg-light border text-body">{{ alias }}</span>{% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          <div class="card-body border-top">
+            {% if asset.source == 'est' %}
+              <div class="alert alert-secondary mb-0">
+                <strong>EST proprietary asset</strong>
+                <p class="small mb-0 mt-2">For Energy Saving Trust use only. Copying, modification and redistribution are not permitted without EST authorisation.</p>
+              </div>
+            {% else %}
+              <div class="alert alert-secondary mb-0">
+                <strong>Third-party asset</strong>
+                <p class="small mb-0 mt-2">Imported from Bootstrap Icons and retained under its MIT licence.</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
-      {% endif %}
-
-      <div class="ownership-note">
-        {% if asset.source == 'est' %}
-          <strong>EST proprietary asset</strong>
-          <p>For Energy Saving Trust use only. Copying, modification and redistribution are not permitted without EST authorisation.</p>
-        {% else %}
-          <strong>Third-party asset</strong>
-          <p>Imported from Bootstrap Icons and retained under its MIT licence.</p>
-        {% endif %}
-      </div>
-    </aside>
+      </aside>
+    </div>
   </div>
 {% else %}
-  <section class="content-width missing-asset">
+  <section class="container py-5">
     <h1>Asset not found</h1>
     <p>The generated page does not match an entry in the catalogue manifest.</p>
-    <a class="button" href="{{ '/' | relative_url }}">Return to catalogue</a>
+    <a class="btn btn-primary" href="{{ '/' | relative_url }}">Return to catalogue</a>
   </section>
 {% endif %}

@@ -51,6 +51,15 @@ jobs:
       - run: npm run build:iconography
       - run: npm run prepare:catalogue
       - run: node --check catalogue/assets/js/catalogue.js
+      - name: Verify Bootstrap catalogue foundation
+        run: |
+          test -s catalogue/assets/generated/vendor/bootstrap/bootstrap.min.css
+          test -s catalogue/assets/generated/vendor/bootstrap/bootstrap.bundle.min.js
+          test -s catalogue/assets/generated/vendor/bootstrap/LICENSE
+          grep -q 'Bootstrap  v5.3.8' catalogue/assets/generated/vendor/bootstrap/bootstrap.min.css
+          grep -q 'The MIT License' catalogue/assets/generated/vendor/bootstrap/LICENSE
+          test ! -e catalogue/assets/css/catalogue.css
+          test ! -e catalogue/assets/css/implementation.css
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
@@ -58,9 +67,20 @@ jobs:
           working-directory: catalogue
       - run: bundle exec jekyll build --strict_front_matter --destination ../_site
         working-directory: catalogue
+      - name: Verify stock Bootstrap output
+        run: |
+          test -s _site/assets/generated/vendor/bootstrap/bootstrap.min.css
+          test -s _site/assets/generated/vendor/bootstrap/bootstrap.bundle.min.js
+          test -s _site/assets/generated/vendor/bootstrap/LICENSE
+          grep -q 'navbar navbar-expand-lg' _site/index.html
+          grep -q 'offcanvas offcanvas-end' _site/index.html
+          grep -q 'row row-cols-1 row-cols-md-2 row-cols-xl-3' _site/index.html
+          ! grep -R -q 'cdn.jsdelivr.net/npm/bootstrap' _site
+          ! grep -R -q 'catalogue.css\|implementation.css' _site
       - name: Verify catalogue selection hooks
         run: |
           grep -q 'data-selection-tray' _site/index.html
+          grep -q 'data-selection-launcher' _site/index.html
           grep -q 'js-select-asset' _site/index.html
           grep -q 'asset-manifest' _site/index.html
       - name: Verify catalogue accessibility patterns
