@@ -25,6 +25,18 @@ Choose the change type before editing because it determines the compatibility an
 | Third-party import | Retain upstream artwork and record exact source, version and licence | Minor |
 | Removal or meaning change | Treat as a breaking consumer change | Major |
 
+## Start with a request
+
+Use the [repository issue chooser](https://github.com/KarolChojnowski/est-iconography/issues/new/choose) before starting asset artwork or changing a stable asset contract:
+
+- **Request a new asset** for a demonstrated product need that is not met by the catalogue or a suitable Bootstrap Icon.
+- **Change an existing asset** for artwork corrections, redraws, metadata, guidance, source or compatibility changes where the asset remains in the library.
+- **Deprecate, consolidate or remove assets** for lifecycle changes that require replacement and migration guidance.
+
+The request records the need, context, alternatives, evidence and expected compatibility. It does not approve a canonical name or prescribe detailed artwork. Those decisions are resolved during review and implemented through a focused pull request.
+
+Straightforward tooling, documentation and typo fixes that do not change an asset contract may go directly to a pull request.
+
 ## Before adding an asset
 
 1. Search the catalogue using the concept, synonyms and likely aliases.
@@ -58,8 +70,8 @@ icon/heat-pump
 Recommended Figma names:
 
 ```text
-UI icon / Car front
-Icon / Heat pump
+EST / UI icon / Car front
+EST / Icon / Heat pump
 ```
 
 ## File placement
@@ -162,9 +174,10 @@ npm ci
 cd catalogue && bundle install && cd ..
 ```
 
-Validate and build the authoritative package:
+Validate the governance forms and authoritative package:
 
 ```bash
+npm run validate:issue-forms
 npm run validate:iconography
 npm run build:iconography
 ```
@@ -177,7 +190,7 @@ cd catalogue
 bundle exec jekyll serve
 ```
 
-The pull request must pass the repository validation workflow, including deterministic package generation and a strict Jekyll build.
+The pull request must pass the repository validation workflow, including issue-form validation, deterministic package generation and a strict Jekyll build.
 
 ## Visual review
 
@@ -245,7 +258,7 @@ Version bumps and release tags are handled in a dedicated release pull request r
 
 ## Pull requests
 
-Use the repository pull-request template and keep each change focused. A good icon PR includes:
+Link the originating asset request and use the repository pull-request template. Keep each implementation focused. A good icon PR includes:
 
 - the selected change type
 - affected canonical IDs

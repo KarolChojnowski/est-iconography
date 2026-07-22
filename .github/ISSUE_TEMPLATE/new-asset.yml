@@ -1,0 +1,138 @@
+name: Request a new asset
+description: Propose a new canonical UI icon or Icon from a demonstrated product need.
+title: "[New asset]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search the catalogue and check Bootstrap Icons before requesting new artwork. The request should describe the meaning and product context; canonical naming and drawing are resolved during review.
+
+  - type: input
+    id: product_context
+    attributes:
+      label: Product or service
+      description: Where would this asset be used?
+      placeholder: HARP, Design System, public website, internal tool…
+    validations:
+      required: true
+
+  - type: input
+    id: owner
+    attributes:
+      label: Request owner
+      description: Name the person responsible for confirming the need and reviewing the result.
+      placeholder: Name and team
+    validations:
+      required: true
+
+  - type: textarea
+    id: need
+    attributes:
+      label: User or product need
+      description: Explain what must be communicated and why an icon is useful in this context.
+      placeholder: Describe the task, decision, state or concept—not the appearance of the proposed artwork.
+    validations:
+      required: true
+
+  - type: input
+    id: concept
+    attributes:
+      label: Proposed concept
+      description: Use a concrete noun or noun phrase. Avoid page, feature and implementation names.
+      placeholder: e.g. solar panel, property boundary, download
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family
+    attributes:
+      label: Likely family
+      description: Choose based on intended use rather than artwork detail.
+      options:
+        - UI icon — 16×16 source canvas, normally displayed at 16px
+        - Icon — 32×32 source canvas, normally displayed at 48px
+        - Unsure — needs review
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_context
+    attributes:
+      label: Intended contexts
+      description: Describe the screens, controls, messages or content where the asset would appear.
+      placeholder: Include nearby labels, whether it sits inside a control, and any repeated or high-volume use.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Existing alternatives considered
+      description: List catalogue searches, aliases and Bootstrap Icons checked. Explain why the closest options are unsuitable.
+      placeholder: Catalogue terms searched; closest EST asset; closest Bootstrap Icon; reason each is insufficient.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Visual or research evidence
+      description: Add screenshots, wireframes, prototype links or research evidence. Remove personal or sensitive information.
+      placeholder: Drag images here or provide links. Write “Not available” only when the context is fully described above.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: display_size
+    attributes:
+      label: Expected display size
+      options:
+        - 16px interface use
+        - 24–32px supporting interface use
+        - 48px content or feature use
+        - 64px or larger illustration-like use
+        - Multiple or unsure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: accessibility_context
+    attributes:
+      label: Accessibility context
+      description: This informs implementation guidance; it does not change the SVG artwork.
+      options:
+        - Decorative beside visible text
+        - Standalone informative image
+        - Inside an interactive control
+        - Supports a status, warning, error or success message
+        - Mixed or unsure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: timing
+    attributes:
+      label: Timing
+      options:
+        - Needed for active delivery
+        - Needed for planned delivery
+        - Improvement without a committed date
+        - Exploratory request
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Request checks
+      options:
+        - label: I searched the catalogue using the concept, synonyms and likely aliases.
+          required: true
+        - label: I checked whether an existing Bootstrap Icon communicates the meaning well enough.
+          required: true
+        - label: The proposed concept is reusable and is not named after a page, feature or implementation.
+          required: true
+        - label: Screenshots and links contain no personal, confidential or sensitive information.
+          required: true
+        - label: I understand that new EST artwork enters as draft and requires actual-size review before approval.
+          required: true

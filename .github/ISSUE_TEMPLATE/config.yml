@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Browse the iconography catalogue
+    url: https://karolchojnowski.github.io/est-iconography/
+    about: Search existing assets, aliases and usage guidance before opening a request.
+  - name: Read the contribution guidance
+    url: https://github.com/KarolChojnowski/est-iconography/blob/main/CONTRIBUTING.md
+    about: Review naming, construction, approval, compatibility and release rules.

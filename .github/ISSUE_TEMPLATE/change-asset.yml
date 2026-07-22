@@ -1,0 +1,120 @@
+name: Change an existing asset
+description: Request an artwork, metadata, source or compatibility change to a canonical asset.
+title: "[Asset change]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when the asset should remain part of the library. For deprecation, consolidation or removal, use the lifecycle-change form instead.
+
+  - type: input
+    id: canonical_id
+    attributes:
+      label: Canonical asset ID
+      description: Copy the exact ID from the catalogue.
+      placeholder: ui-icon/house or icon/heat-pump
+    validations:
+      required: true
+
+  - type: input
+    id: owner
+    attributes:
+      label: Request owner
+      description: Name the person responsible for confirming the need and reviewing the outcome.
+      placeholder: Name and team
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change_type
+    attributes:
+      label: Requested change
+      options:
+        - Small artwork correction
+        - Material redraw with the same meaning
+        - Metadata, tags, aliases or usage guidance
+        - Replace the third-party source artwork
+        - Canonical rename or migration
+        - Change family or represented meaning
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Current problem
+      description: Explain what is wrong or limiting in actual use.
+      placeholder: Include recognisability, optical weight, ambiguity, accessibility, naming, discovery or implementation evidence.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the outcome and acceptance criteria, not detailed path geometry.
+      placeholder: What should be clearer, more consistent or easier after the change?
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage_evidence
+    attributes:
+      label: Product usage and evidence
+      description: Show where the asset is used and how the problem appears at intended size.
+      placeholder: Add screenshots, catalogue links, prototypes, consumer repositories or research evidence. Remove sensitive information.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: compatibility
+    attributes:
+      label: Expected compatibility
+      options:
+        - No consumer change — same ID, family and meaning
+        - Visual change only — consumers keep the same implementation
+        - Metadata or guidance change only
+        - Migration required — new ID or replacement will be needed
+        - Breaking change — family or meaning changes
+        - Unsure — needs review
+    validations:
+      required: true
+
+  - type: textarea
+    id: consumer_impact
+    attributes:
+      label: Known consumer impact
+      description: Identify products, Figma components, bundles or documentation that may need review or migration.
+      placeholder: Write “None known” when appropriate.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: intended_decision
+    attributes:
+      label: Intended lifecycle decision
+      options:
+        - Keep approved after a non-material correction
+        - Return to draft for review
+        - Approve an existing draft
+        - Keep current status
+        - Unsure — needs review
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Request checks
+      options:
+        - label: I reviewed the asset in the catalogue at its intended display size.
+          required: true
+        - label: I have not proposed silently renaming or changing the meaning of an approved canonical ID.
+          required: true
+        - label: I identified known consumers or stated that none are known.
+          required: true
+        - label: Screenshots and links contain no personal, confidential or sensitive information.
+          required: true
+        - label: I understand that artwork changes require before-and-after visual evidence in the implementation pull request.
+          required: true

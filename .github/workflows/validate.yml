@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: 22
       - run: npm ci --ignore-scripts
+      - run: npm run validate:issue-forms
       - run: npm run validate:iconography
       - run: npm run build:iconography
       - name: Verify helper stylesheet output

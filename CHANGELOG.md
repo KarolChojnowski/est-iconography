@@ -10,12 +10,15 @@ All notable changes to the EST iconography library are recorded here.
 - Lifecycle-aware Figma areas for approved imports, draft review and deprecated-asset migration.
 - Figma operating guidance and deterministic tests covering version alignment, file identity and one-to-one asset mappings.
 - Pinned Bootstrap 5.3.8 catalogue assets downloaded during preparation, verified against official SHA-384 hashes and served locally with the Bootstrap MIT licence.
+- Governed GitHub issue forms for new assets, existing-asset changes and compatibility-managed lifecycle changes.
+- Issue-chooser configuration and automated validation for required evidence, unique field IDs and form independence from repository labels or assignees.
 
 ### Changed
 
 - Rebuilt the catalogue shell, asset grid, detail pages, accessibility guide and implementation guide with stock Bootstrap components and utilities.
 - Replaced the bespoke fixed selection tray with Bootstrap offcanvas while preserving persistent selection, bundle commands and JSON export.
 - Updated preview and selected-card interactions to use Bootstrap utilities and component states.
+- Updated contribution guidance so asset-contract work starts with a structured request and implementation pull requests link the originating decision record.
 
 ### Removed
 
