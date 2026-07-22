@@ -4,27 +4,29 @@ title: Implementation
 permalink: /implementation/
 iconography_styles: true
 ---
-<section class="asset-hero">
-  <div class="content-width">
-    <p class="eyebrow">Developer guidance</p>
-    <h1>Implement iconography consistently</h1>
-    <p class="asset-summary">Use the generated sprites with a small, optional CSS helper for predictable sizing, alignment and controls. Product styles still own colour, typography and visual treatment.</p>
+<section class="bg-dark text-white py-5">
+  <div class="container">
+    <p class="text-uppercase small fw-semibold mb-2">Developer guidance</p>
+    <h1 class="display-4 fw-bold">Implement iconography consistently</h1>
+    <p class="lead col-lg-8 mb-0">Use the generated sprites with a small, optional CSS helper for predictable sizing, alignment and controls. Product styles still own colour, typography and visual treatment.</p>
   </div>
 </section>
 
-<div class="guidance-page content-width">
-  <section class="documentation-section" aria-labelledby="setup-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Set up once</p>
-        <h2 id="setup-title">Load the helper stylesheet</h2>
-        <p>Complete releases and selected bundles expose the same relative stylesheet path.</p>
+<div class="container py-5">
+  <section class="card mb-4" aria-labelledby="setup-title">
+    <div class="card-body">
+      <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-3">
+        <div>
+          <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Set up once</p>
+          <h2 class="h4" id="setup-title">Load the helper stylesheet</h2>
+          <p class="text-body-secondary mb-0">Complete releases and selected bundles expose the same relative stylesheet path.</p>
+        </div>
+        <button class="btn btn-outline-secondary align-self-start js-copy-code" type="button" data-copy-target="stylesheet-setup">Copy code</button>
       </div>
-      <button class="button button--secondary js-copy-code" type="button" data-copy-target="stylesheet-setup">Copy code</button>
+      {% capture stylesheet_setup %}<link rel="stylesheet" href="/assets/iconography/styles/est-iconography.css">{% endcapture %}
+      <pre class="bg-dark text-light p-3 rounded overflow-auto small"><code id="stylesheet-setup">{{ stylesheet_setup | escape }}</code></pre>
+      <p class="text-body-secondary mb-0">The helper uses zero-specificity <code>:where()</code> selectors. Existing product or design-system styles can override every declaration without selector escalation.</p>
     </div>
-    {% capture stylesheet_setup %}<link rel="stylesheet" href="/assets/iconography/styles/est-iconography.css">{% endcapture %}
-    <pre class="code-block"><code id="stylesheet-setup">{{ stylesheet_setup | escape }}</code></pre>
-    <p class="implementation-note">The helper uses zero-specificity <code>:where()</code> selectors. Existing product or design-system styles can override every declaration without selector escalation.</p>
   </section>
 
   {% capture base_example %}<svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
@@ -51,157 +53,122 @@ iconography_styles: true
   </svg>
 </button>{% endcapture %}
 
-  <section class="documentation-section" aria-labelledby="patterns-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Copy-ready patterns</p>
-        <h2 id="patterns-title">Start with the smallest useful contract</h2>
-      </div>
-    </div>
+  <section class="card mb-4" aria-labelledby="patterns-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Copy-ready patterns</p>
+      <h2 class="h4 mb-4" id="patterns-title">Start with the smallest useful contract</h2>
 
-    <div class="pattern-grid">
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Base sprite reference</h3>
-            <p>Use the generated family sprite and stable symbol ID.</p>
+      <div class="row g-4">
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div><h3 class="h5">Base sprite reference</h3><p class="text-body-secondary mb-0">Use the generated family sprite and stable symbol ID.</p></div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="base-implementation">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false"><use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use></svg>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="base-implementation">{{ base_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="base-implementation">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
-            <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
-          </svg>
-        </div>
-        <pre class="code-block"><code id="base-implementation">{{ base_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Aligned beside text</h3>
-            <p>Use one inline composition rather than manual margins on the SVG.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div><h3 class="h5">Aligned beside text</h3><p class="text-body-secondary mb-0">Use one inline composition rather than manual margins on the SVG.</p></div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="text-implementation">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <span class="est-icon-text"><svg class="est-icon est-icon--16" aria-hidden="true" focusable="false"><use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use></svg>Property details</span>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="text-implementation">{{ text_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="text-implementation">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <span class="est-icon-text">
-            <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
-            </svg>
-            Property details
-          </span>
-        </div>
-        <pre class="code-block"><code id="text-implementation">{{ text_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Colour through the context</h3>
-            <p>Assets inherit <code>currentColor</code>; do not edit path fills.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div><h3 class="h5">Colour through the context</h3><p class="text-body-secondary mb-0">Assets inherit <code>currentColor</code>; do not edit path fills.</p></div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="colour-implementation">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <span class="est-icon-text text-success"><svg class="est-icon est-icon--16" aria-hidden="true" focusable="false"><use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-check-circle"></use></svg>Upload complete</span>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="colour-implementation">{{ colour_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="colour-implementation">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <span class="est-icon-text" style="color: #16834b">
-            <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-check-circle"></use>
-            </svg>
-            Upload complete
-          </span>
-        </div>
-        <pre class="code-block"><code id="colour-implementation">{{ colour_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Icon-only control</h3>
-            <p>Prefer the product button component; the helper supplies only centring and a 44px minimum target.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div><h3 class="h5">Icon-only control</h3><p class="text-body-secondary mb-0">Prefer the product button component; the helper supplies only centring and a 44px minimum target.</p></div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="button-implementation">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <button class="btn btn-primary est-icon-button" type="button" aria-label="Add property"><svg class="est-icon est-icon--16" aria-hidden="true" focusable="false"><use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-plus"></use></svg></button>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="button-implementation">{{ button_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="button-implementation">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <button class="example-icon-button est-icon-button" type="button" aria-label="Add property">
-            <svg class="est-icon est-icon--16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-plus"></use>
-            </svg>
-          </button>
-        </div>
-        <pre class="code-block"><code id="button-implementation">{{ button_example | escape }}</code></pre>
-      </article>
-    </div>
-  </section>
-
-  <section class="documentation-section" aria-labelledby="sizes-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Intentional scale</p>
-        <h2 id="sizes-title">Use explicit sizes</h2>
-        <p>Without a size class, the icon uses <code>1em</code>. The utilities below cover the normal UI and Icon display sizes.</p>
-      </div>
-    </div>
-
-    <div class="size-demonstration" aria-label="Available icon size utilities">
-      {% assign sizes = '16,24,32,48,64' | split: ',' %}
-      {% for size in sizes %}
-        <div>
-          <svg class="est-icon est-icon--{{ size }} est-icon--block" aria-hidden="true" focusable="false">
-            <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
-          </svg>
-          <code>.est-icon--{{ size }}</code>
-        </div>
-      {% endfor %}
-    </div>
-
-    <p class="implementation-note">For an exceptional size, set <code>--est-icon-size</code> on the SVG. Review UI icons at 16px and Icons at 48px before introducing scaled variants.</p>
-  </section>
-
-  <section class="documentation-section" aria-labelledby="delivery-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Delivery contract</p>
-        <h2 id="delivery-title">Keep the generated paths together</h2>
-      </div>
-    </div>
-
-    <div class="guidance-grid">
-      <div class="guidance-card">
-        <h3>Complete release</h3>
-        <p>Copy the versioned release directory into an application-owned public asset location.</p>
-      </div>
-      <div class="guidance-card">
-        <h3>Selected bundle</h3>
-        <p>Use the catalogue selection or CLI; the subset retains the same sprite, SVG, stylesheet and manifest paths.</p>
-      </div>
-      <div class="guidance-card">
-        <h3>Same-origin sprites</h3>
-        <p>Serve external sprites from the same application origin and preserve the generated symbol IDs.</p>
-      </div>
-      <div class="guidance-card">
-        <h3>Versioned caching</h3>
-        <p>Version or fingerprint the containing asset directory when products use long-lived caching.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="documentation-section" aria-labelledby="review-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Before release</p>
-        <h2 id="review-title">Implementation checklist</h2>
+  <section class="card mb-4" aria-labelledby="sizes-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Intentional scale</p>
+      <h2 class="h4" id="sizes-title">Use explicit sizes</h2>
+      <p class="text-body-secondary">Without a size class, the icon uses <code>1em</code>. The utilities below cover the normal UI and Icon display sizes.</p>
+      <div class="row g-3" aria-label="Available icon size utilities">
+        {% assign sizes = '16,24,32,48,64' | split: ',' %}
+        {% for size in sizes %}
+          <div class="col-6 col-md">
+            <div class="border rounded bg-body-tertiary p-4 h-100 d-flex flex-column align-items-center justify-content-center gap-3">
+              <svg class="est-icon est-icon--{{ size }} est-icon--block" aria-hidden="true" focusable="false"><use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use></svg>
+              <code>.est-icon--{{ size }}</code>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <p class="text-body-secondary mt-3 mb-0">For an exceptional size, set <code>--est-icon-size</code> on the SVG. Review UI icons at 16px and Icons at 48px before introducing scaled variants.</p>
+    </div>
+  </section>
+
+  <section class="card mb-4" aria-labelledby="delivery-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Delivery contract</p>
+      <h2 class="h4 mb-4" id="delivery-title">Keep the generated paths together</h2>
+      <div class="row g-3 row-cols-1 row-cols-md-2">
+        <div class="col"><div class="card h-100"><div class="card-body"><h3 class="h6">Complete release</h3><p class="mb-0">Copy the versioned release directory into an application-owned public asset location.</p></div></div></div>
+        <div class="col"><div class="card h-100"><div class="card-body"><h3 class="h6">Selected bundle</h3><p class="mb-0">Use the catalogue selection or CLI; the subset retains the same sprite, SVG, stylesheet and manifest paths.</p></div></div></div>
+        <div class="col"><div class="card h-100"><div class="card-body"><h3 class="h6">Same-origin sprites</h3><p class="mb-0">Serve external sprites from the same application origin and preserve the generated symbol IDs.</p></div></div></div>
+        <div class="col"><div class="card h-100"><div class="card-body"><h3 class="h6">Versioned caching</h3><p class="mb-0">Version or fingerprint the containing asset directory when products use long-lived caching.</p></div></div></div>
       </div>
     </div>
-    <ul class="check-list">
-      <li>Use a canonical sprite ID or generated individual SVG path.</li>
-      <li>Load the optional helper stylesheet once, not per component.</li>
-      <li>Choose and review an intentional rendered size.</li>
-      <li>Set colour through <code>color</code>, not path fills.</li>
-      <li>Keep decorative and control-owned SVGs hidden from assistive technology.</li>
-      <li>Put accessible names and focus behaviour on the containing control.</li>
-      <li>Retain the bundle licence notices in the consuming product.</li>
+  </section>
+
+  <section class="card" aria-labelledby="review-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Before release</p>
+      <h2 class="h4" id="review-title">Implementation checklist</h2>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Use a canonical sprite ID or generated individual SVG path.</li>
+      <li class="list-group-item">Load the optional helper stylesheet once, not per component.</li>
+      <li class="list-group-item">Choose and review an intentional rendered size.</li>
+      <li class="list-group-item">Set colour through <code>color</code>, not path fills.</li>
+      <li class="list-group-item">Keep decorative and control-owned SVGs hidden from assistive technology.</li>
+      <li class="list-group-item">Put accessible names and focus behaviour on the containing control.</li>
+      <li class="list-group-item">Retain the bundle licence notices in the consuming product.</li>
     </ul>
-    <p class="implementation-note">For the complete accessibility decision model, read <a href="{{ '/accessibility/' | relative_url }}">Accessible icon use</a>.</p>
+    <div class="card-body border-top"><p class="text-body-secondary mb-0">For the complete accessibility decision model, read <a href="{{ '/accessibility/' | relative_url }}">Accessible icon use</a>.</p></div>
   </section>
 </div>
