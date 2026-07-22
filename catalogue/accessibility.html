@@ -3,56 +3,53 @@ layout: default
 title: Accessibility
 permalink: /accessibility/
 ---
-<section class="asset-hero">
-  <div class="content-width">
-    <p class="eyebrow">Implementation guidance</p>
-    <h1>Accessible icon use</h1>
-    <p class="asset-summary">Choose the SVG treatment from its context. Visible text, controls and status messages own the meaning—not the artwork or canonical asset name.</p>
+<section class="bg-dark text-white py-5">
+  <div class="container">
+    <p class="text-uppercase small fw-semibold mb-2">Implementation guidance</p>
+    <h1 class="display-4 fw-bold">Accessible icon use</h1>
+    <p class="lead col-lg-8 mb-0">Choose the SVG treatment from its context. Visible text, controls and status messages own the meaning—not the artwork or canonical asset name.</p>
   </div>
 </section>
 
-<div class="guidance-page content-width">
-  <section class="documentation-section" aria-labelledby="decision-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Start here</p>
-        <h2 id="decision-title">Decide what the icon is doing</h2>
-        <p>Most interface icons are decorative because nearby text or the containing control already communicates the same meaning.</p>
+<div class="container py-5">
+  <section class="card mb-4" aria-labelledby="decision-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Start here</p>
+      <h2 class="h4" id="decision-title">Decide what the icon is doing</h2>
+      <p class="text-body-secondary">Most interface icons are decorative because nearby text or the containing control already communicates the same meaning.</p>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Context</th>
+              <th scope="col">SVG treatment</th>
+              <th scope="col">Meaning comes from</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Visible text already says the same thing</td>
+              <td><code>aria-hidden="true"</code> and <code>focusable="false"</code></td>
+              <td>The visible text</td>
+            </tr>
+            <tr>
+              <td>Standalone icon communicates information</td>
+              <td><code>role="img"</code> with a contextual accessible name</td>
+              <td><code>aria-label</code> or <code>aria-labelledby</code></td>
+            </tr>
+            <tr>
+              <td>Icon is inside a button or link</td>
+              <td>Hide the SVG from assistive technology</td>
+              <td>The button or link</td>
+            </tr>
+            <tr>
+              <td>Icon supports a dynamic status message</td>
+              <td>Hide the SVG and expose the text container where needed</td>
+              <td>Visible status text, optionally <code>role="status"</code></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-
-    <div class="table-scroll">
-      <table class="decision-table">
-        <thead>
-          <tr>
-            <th scope="col">Context</th>
-            <th scope="col">SVG treatment</th>
-            <th scope="col">Meaning comes from</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Visible text already says the same thing</td>
-            <td><code>aria-hidden="true"</code> and <code>focusable="false"</code></td>
-            <td>The visible text</td>
-          </tr>
-          <tr>
-            <td>Standalone icon communicates information</td>
-            <td><code>role="img"</code> with a contextual accessible name</td>
-            <td><code>aria-label</code> or <code>aria-labelledby</code></td>
-          </tr>
-          <tr>
-            <td>Icon is inside a button or link</td>
-            <td>Hide the SVG from assistive technology</td>
-            <td>The button or link</td>
-          </tr>
-          <tr>
-            <td>Icon supports a dynamic status message</td>
-            <td>Hide the SVG and expose the text container where needed</td>
-            <td>Visible status text, optionally <code>role="status"</code></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
@@ -85,144 +82,140 @@ permalink: /accessibility/
   <span>Portfolio uploaded successfully.</span>
 </div>{% endcapture %}
 
-  <section class="documentation-section" aria-labelledby="patterns-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Copy-ready patterns</p>
-        <h2 id="patterns-title">Use the pattern that matches the context</h2>
-      </div>
-    </div>
+  <section class="card mb-4" aria-labelledby="patterns-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Copy-ready patterns</p>
+      <h2 class="h4 mb-4" id="patterns-title">Use the pattern that matches the context</h2>
 
-    <div class="pattern-grid">
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Decorative beside text</h3>
-            <p>Hide the icon when the visible label already communicates its meaning.</p>
+      <div class="row g-4">
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div>
+                  <h3 class="h5">Decorative beside text</h3>
+                  <p class="text-body-secondary mb-0">Hide the icon when the visible label already communicates its meaning.</p>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="decorative-pattern">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <span class="d-inline-flex align-items-center gap-2 fw-semibold">
+                  <svg width="16" height="16" aria-hidden="true" focusable="false">
+                    <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
+                  </svg>
+                  Property
+                </span>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="decorative-pattern">{{ decorative_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="decorative-pattern">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <span class="example-label">
-            <svg width="16" height="16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
-            </svg>
-            Property
-          </span>
-        </div>
-        <pre class="code-block"><code id="decorative-pattern">{{ decorative_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Standalone informative icon</h3>
-            <p>Expose the SVG only when it communicates information that nearby text does not.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div>
+                  <h3 class="h5">Standalone informative icon</h3>
+                  <p class="text-body-secondary mb-0">Expose the SVG only when it communicates information that nearby text does not.</p>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="informative-pattern">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <svg width="32" height="32" role="img" aria-label="Domestic property">
+                  <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
+                </svg>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="informative-pattern">{{ informative_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="informative-pattern">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <svg width="32" height="32" role="img" aria-label="Domestic property">
-            <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-house"></use>
-          </svg>
-        </div>
-        <pre class="code-block"><code id="informative-pattern">{{ informative_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Icon-only button</h3>
-            <p>Name the control. The SVG is decorative because the button owns the action.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div>
+                  <h3 class="h5">Icon-only button</h3>
+                  <p class="text-body-secondary mb-0">Name the control. The SVG is decorative because the button owns the action.</p>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="button-pattern">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <button class="btn btn-primary d-inline-flex align-items-center justify-content-center" style="width: 44px; height: 44px;" type="button" aria-label="Add property">
+                  <svg width="16" height="16" aria-hidden="true" focusable="false">
+                    <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-plus"></use>
+                  </svg>
+                </button>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="button-pattern">{{ button_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="button-pattern">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <button class="example-icon-button" type="button" aria-label="Add property">
-            <svg width="16" height="16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-plus"></use>
-            </svg>
-          </button>
-        </div>
-        <pre class="code-block"><code id="button-pattern">{{ button_example | escape }}</code></pre>
-      </article>
+        </article>
 
-      <article class="pattern-card">
-        <div class="pattern-card__heading">
-          <div>
-            <h3>Dynamic status message</h3>
-            <p>Keep visible text and use a status role only when a non-urgent update needs announcing.</p>
+        <article class="col-12 col-xl-6">
+          <div class="card h-100 bg-body-tertiary">
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                <div>
+                  <h3 class="h5">Dynamic status message</h3>
+                  <p class="text-body-secondary mb-0">Keep visible text and use a status role only when a non-urgent update needs announcing.</p>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm js-copy-code" type="button" data-copy-target="status-pattern">Copy code</button>
+              </div>
+              <div class="border rounded bg-white p-4 d-flex align-items-center justify-content-center mb-3">
+                <div class="alert alert-success d-inline-flex align-items-center gap-2 mb-0" role="status">
+                  <svg width="16" height="16" aria-hidden="true" focusable="false">
+                    <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-check-circle"></use>
+                  </svg>
+                  <span>Portfolio uploaded successfully.</span>
+                </div>
+              </div>
+              <pre class="bg-dark text-light p-3 rounded overflow-auto small mb-0"><code id="status-pattern">{{ status_example | escape }}</code></pre>
+            </div>
           </div>
-          <button class="button button--secondary js-copy-code" type="button" data-copy-target="status-pattern">Copy code</button>
-        </div>
-        <div class="pattern-card__example">
-          <div class="example-status" role="status">
-            <svg width="16" height="16" aria-hidden="true" focusable="false">
-              <use href="{{ '/assets/generated/sprites/est-ui-icons.svg' | relative_url }}#est-ui-icon-check-circle"></use>
-            </svg>
-            <span>Portfolio uploaded successfully.</span>
-          </div>
-        </div>
-        <pre class="code-block"><code id="status-pattern">{{ status_example | escape }}</code></pre>
-      </article>
-    </div>
-  </section>
-
-  <section class="documentation-section" aria-labelledby="principles-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Guardrails</p>
-        <h2 id="principles-title">Common mistakes to avoid</h2>
-      </div>
-    </div>
-
-    <div class="guidance-grid">
-      <div class="guidance-card guidance-card--caution">
-        <h3>Do not name decorative SVGs</h3>
-        <p>An icon beside matching text can create a duplicate announcement when both are exposed.</p>
-      </div>
-      <div class="guidance-card guidance-card--caution">
-        <h3>Do not leave icon controls unnamed</h3>
-        <p>A button with only an SVG still needs a specific accessible name on the button.</p>
-      </div>
-      <div class="guidance-card guidance-card--caution">
-        <h3>Do not rely on colour or shape alone</h3>
-        <p>Keep visible text for errors, warnings, success and other important states.</p>
-      </div>
-      <div class="guidance-card guidance-card--caution">
-        <h3>Do not make the SVG interactive</h3>
-        <p>Use a native button or link for focus, keyboard behaviour and activation.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="documentation-section" aria-labelledby="checklist-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow eyebrow--dark">Before release</p>
-        <h2 id="checklist-title">Implementation checklist</h2>
+  <section class="card mb-4" aria-labelledby="principles-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Guardrails</p>
+      <h2 class="h4 mb-4" id="principles-title">Common mistakes to avoid</h2>
+      <div class="row g-3 row-cols-1 row-cols-md-2">
+        <div class="col"><div class="alert alert-warning h-100 mb-0"><h3 class="h6">Do not name decorative SVGs</h3><p class="mb-0">An icon beside matching text can create a duplicate announcement when both are exposed.</p></div></div>
+        <div class="col"><div class="alert alert-warning h-100 mb-0"><h3 class="h6">Do not leave icon controls unnamed</h3><p class="mb-0">A button with only an SVG still needs a specific accessible name on the button.</p></div></div>
+        <div class="col"><div class="alert alert-warning h-100 mb-0"><h3 class="h6">Do not rely on colour or shape alone</h3><p class="mb-0">Keep visible text for errors, warnings, success and other important states.</p></div></div>
+        <div class="col"><div class="alert alert-warning h-100 mb-0"><h3 class="h6">Do not make the SVG interactive</h3><p class="mb-0">Use a native button or link for focus, keyboard behaviour and activation.</p></div></div>
       </div>
     </div>
+  </section>
 
-    <ul class="check-list">
-      <li>Decide whether the icon is decorative or informative.</li>
-      <li>Give every icon-only button or link a specific accessible name.</li>
-      <li>Hide decorative and control-owned SVGs with <code>aria-hidden="true"</code> and <code>focusable="false"</code>.</li>
-      <li>Give standalone informative SVGs <code>role="img"</code> and a contextual name.</li>
-      <li>Keep visible text for status, warning, error and success meaning.</li>
-      <li>Test the containing control’s keyboard focus rather than the SVG.</li>
-      <li>Inspect the result in a browser accessibility tree or with a screen reader.</li>
+  <section class="card mb-4" aria-labelledby="checklist-title">
+    <div class="card-body">
+      <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Before release</p>
+      <h2 class="h4" id="checklist-title">Implementation checklist</h2>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Decide whether the icon is decorative or informative.</li>
+      <li class="list-group-item">Give every icon-only button or link a specific accessible name.</li>
+      <li class="list-group-item">Hide decorative and control-owned SVGs with <code>aria-hidden="true"</code> and <code>focusable="false"</code>.</li>
+      <li class="list-group-item">Give standalone informative SVGs <code>role="img"</code> and a contextual name.</li>
+      <li class="list-group-item">Keep visible text for status, warning, error and success meaning.</li>
+      <li class="list-group-item">Test the containing control’s keyboard focus rather than the SVG.</li>
+      <li class="list-group-item">Inspect the result in a browser accessibility tree or with a screen reader.</li>
     </ul>
   </section>
 
-  <section class="documentation-section" aria-labelledby="references-title">
-    <h2 id="references-title">Standards references</h2>
-    <ul class="reference-list">
-      <li><a href="https://www.w3.org/WAI/tutorials/images/decorative/">WAI: Decorative Images</a></li>
-      <li><a href="https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/">WAI-ARIA Authoring Practices: Accessible Names and Descriptions</a></li>
-      <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">WAI-ARIA Authoring Practices: Button Pattern</a></li>
-      <li><a href="https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA22">WCAG Technique ARIA22: Using <code>role=status</code></a></li>
-      <li><a href="https://www.w3.org/WAI/standards-guidelines/act/rules/7d6734/">ACT Rule: SVG with an explicit role has a non-empty accessible name</a></li>
-    </ul>
+  <section class="card" aria-labelledby="references-title">
+    <div class="card-body"><h2 class="h4 mb-0" id="references-title">Standards references</h2></div>
+    <div class="list-group list-group-flush">
+      <a class="list-group-item list-group-item-action" href="https://www.w3.org/WAI/tutorials/images/decorative/">WAI: Decorative Images</a>
+      <a class="list-group-item list-group-item-action" href="https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/">WAI-ARIA Authoring Practices: Accessible Names and Descriptions</a>
+      <a class="list-group-item list-group-item-action" href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">WAI-ARIA Authoring Practices: Button Pattern</a>
+      <a class="list-group-item list-group-item-action" href="https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA22">WCAG Technique ARIA22: Using <code>role=status</code></a>
+      <a class="list-group-item list-group-item-action" href="https://www.w3.org/WAI/standards-guidelines/act/rules/7d6734/">ACT Rule: SVG with an explicit role has a non-empty accessible name</a>
+    </div>
   </section>
 </div>
