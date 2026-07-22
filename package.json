@@ -12,13 +12,14 @@
     "validate:iconography": "npm run validate --workspace @est/iconography",
     "build:iconography": "npm run build --workspace @est/iconography",
     "bundle:iconography": "npm run build:iconography && node packages/iconography/scripts/build-bundle-with-styles.mjs",
+    "test:figma": "npm run build:iconography && npm run test:figma --workspace @est/iconography",
     "build:example": "node examples/vanilla/build.mjs",
     "test:example": "npm run build:example && node examples/vanilla/test.mjs",
     "prepare:catalogue": "node tools/prepare-catalogue.mjs",
     "build:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll build --destination ../_site",
     "serve:catalogue": "npm run build:iconography && npm run prepare:catalogue && cd catalogue && bundle exec jekyll serve",
     "build": "npm run build:catalogue",
-    "test": "npm run validate:iconography && npm run build:iconography && npm run test:bundle --workspace @est/iconography && npm run test:example"
+    "test": "npm run validate:iconography && npm run build:iconography && npm run test:bundle --workspace @est/iconography && npm run test:figma --workspace @est/iconography && npm run test:example"
   },
   "engines": {
     "node": ">=22"

@@ -8,10 +8,12 @@
   "scripts": {
     "clean": "node scripts/clean.mjs",
     "validate": "node scripts/build-assets.mjs --validate-only && node scripts/build-styles.mjs --validate-only",
-    "build": "node scripts/build-assets.mjs && node scripts/build-styles.mjs",
+    "build:figma": "node scripts/build-figma-pack.mjs",
+    "build": "node scripts/build-assets.mjs && node scripts/build-styles.mjs && npm run build:figma",
     "bundle": "npm run build && node scripts/build-bundle-with-styles.mjs",
     "test:bundle": "node scripts/test-bundle.mjs",
-    "test": "npm run validate && npm run build && npm run test:bundle"
+    "test:figma": "node scripts/test-figma-pack.mjs",
+    "test": "npm run validate && npm run build && npm run test:bundle && npm run test:figma"
   },
   "devDependencies": {
     "ajv": "8.20.0",
