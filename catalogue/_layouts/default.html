@@ -5,69 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ site.description }}">
-    <link rel="stylesheet" href="{{ '/assets/css/catalogue.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/generated/vendor/bootstrap/bootstrap.min.css' | relative_url }}">
     {% if page.iconography_styles %}
       <link rel="stylesheet" href="{{ '/assets/generated/styles/est-iconography.css' | relative_url }}">
-      <link rel="stylesheet" href="{{ '/assets/css/implementation.css' | relative_url }}">
     {% endif %}
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-title" href="{{ '/' | relative_url }}">EST Iconography</a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Catalogue</a>
-          <a href="{{ '/implementation/' | relative_url }}"{% if page.url == '/implementation/' %} aria-current="page"{% endif %}>Implementation</a>
-          <a href="{{ '/accessibility/' | relative_url }}"{% if page.url == '/accessibility/' %} aria-current="page"{% endif %}>Accessibility</a>
-        </nav>
-        <span class="site-status">v{{ site.data.generated.assets.libraryVersion }}</span>
-      </div>
-    </header>
-    <main>{{ content }}</main>
-
-    <aside class="selection-tray" data-selection-tray hidden aria-label="Selected assets">
-      <div class="selection-tray__inner">
-        <div class="selection-tray__summary">
-          <div>
-            <strong><span data-selection-count>0</span> assets selected</strong>
-            <span class="selection-tray__hint">Build a project-specific SVG bundle.</span>
-          </div>
-          <div class="selection-tray__actions">
-            <button class="button button--secondary" type="button" data-copy-bundle-command>Copy command</button>
-            <button class="button" type="button" data-toggle-selection aria-expanded="false">Review selection</button>
-            <button class="button button--quiet" type="button" data-clear-selection>Clear</button>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom" aria-label="Primary">
+        <div class="container">
+          <a class="navbar-brand fw-semibold" href="{{ '/' | relative_url }}">EST Iconography</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primary-navigation" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="primary-navigation">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link{% if page.url == '/' %} active{% endif %}"{% if page.url == '/' %} aria-current="page"{% endif %} href="{{ '/' | relative_url }}">Catalogue</a></li>
+              <li class="nav-item"><a class="nav-link{% if page.url == '/implementation/' %} active{% endif %}"{% if page.url == '/implementation/' %} aria-current="page"{% endif %} href="{{ '/implementation/' | relative_url }}">Implementation</a></li>
+              <li class="nav-item"><a class="nav-link{% if page.url == '/accessibility/' %} active{% endif %}"{% if page.url == '/accessibility/' %} aria-current="page"{% endif %} href="{{ '/accessibility/' | relative_url }}">Accessibility</a></li>
+            </ul>
+            <span class="badge text-bg-secondary">v{{ site.data.generated.assets.libraryVersion }}</span>
           </div>
         </div>
+      </nav>
+    </header>
 
-        <div class="selection-tray__panel" data-selection-panel hidden>
-          <div class="selection-tray__assets">
-            <div class="selection-tray__heading">
-              <div>
-                <p class="eyebrow eyebrow--dark">Project bundle</p>
-                <h2>Selected canonical assets</h2>
-              </div>
-              <button class="button button--quiet" type="button" data-copy-asset-ids>Copy IDs</button>
-            </div>
-            <ul class="selection-list" data-selection-list></ul>
-          </div>
+    <main>{{ content }}</main>
 
-          <div class="selection-tray__command">
-            <label class="bundle-output-control">
-              <span>Output directory</span>
-              <input type="text" value="./build/iconography-bundle" data-bundle-output>
-            </label>
-            <pre class="code-block code-block--compact"><code data-bundle-command></code></pre>
-            <div class="button-row">
-              <button class="button" type="button" data-copy-bundle-command>Copy bundle command</button>
-              <button class="button button--secondary" type="button" data-download-selection>Download selection JSON</button>
-            </div>
-          </div>
+    <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 shadow d-flex align-items-center gap-2" style="z-index: 1040;" type="button" data-selection-launcher data-bs-toggle="offcanvas" data-bs-target="#selection-offcanvas" aria-controls="selection-offcanvas" hidden>
+      Review selection
+      <span class="badge text-bg-light" data-selection-count>0</span>
+    </button>
+
+    <aside class="offcanvas offcanvas-end" tabindex="-1" id="selection-offcanvas" data-selection-tray aria-labelledby="selection-offcanvas-title">
+      <div class="offcanvas-header">
+        <div>
+          <p class="text-uppercase small fw-semibold text-body-secondary mb-1">Project bundle</p>
+          <h2 class="offcanvas-title h5" id="selection-offcanvas-title">Selected canonical assets</h2>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button class="btn btn-outline-secondary btn-sm" type="button" data-copy-asset-ids>Copy IDs</button>
+          <button class="btn btn-outline-danger btn-sm" type="button" data-clear-selection>Clear selection</button>
+        </div>
+
+        <ul class="list-group mb-4" data-selection-list></ul>
+
+        <label class="form-label" for="bundle-output">Output directory</label>
+        <input class="form-control mb-3" id="bundle-output" type="text" value="./build/iconography-bundle" data-bundle-output>
+
+        <pre class="bg-dark text-light p-3 rounded overflow-auto small"><code data-bundle-command></code></pre>
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="button" data-copy-bundle-command>Copy bundle command</button>
+          <button class="btn btn-outline-secondary" type="button" data-download-selection>Download selection JSON</button>
         </div>
       </div>
     </aside>
 
     <div class="visually-hidden" role="status" aria-live="polite" data-selection-status></div>
     <script id="asset-manifest" type="application/json">{{ site.data.generated.assets | jsonify }}</script>
+    <script src="{{ '/assets/generated/vendor/bootstrap/bootstrap.bundle.min.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/catalogue.js' | relative_url }}" defer></script>
   </body>
 </html>
